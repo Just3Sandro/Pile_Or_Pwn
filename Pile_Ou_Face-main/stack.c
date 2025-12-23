@@ -1,12 +1,19 @@
+/*
+ * Stack model for the ASM simulator.
+ *
+ * Stores 64-bit values with stable IDs for visualization.
+ */
 #include "stack.h"
 #include <stdio.h>
 
+// Initialize an empty stack with the next ID counter.
 void stack_init(Stack* st) {
     if (!st) return;
     st->sp      = 0;
     st->next_id = 1;
 }
 
+// Push a value onto the stack and assign a stable ID.
 bool stack_push(Stack* st, int64_t value) {
     if (!st) return false;
     if (st->sp >= STACK_MAX) {
@@ -20,6 +27,7 @@ bool stack_push(Stack* st, int64_t value) {
     return true;
 }
 
+// Pop a value from the stack (LIFO).
 bool stack_pop(Stack* st, int64_t* out) {
     if (!st) return false;
     if (st->sp <= 0) {

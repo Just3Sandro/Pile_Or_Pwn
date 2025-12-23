@@ -1,4 +1,5 @@
 // scripts/build.js
+// Build helper for the native steps binary used by the extension.
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -10,7 +11,7 @@ const outDir = path.join(root, 'bin', `${platform}-${arch}`);
 const exeName = platform === 'win32' ? 'steps.exe' : 'steps';
 const outPath = path.join(outDir, exeName);
 
-// Choix du compilateur
+// Pick the first available compiler on this machine.
 const candidates = platform === 'win32' ? ['gcc', 'clang'] : ['cc', 'gcc', 'clang'];
 let cc = null;
 for (const c of candidates) {
@@ -21,7 +22,7 @@ if (!cc) {
   process.exit(1);
 }
 
-// Build
+// Compile steps.c into a platform-specific binary.
 fs.mkdirSync(outDir, { recursive: true });
 const src = path.join(root, 'steps.c');
 if (!fs.existsSync(src)) {

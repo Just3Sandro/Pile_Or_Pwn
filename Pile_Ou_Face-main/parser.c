@@ -1,3 +1,9 @@
+/*
+ * ASM parser + simulator.
+ *
+ * Reads a small ASM-like language, resolves labels, simulates stack
+ * and registers, and emits JSON snapshots for the UI.
+ */
 #include "parser.h"
 #include "utils.h"
 #include "stack.h"
@@ -11,6 +17,7 @@
 #define MAX_LINE 256
 #define MAX_TOK  8
 
+// One parsed instruction with its raw text and tokenized operands.
 typedef struct {
     char instr[MAX_LINE];
     char toks[MAX_TOK][32];
@@ -18,6 +25,8 @@ typedef struct {
     int  lineNumber;
 } Instruction;
 
+// One parsed instruction with its raw text and tokenized operands.
+// Label name -> instruction index mapping.
 typedef struct {
     char name[32];
     int  target;
@@ -111,7 +120,7 @@ static bool is_label_token(const char* tok) {
     return (len > 0 && tok[len - 1] == ':');
 }
 
-// Dump de l'état complet (pile + registres) pour un step donné
+// Serialize the full machine state (stack + registers) for one step.
 static void dump_state(FILE* out,
                        int step,
                        const char* instr,
@@ -153,7 +162,7 @@ static void dump_state(FILE* out,
     fprintf(out, "]}");
 }
 
-// Récupère la valeur d'un opérande (reg ou imm)
+// Resolve an operand: register value first, then immediate literal.
 static bool get_operand_value(const RegFile* regs,
                               const char* tok,
                               int64_t* out) {
@@ -175,11 +184,13 @@ int parse_file_to_json(const char* input_path, FILE* out) {
         return 1;
     }
 
+    // Runtime state for the simulation.
     Stack   stack;
     RegFile regs;
     stack_init(&stack);
     regs_init(&regs);
 
+    // Dynamic arrays for program + labels.
     Instruction* program         = NULL;
     int          program_count   = 0;
     int          program_cap     = 0;
@@ -193,6 +204,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
     char line[MAX_LINE];
     int  lineNumber = 0;
 
+    // First pass: parse lines, record labels, store instructions.
     while (fgets(line, sizeof(line), f)) {
         lineNumber++;
         trim_line(line);
@@ -257,6 +269,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
     fclose(f);
     f = NULL;
 
+    // Second pass: execute instructions and emit snapshots.
     int  step      = 0;
     int  pc        = 0;
     bool zero_flag = false;
@@ -266,7 +279,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
         bool         handled = false;
         bool         jumped  = false;
 
-        // --- MOV ---
+        // --- MOV dst, src ---
         if (strcmp(op, "mov") == 0 && inst->ntok >= 3) {
             const char* dst = inst->toks[1];
             const char* src = inst->toks[2];
@@ -280,7 +293,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
                 handled = true;
             }
         }
-        // --- PUSH ---
+        // --- PUSH src ---
         else if (strcmp(op, "push") == 0 && inst->ntok >= 2) {
             int64_t val = 0;
             if (!get_operand_value(&regs, inst->toks[1], &val)) {
@@ -291,7 +304,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
                 handled = true;
             }
         }
-        // --- POP ---
+        // --- POP dst ---
         else if (strcmp(op, "pop") == 0) {
             int64_t val = 0;
             if (!stack_pop(&stack, &val)) {
@@ -305,7 +318,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
                 handled = true;
             }
         }
-        // --- ADD / SUB / MUL / DIV sur la pile (aucun argument) ---
+        // --- ADD/SUB/MUL/DIV with implicit stack operands ---
         else if ((strcmp(op, "add") == 0 ||
                   strcmp(op, "sub") == 0 ||
                   strcmp(op, "mul") == 0 ||
@@ -337,7 +350,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
                 }
             }
         }
-        // --- ADD / SUB / MUL / DIV sur registres (dst, src) ---
+        // --- ADD/SUB/MUL/DIV on registers (dst, src) ---
         else if ((strcmp(op, "add") == 0 ||
                   strcmp(op, "sub") == 0 ||
                   strcmp(op, "mul") == 0 ||
@@ -375,7 +388,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
                 }
             }
         }
-        // --- JMP ---
+        // --- JMP label ---
         else if (strcmp(op, "jmp") == 0 && inst->ntok >= 2) {
             int target = label_target(labels, label_count, inst->toks[1]);
             if (target < 0) {
@@ -385,7 +398,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
                 jumped = true;
             }
         }
-        // --- LOOP ---
+        // --- LOOP label (uses rcx as counter) ---
         else if (strcmp(op, "loop") == 0 && inst->ntok >= 2) {
             int64_t rcx_val = 0;
             if (!regs_get(&regs, "rcx", &rcx_val)) {
@@ -403,7 +416,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
                 handled = true; // rcx est toujours modifié
             }
         }
-        // --- CMP ---
+        // --- CMP lhs, rhs (sets zero_flag) ---
         else if (strcmp(op, "cmp") == 0 && inst->ntok >= 3) {
             int64_t lhs = 0;
             int64_t rhs = 0;
@@ -416,7 +429,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
                 handled   = true;
             }
         }
-        // --- JE (jump if equal) ---
+        // --- JE label (jump if zero_flag) ---
         else if (strcmp(op, "je") == 0 && inst->ntok >= 2) {
             if (zero_flag) {
                 int target = label_target(labels, label_count, inst->toks[1]);
@@ -428,7 +441,7 @@ int parse_file_to_json(const char* input_path, FILE* out) {
                 }
             }
         }
-        // Autres opcodes : ignorés silencieusement
+        // Other opcodes are ignored (no effect, no snapshot).
         else {
             // noop pour ce format
         }

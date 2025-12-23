@@ -1,3 +1,8 @@
+/*
+ * Hardcoded demo timeline used by the extension build script.
+ *
+ * This is not a real emulator; it only returns example JSON steps.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -60,6 +65,7 @@ static const Group GROUPS[] = {
     { "6", STEP6, LEN(STEP6) },
 };
 
+// Print one snapshot (list of items) as JSON.
 static void print_items_array(const Item *v, int n) {
     putchar('['); putchar('\n');
     for (int i = 0; i < n; ++i) {
@@ -69,6 +75,7 @@ static void print_items_array(const Item *v, int n) {
     putchar(']'); putchar('\n');
 }
 
+// Print the full timeline as JSON object.
 static void print_timeline(const Group *g, int ng) {
     puts("{");
     for (int gi = 0; gi < ng; ++gi) {
@@ -84,6 +91,7 @@ static void print_timeline(const Group *g, int ng) {
     puts("}");
 }
 
+// Entry: supports --count, --step, or full JSON output.
 int main(int argc, char **argv) {
     const int total = LEN(GROUPS);  // Nombre total d'étapes
 

@@ -1,5 +1,6 @@
 /* styles.css */
 
+/* Layout + base theme */
 body {
   margin: 0;
   padding: 0;
@@ -66,6 +67,46 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.context-box {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.context-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.context-/* Layout + base theme */
+body {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 0.8rem;
+}
+.context-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.context-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+  min-width: 28px;
+}
+
+
+
+
 .risks-panel {
   display: flex;
   flex-direction: column;
@@ -124,6 +165,7 @@ body {
   overflow: hidden;
 }
 
+/* Panels */
 .stack-container,
 .registers-container,
 .disasm-container {
@@ -164,6 +206,7 @@ body {
   overflow: auto;
 }
 
+/* Stack blocks */
 .block {
   border-radius: 6px;
   padding: 6px 10px;
@@ -191,7 +234,8 @@ body {
   font-weight: 600;
 }
 
-.block-body {
+.block-/* Layout + base theme */
+body {
   margin-top: 4px;
   display: flex;
   justify-content: space-between;
@@ -291,6 +335,15 @@ body {
   margin-top: 12px;
 }
 
+
+@media (max-width: 900px) {
+  .visuals {
+    flex-direction: column;
+  }
+}
+
+
+/* Disassembly */
 .disasm {
   flex: 1;
   overflow: auto;
@@ -319,12 +372,7 @@ body {
 }
 
 .disasm-current {
-  background-color: rgba(102, 214, 255, 0.18);
-  box-shadow: 0 0 0 1px rgba(102, 214, 255, 0.35) inset;
+  background-color: rgba(255, 224, 102, 0.2);
+  box-shadow: 0 0 0 1px rgba(255, 224, 102, 0.5) inset;
 }
 
-@media (max-width: 900px) {
-  .visuals {
-    flex-direction: column;
-  }
-}

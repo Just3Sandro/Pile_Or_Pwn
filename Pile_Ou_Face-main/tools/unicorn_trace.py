@@ -55,6 +55,7 @@ except ImportError as exc:  # pragma: no cover - guard for missing deps
     raise SystemExit("Unicorn is required. Install with: pip install unicorn") from exc
 
 
+# Register dump order for UI rendering.
 REG_ORDER_64 = [
     ("rax", UC_X86_REG_RAX),
     ("rbx", UC_X86_REG_RBX),
@@ -75,6 +76,7 @@ REG_ORDER_64 = [
     ("r15", UC_X86_REG_R15),
 ]
 
+# 32-bit register order (kept small for readability).
 REG_ORDER_32 = [
     ("eax", UC_X86_REG_EAX),
     ("ebx", UC_X86_REG_EBX),
@@ -90,18 +92,32 @@ REG_ORDER_32 = [
 
 @dataclass
 class TraceConfig:
+    # Base address for raw binaries or PIE relocation.
     base: int
+    # Base address of the emulated stack mapping.
     stack_base: int
+    # Size of the stack mapping in bytes.
     stack_size: int
+    # Instruction limit for the trace loop.
     max_steps: int
+    # Number of stack words to capture in each snapshot.
     stack_entries: int
+    # Architecture bitness for raw binaries.
     arch_bits: int
+    # Base address used to map PT_INTERP (ld-linux).
     interp_base: int
+    # If true, start execution at the interpreter entrypoint.
     start_interp: bool
+    # Bytes injected into read(0, ...) syscalls.
     stdin_data: bytes
+    # Optional RBP-relative offset of a buffer to highlight.
     buffer_offset: Optional[int]
+    # Size (bytes) of the highlighted buffer.
     buffer_size: int
+    # Optional symbol name to start from (e.g. main).
     start_symbol: Optional[str]
+    # Optional argv[1] string injected into the initial stack.
+    argv1: Optional[str]
 
 
 def _align_up(value: int, align: int) -> int:
@@ -149,6 +165,7 @@ def _get_pc_sp(config: TraceConfig) -> tuple:
     return UC_X86_REG_EIP, UC_X86_REG_ESP
 
 
+# Trace a raw code blob (no ELF parsing).
 def trace_raw(code_bytes: bytes, config: TraceConfig) -> Dict[str, object]:
     if config.arch_bits == 32 and config.stack_base > 0xFFFFFFFF:
         config = TraceConfig(
@@ -164,6 +181,7 @@ def trace_raw(code_bytes: bytes, config: TraceConfig) -> Dict[str, object]:
             buffer_offset=config.buffer_offset,
             buffer_size=config.buffer_size,
             start_symbol=config.start_symbol,
+            argv1=config.argv1,
         )
     mode = UC_MODE_64 if config.arch_bits == 64 else UC_MODE_32
     uc = Uc(UC_ARCH_X86, mode)
@@ -182,6 +200,7 @@ def trace_raw(code_bytes: bytes, config: TraceConfig) -> Dict[str, object]:
     word_size = 8 if config.arch_bits == 64 else 4
     stdin_pos = 0
 
+    # Minimal read(0, buf, count) emulation using --stdin bytes.
     def handle_read_syscall(uc_engine: Uc, fd: int, buf: int, count: int) -> int:
         nonlocal stdin_pos
         if fd != 0:
@@ -194,6 +213,7 @@ def trace_raw(code_bytes: bytes, config: TraceConfig) -> Dict[str, object]:
             stdin_pos += to_copy
         return to_copy
 
+    # 32-bit syscall entry via int 0x80.
     def hook_intr(uc_engine: Uc, intno: int, _user_data: object) -> None:
         if config.arch_bits != 32:
             return
@@ -206,81 +226,10 @@ def trace_raw(code_bytes: bytes, config: TraceConfig) -> Dict[str, object]:
             count = uc_engine.reg_read(UC_X86_REG_EDX)
             result = handle_read_syscall(uc_engine, fd, buf, count)
             uc_engine.reg_write(UC_X86_REG_EAX, result)
+            eip = uc_engine.reg_read(UC_X86_REG_EIP)
+            uc_engine.reg_write(UC_X86_REG_EIP, eip + 2)
 
-    def hook_syscall(uc_engine: Uc, _user_data: object) -> None:
-        if config.arch_bits != 64:
-            return
-        syscall_no = uc_engine.reg_read(UC_X86_REG_RAX)
-        if syscall_no == 0:  # sys_read
-            fd = uc_engine.reg_read(UC_X86_REG_RDI)
-            buf = uc_engine.reg_read(UC_X86_REG_RSI)
-            count = uc_engine.reg_read(UC_X86_REG_RDX)
-            result = handle_read_syscall(uc_engine, fd, buf, count)
-            uc_engine.reg_write(UC_X86_REG_RAX, result)
-    stdin_pos = 0
-
-    def handle_read_syscall(uc_engine: Uc, fd: int, buf: int, count: int) -> int:
-        nonlocal stdin_pos
-        if fd != 0:
-            return -1
-        remaining = len(config.stdin_data) - stdin_pos
-        to_copy = min(count, max(remaining, 0))
-        if to_copy > 0:
-            chunk = config.stdin_data[stdin_pos : stdin_pos + to_copy]
-            uc_engine.mem_write(buf, chunk)
-            stdin_pos += to_copy
-        return to_copy
-
-    def hook_intr(uc_engine: Uc, intno: int, _user_data: object) -> None:
-        if config.arch_bits != 32:
-            return
-        if intno != 0x80:
-            return
-        syscall_no = uc_engine.reg_read(UC_X86_REG_EAX)
-        if syscall_no == 3:  # sys_read
-            fd = uc_engine.reg_read(UC_X86_REG_EBX)
-            buf = uc_engine.reg_read(UC_X86_REG_ECX)
-            count = uc_engine.reg_read(UC_X86_REG_EDX)
-            result = handle_read_syscall(uc_engine, fd, buf, count)
-            uc_engine.reg_write(UC_X86_REG_EAX, result)
-
-    def hook_syscall(uc_engine: Uc, _user_data: object) -> None:
-        if config.arch_bits != 64:
-            return
-        syscall_no = uc_engine.reg_read(UC_X86_REG_RAX)
-        if syscall_no == 0:  # sys_read
-            fd = uc_engine.reg_read(UC_X86_REG_RDI)
-            buf = uc_engine.reg_read(UC_X86_REG_RSI)
-            count = uc_engine.reg_read(UC_X86_REG_RDX)
-            result = handle_read_syscall(uc_engine, fd, buf, count)
-            uc_engine.reg_write(UC_X86_REG_RAX, result)
-    stdin_pos = 0
-
-    def handle_read_syscall(uc_engine: Uc, fd: int, buf: int, count: int) -> int:
-        nonlocal stdin_pos
-        if fd != 0:
-            return -1
-        remaining = len(config.stdin_data) - stdin_pos
-        to_copy = min(count, max(remaining, 0))
-        if to_copy > 0:
-            chunk = config.stdin_data[stdin_pos : stdin_pos + to_copy]
-            uc_engine.mem_write(buf, chunk)
-            stdin_pos += to_copy
-        return to_copy
-
-    def hook_intr(uc_engine: Uc, intno: int, _user_data: object) -> None:
-        if config.arch_bits != 32:
-            return
-        if intno != 0x80:
-            return
-        syscall_no = uc_engine.reg_read(UC_X86_REG_EAX)
-        if syscall_no == 3:  # sys_read
-            fd = uc_engine.reg_read(UC_X86_REG_EBX)
-            buf = uc_engine.reg_read(UC_X86_REG_ECX)
-            count = uc_engine.reg_read(UC_X86_REG_EDX)
-            result = handle_read_syscall(uc_engine, fd, buf, count)
-            uc_engine.reg_write(UC_X86_REG_EAX, result)
-
+    # 64-bit syscall entry via syscall instruction.
     def hook_syscall(uc_engine: Uc, _user_data: object) -> None:
         if config.arch_bits != 64:
             return
@@ -340,10 +289,6 @@ def trace_raw(code_bytes: bytes, config: TraceConfig) -> Dict[str, object]:
         )
 
     uc.hook_add(UC_HOOK_CODE, hook_code)
-    uc.hook_add(UC_HOOK_INTR, hook_intr)
-    uc.hook_add(UC_HOOK_INSN, hook_syscall, None, 1, 0, UC_X86_INS_SYSCALL)
-    uc.hook_add(UC_HOOK_INTR, hook_intr)
-    uc.hook_add(UC_HOOK_INSN, hook_syscall, None, 1, 0, UC_X86_INS_SYSCALL)
     uc.hook_add(UC_HOOK_INTR, hook_intr)
     uc.hook_add(UC_HOOK_INSN, hook_syscall, None, 1, 0, UC_X86_INS_SYSCALL)
 
@@ -473,10 +418,12 @@ def _read_c_string(blob: bytes, offset: int) -> str:
     return blob[offset:end].decode("utf-8", errors="replace")
 
 
+# Build a Linux-like initial stack (argc/argv/envp/auxv).
 def _build_initial_stack(
     uc: Uc,
     config: TraceConfig,
-    argv0: str,
+    argv: List[str],
+    env: List[str],
     auxv: List[Tuple[int, int]],
 ) -> int:
     word_size = 8 if config.arch_bits == 64 else 4
@@ -494,12 +441,8 @@ def _build_initial_stack(
         masked = value & ((1 << (word_size * 8)) - 1)
         uc.mem_write(sp, masked.to_bytes(word_size, "little", signed=False))
 
-    argv0_bytes = argv0.encode("utf-8") + b"\x00"
-    argv0_addr = push_bytes(argv0_bytes)
-
     push_ptr(0)  # envp terminator
     push_ptr(0)  # argv terminator
-    push_ptr(argv0_addr)
     push_ptr(1)  # argc
 
     for key, value in auxv:
@@ -512,6 +455,7 @@ def _build_initial_stack(
     return sp
 
 
+# Trace an ELF file (PT_LOAD + optional PT_INTERP).
 def trace_elf(code_bytes: bytes, config: TraceConfig, binary_path: Optional[str]) -> Dict[str, object]:
     header = _parse_elf_header(code_bytes)
     if header["machine"] != 3 and header["machine"] != 62:
@@ -588,6 +532,7 @@ def trace_elf(code_bytes: bytes, config: TraceConfig, binary_path: Optional[str]
         buffer_offset=config.buffer_offset,
         buffer_size=config.buffer_size,
         start_symbol=config.start_symbol,
+        argv1=config.argv1,
     )
     if config.arch_bits == 32 and config.stack_base > 0xFFFFFFFF:
         config = TraceConfig(
@@ -603,6 +548,7 @@ def trace_elf(code_bytes: bytes, config: TraceConfig, binary_path: Optional[str]
             buffer_offset=config.buffer_offset,
             buffer_size=config.buffer_size,
             start_symbol=config.start_symbol,
+            argv1=config.argv1,
         )
     _init_stack(uc, config)
     auxv = [
@@ -618,7 +564,10 @@ def trace_elf(code_bytes: bytes, config: TraceConfig, binary_path: Optional[str]
     else:
         auxv = [(k, 0 if k == 7 else v) for k, v in auxv]
     argv0 = binary_path or "a.out"
-    sp = _build_initial_stack(uc, config, argv0, auxv)
+    argv = [argv0]
+    if config.argv1 is not None:
+        argv.append(config.argv1)
+    sp = _build_initial_stack(uc, config, argv, [], auxv)
     if config.arch_bits == 64:
         uc.reg_write(UC_X86_REG_RSP, sp)
     else:
@@ -630,6 +579,49 @@ def trace_elf(code_bytes: bytes, config: TraceConfig, binary_path: Optional[str]
     pc_reg, sp_reg = _get_pc_sp(config)
     reg_order = _get_reg_order(config)
     word_size = 8 if config.arch_bits == 64 else 4
+    stdin_pos = 0
+
+    # Minimal read(0, buf, count) emulation using --stdin bytes.
+    def handle_read_syscall(uc_engine: Uc, fd: int, buf: int, count: int) -> int:
+        nonlocal stdin_pos
+        if fd != 0:
+            return -1
+        remaining = len(config.stdin_data) - stdin_pos
+        to_copy = min(count, max(remaining, 0))
+        if to_copy > 0:
+            chunk = config.stdin_data[stdin_pos : stdin_pos + to_copy]
+            uc_engine.mem_write(buf, chunk)
+            stdin_pos += to_copy
+        return to_copy
+
+    # 32-bit syscall entry via int 0x80.
+    def hook_intr(uc_engine: Uc, intno: int, _user_data: object) -> None:
+        if config.arch_bits != 32:
+            return
+        if intno != 0x80:
+            return
+        syscall_no = uc_engine.reg_read(UC_X86_REG_EAX)
+        if syscall_no == 3:  # sys_read
+            fd = uc_engine.reg_read(UC_X86_REG_EBX)
+            buf = uc_engine.reg_read(UC_X86_REG_ECX)
+            count = uc_engine.reg_read(UC_X86_REG_EDX)
+            result = handle_read_syscall(uc_engine, fd, buf, count)
+            uc_engine.reg_write(UC_X86_REG_EAX, result)
+            eip = uc_engine.reg_read(UC_X86_REG_EIP)
+            uc_engine.reg_write(UC_X86_REG_EIP, eip + 2)
+
+    # 64-bit syscall entry via syscall instruction.
+    def hook_syscall(uc_engine: Uc, _user_data: object) -> None:
+        if config.arch_bits != 64:
+            return
+        syscall_no = uc_engine.reg_read(UC_X86_REG_RAX)
+        if syscall_no == 0:  # sys_read
+            fd = uc_engine.reg_read(UC_X86_REG_RDI)
+            buf = uc_engine.reg_read(UC_X86_REG_RSI)
+            count = uc_engine.reg_read(UC_X86_REG_RDX)
+            result = handle_read_syscall(uc_engine, fd, buf, count)
+            uc_engine.reg_write(UC_X86_REG_RAX, result)
+
 
     def hook_code(uc_engine: Uc, addr: int, size: int, _user_data: object) -> None:
         nonlocal step_counter
@@ -679,6 +671,8 @@ def trace_elf(code_bytes: bytes, config: TraceConfig, binary_path: Optional[str]
         )
 
     uc.hook_add(UC_HOOK_CODE, hook_code)
+    uc.hook_add(UC_HOOK_INTR, hook_intr)
+    uc.hook_add(UC_HOOK_INSN, hook_syscall, None, 1, 0, UC_X86_INS_SYSCALL)
 
     start_addr = config.base
     if binary_path and config.start_symbol:
@@ -691,8 +685,9 @@ def trace_elf(code_bytes: bytes, config: TraceConfig, binary_path: Optional[str]
             start_addr = symbol_addr
     if config.start_interp and interp_entry is not None:
         start_addr = interp_entry
+    end_addr = 0xFFFFFFFF if config.arch_bits == 32 else 0xFFFFFFFFFFFFFFFF
     try:
-        uc.emu_start(start_addr, start_addr + 0x1000)
+        uc.emu_start(start_addr, end_addr)
     except UcError as exc:
         error = str(exc)
         if (
@@ -702,7 +697,7 @@ def trace_elf(code_bytes: bytes, config: TraceConfig, binary_path: Optional[str]
             and "UC_ERR_FETCH_UNMAPPED" in error
         ):
             try:
-                uc.emu_start(interp_entry, interp_entry + 0x1000)
+                uc.emu_start(interp_entry, end_addr)
                 error = None
             except UcError as exc2:
                 error = str(exc2)
@@ -741,6 +736,7 @@ def trace_elf(code_bytes: bytes, config: TraceConfig, binary_path: Optional[str]
     }
 
 
+# Map runtime addresses to source file/line via addr2line.
 def _addr2line_map(
     binary_path: str, addresses: List[str], base_adjust: int
 ) -> Dict[str, Dict[str, object]]:
@@ -804,6 +800,7 @@ def _addr2line_map(
     return mapping
 
 
+# Resolve a symbol address using nm (used by --start-symbol).
 def _resolve_symbol_addr(
     binary_path: str, symbol: str, base_adjust: int
 ) -> Optional[int]:
@@ -880,6 +877,11 @@ def _main(argv: Optional[Iterable[str]] = None) -> int:
         help="Inject data for read(0, ...) syscalls",
     )
     parser.add_argument(
+        "--stdin-hex",
+        default=None,
+        help="Inject raw bytes (hex), e.g. 41414141",
+    )
+    parser.add_argument(
         "--buffer-offset",
         type=int,
         default=None,
@@ -896,7 +898,22 @@ def _main(argv: Optional[Iterable[str]] = None) -> int:
         default=None,
         help="Start execution at a given symbol (e.g. main)",
     )
+    parser.add_argument(
+        "--argv1",
+        default=None,
+        help="Set argv[1] for the emulated program",
+    )
     args = parser.parse_args(argv)
+
+    stdin_data = args.stdin.encode("utf-8", errors="ignore")
+    if args.stdin_hex:
+        cleaned = args.stdin_hex.replace(" ", "").replace("\n", "")
+        if cleaned.startswith("0x"):
+            cleaned = cleaned[2:]
+        try:
+            stdin_data = bytes.fromhex(cleaned)
+        except ValueError:
+            raise SystemExit("Invalid --stdin-hex (expected hex bytes)")
 
     code = _load_code(args.input)
 
@@ -909,10 +926,11 @@ def _main(argv: Optional[Iterable[str]] = None) -> int:
         arch_bits=args.arch_bits,
         interp_base=0x70000000 if args.arch_bits == 32 else 0x7f0000000000,
         start_interp=args.start_interp,
-        stdin_data=args.stdin.encode("utf-8", errors="ignore"),
+        stdin_data=stdin_data,
         buffer_offset=args.buffer_offset,
         buffer_size=args.buffer_size,
         start_symbol=args.start_symbol,
+        argv1=args.argv1,
     )
 
     trace = trace_binary(code, config, args.input)

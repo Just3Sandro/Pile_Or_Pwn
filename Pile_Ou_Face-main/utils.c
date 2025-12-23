@@ -1,8 +1,14 @@
+/*
+ * String helpers used by the ASM parser.
+ *
+ * Includes trimming, tokenization, and integer parsing.
+ */
 #include "utils.h"
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
 
+// Remove comments and surrounding whitespace in-place.
 void trim_line(char* s) {
     if (!s) return;
 
@@ -27,6 +33,7 @@ void trim_line(char* s) {
     }
 }
 
+// Split a line into tokens by space/tab/comma delimiters.
 int tokenize(char* line, char tokens[][32], int max_tokens) {
     int count = 0;
     const char* delim = " \t,"; // espace, tab, virgule
@@ -41,6 +48,7 @@ int tokenize(char* line, char tokens[][32], int max_tokens) {
     return count;
 }
 
+// Parse a decimal or hex literal into int64_t.
 bool parse_int64(const char* s, int64_t* out) {
     if (!s || !*s) return false;
 

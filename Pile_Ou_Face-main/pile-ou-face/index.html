@@ -14,11 +14,13 @@
 </head>
 <body>
   <div class="container">
+    <!-- Header -->
     <header class="header">
       <div class="title">Stack Visualizer</div>
       <div id="status" class="status">En attente de données...</div>
     </header>
 
+    <!-- Step controls -->
     <section class="controls">
       <button id="btnPrev" class="btn">&larr;</button>
       <input id="stepRange" type="range" min="1" max="1" value="1" />
@@ -28,15 +30,31 @@
       </div>
     </section>
 
+    <!-- Current instruction -->
     <section class="instr-box">
       Instruction actuelle : <span id="instrLabel">(aucune)</span>
     </section>
 
+    <!-- Context panel (C + ASM explanation) -->
+    <section class="context-box">
+      <div class="context-title">Contexte</div>
+      <div class="context-row">
+        <span class="context-label">C</span>
+        <span id="codeContext" class="context-body">Aucune info de debug.</span>
+      </div>
+      <div class="context-row">
+        <span class="context-label">ASM</span>
+        <span id="asmContext" class="context-body">Aucune instruction.</span>
+      </div>
+    </section>
+
+    <!-- AST risks (Python only) -->
     <section class="risks-panel">
       <h2 class="panel-title">Zones à risque (AST)</h2>
       <div id="risks" class="risks"></div>
     </section>
 
+    <!-- Visual panels: stack, registers, disassembly -->
     <section class="visuals">
       <div class="stack-container">
         <h2 class="panel-title">Pile</h2>

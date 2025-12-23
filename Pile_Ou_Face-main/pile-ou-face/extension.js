@@ -1,5 +1,5 @@
 // extension.js
-// Extension VS Code pour visualiser la pile à partir de output.json
+// VS Code extension entrypoint for the stack visualizer.
 
 const vscode = require('vscode');
 const fs = require('fs');
@@ -11,6 +11,7 @@ let currentDecorationType = null;
  * Lit output.json à la racine du workspace.
  * Retourne { snapshots, risks, meta }.
  */
+// Load output.json from the workspace root (snapshots + risks + meta).
 function loadTraceFromWorkspace() {
   const folders = vscode.workspace.workspaceFolders;
   if (!folders || folders.length === 0) {
@@ -51,6 +52,7 @@ function loadTraceFromWorkspace() {
 /**
  * Construit le HTML de la webview à partir de index.html + URIs webview-friendly.
  */
+// Resolve local assets to webview-safe URIs and inject CSP.
 function getWebviewContent(webview, extensionUri) {
   const indexPath = vscode.Uri.joinPath(extensionUri, 'index.html');
   let html = fs.readFileSync(indexPath.fsPath, 'utf8');
@@ -75,6 +77,7 @@ function getWebviewContent(webview, extensionUri) {
 /**
  * Activation de l'extension
  */
+// Main activation hook, registers the command and message bridge.
 function activate(context) {
   const disposable = vscode.commands.registerCommand('stackVisualizer.open', () => {
     const trace = loadTraceFromWorkspace();

@@ -9,10 +9,12 @@
   const elRegisters = document.getElementById('registers');
   const elRisks = document.getElementById('risks');
   const elMemoryDump = document.getElementById('memoryDump');
-  const elDisasm = document.getElementById('disasm');
   const elStepLabel = document.getElementById('stepLabel');
   const elStepRange = document.getElementById('stepRange');
   const elInstrLabel = document.getElementById('instrLabel');
+  const elCodeContext = document.getElementById('codeContext');
+  const elAsmContext = document.getElementById('asmContext');
+  const elDisasm = document.getElementById('disasm');
   const elBtnPrev = document.getElementById('btnPrev');
   const elBtnNext = document.getElementById('btnNext');
 
@@ -21,10 +23,10 @@
   /** @type {Array<any>} */
   let risks = [];
   let meta = {};
+  let disasmLines = [];
   let currentStep = 1;
   let lastHighlightedLine = null;
   let lastDisasmLine = null;
-  let disasmLines = [];
 
   // Demander les données à l'extension
   vscode.postMessage({ type: 'ready' });
@@ -43,7 +45,6 @@
         renderStack([]);
         renderRisks([], null);
         renderMemoryDump([], {});
-        renderDisasm(null);
         return;
       }
       currentStep = 1;
@@ -61,6 +62,7 @@
     return step;
   }
 
+  // Refresh all panels for the current step.
   function updateUI() {
     if (!snapshots.length) {
       elStatus.textContent = 'Aucune donnée.';
@@ -111,6 +113,7 @@
     renderRegisters(registerItems);
     renderRisks(risks, line);
     renderMemoryDump(stackItems, regMap);
+    renderContext(snap);
     renderDisasm(snap.rip ?? null);
   }
 
@@ -118,6 +121,7 @@
    * Affiche la pile.
    * stackItems: [{ id, pos, size, value }, ...]
    */
+  // Render stack words with SP/BP/buffer highlights.
   function renderStack(stackItems, regMap) {
     elStack.innerHTML = '';
 
@@ -197,6 +201,7 @@
     });
   }
 
+  // Render register list sorted by index.
   function renderRegisters(registerItems) {
     if (!elRegisters) return;
     elRegisters.innerHTML = '';
@@ -225,6 +230,7 @@
     });
   }
 
+  // Build a hex+ASCII dump starting at SP.
   function renderMemoryDump(stackItems, regMap) {
     if (!elMemoryDump) return;
     elMemoryDump.textContent = '';
@@ -279,6 +285,9 @@
     elMemoryDump.textContent = lines.join('\n');
   }
 
+
+
+  // Render a small window of disassembly around RIP.
   function renderDisasm(rip) {
     if (!elDisasm) return;
     elDisasm.innerHTML = '';
@@ -326,6 +335,123 @@
     });
   }
 
+  // Show C source context and a human-friendly ASM explanation.
+  function renderContext(snap) {
+    if (!elCodeContext) return;
+
+    const file = snap.file;
+    const line = typeof snap.line === 'number' ? snap.line : null;
+    const func = snap.func;
+    if (!file || line === null) {
+      elCodeContext.textContent = 'Aucune info de debug (compile avec -g).';
+    } else {
+      const funcLabel = func ? ` • ${func}()` : '';
+      elCodeContext.textContent = `${file}:${line}${funcLabel}`;
+    }
+
+    if (elAsmContext) {
+      elAsmContext.textContent = explainInstruction(snap.instr);
+    }
+  }
+
+
+  // Map a mnemonic to a short explanation.
+  function explainInstruction(instr) {
+    if (!instr || typeof instr !== 'string') {
+      return 'Aucune instruction.';
+    }
+    const text = instr.trim();
+    const mnemonic = text.split(/\\s+/)[0].toLowerCase();
+    const hasMem = text.includes('[') && text.includes(']');
+    let detail = '';
+
+    switch (mnemonic) {
+      case 'mov':
+        detail = 'Copie la valeur source vers la destination.';
+        break;
+      case 'lea':
+        detail = 'Calcule une adresse effective et la charge.';
+        break;
+      case 'push':
+        detail = 'Empile la valeur (SP diminue).';
+        break;
+      case 'pop':
+        detail = 'Dépile la valeur (SP augmente).';
+        break;
+      case 'call':
+        detail = 'Appel de fonction (push retour + saut).';
+        break;
+      case 'ret':
+        detail = 'Retour de fonction (pop vers IP).';
+        break;
+      case 'jmp':
+        detail = 'Saut inconditionnel.';
+        break;
+      case 'je':
+      case 'jz':
+        detail = 'Saut si égal / zéro.';
+        break;
+      case 'jne':
+      case 'jnz':
+        detail = 'Saut si différent.';
+        break;
+      case 'jg':
+      case 'jge':
+      case 'jl':
+      case 'jle':
+        detail = 'Saut conditionnel selon le résultat de la comparaison.';
+        break;
+      case 'cmp':
+        detail = 'Compare deux valeurs (met à jour les flags).';
+        break;
+      case 'test':
+        detail = 'ET logique pour mettre à jour les flags.';
+        break;
+      case 'add':
+        detail = 'Addition.';
+        break;
+      case 'sub':
+        detail = 'Soustraction.';
+        break;
+      case 'imul':
+      case 'mul':
+        detail = 'Multiplication.';
+        break;
+      case 'idiv':
+      case 'div':
+        detail = 'Division.';
+        break;
+      case 'xor':
+        detail = 'XOR (souvent pour mettre un registre à zéro).';
+        break;
+      case 'and':
+        detail = 'ET logique.';
+        break;
+      case 'or':
+        detail = 'OU logique.';
+        break;
+      case 'inc':
+        detail = 'Incrémente.';
+        break;
+      case 'dec':
+        detail = 'Décrémente.';
+        break;
+      case 'leave':
+        detail = 'Termine un frame (mov sp, bp ; pop bp).';
+        break;
+      case 'nop':
+        detail = 'Aucune opération.';
+        break;
+      default:
+        detail = 'Instruction non annotée.';
+        break;
+    }
+
+    const memNote = hasMem ? ' Accès mémoire.' : '';
+    return `${text} — ${detail}${memNote}`;
+  }
+
+  // Convert register array to a name->value map.
   function buildRegisterMap(registerItems) {
     const map = {};
     registerItems.forEach((reg) => {
@@ -351,6 +477,7 @@
     return Number.isFinite(parsed) ? parsed : null;
   }
 
+  // Resolve absolute address for a stack slot.
   function resolveStackAddress(item, rsp) {
     if (typeof item.addr === 'string' && item.addr.startsWith('0x')) {
       const parsed = parseInt(item.addr, 16);

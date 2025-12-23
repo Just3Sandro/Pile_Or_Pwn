@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """AST-based risk detection for Python sources."""
 
+# Static analysis helper focused on a small set of risky calls.
+
 from __future__ import annotations
 
 import ast
@@ -29,6 +31,8 @@ class Risk:
 
 class RiskyCallDetector(ast.NodeVisitor):
     """Detects a small set of risky call patterns."""
+
+    # We track imports to resolve names like os.system or subprocess.run.
 
     def __init__(self, source_path: str) -> None:
         self._source_path = source_path
@@ -129,6 +133,7 @@ class RiskyCallDetector(ast.NodeVisitor):
         )
 
 
+# Analyze one Python file and return a list of risk dicts.
 def analyze_python_ast(source_path: str) -> List[dict]:
     if not os.path.exists(source_path):
         raise FileNotFoundError(source_path)

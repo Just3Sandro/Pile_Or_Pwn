@@ -1,3 +1,6 @@
+/*
+ * Stack model used by the ASM simulator.
+ */
 #ifndef STACK_H
 #define STACK_H
 
@@ -18,8 +21,11 @@ typedef struct {
     int        next_id;  // prochain id
 } Stack;
 
+// Initialize stack state.
 void stack_init(Stack* st);
+// Push one value onto the stack.
 bool stack_push(Stack* st, int64_t value);
+// Pop one value from the stack.
 bool stack_pop(Stack* st, int64_t* out);
 
 #endif
