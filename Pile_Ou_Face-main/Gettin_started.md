@@ -1,6 +1,6 @@
 # Démarrage rapide (Getting Started)
 
-Ce guide décrit comment installer et lancer rapidement Pile‑ou‑Face sur une machine de développement. Les commandes ci‑dessous sont des exemples ; adaptez-les selon votre environnement (Linux, macOS, WSL).
+Ce guide décrit comment installer et lancer rapidement Pile‑ou‑Face sur une machine de développement. Les commandes ci‑dessous sont des exemples ; adaptez-les selon votre environnement (Linux, macOS, WSL)
 
 ---
 
@@ -46,6 +46,18 @@ Ce dépôt ne contient pas le backend `backend/asm_sim` pour le moment.
 Ignorez cette étape si vous n'avez pas ce dossier dans votre version.
 
 ---
+
+
+## 4) Compiler les exemples (C)
+Exemple 32 bits (stack3) :
+```bash
+gcc -m32 -O0 -g -fno-stack-protector -z execstack -no-pie -o examples/stack3.elf examples/stack3.c
+```
+
+Exemple 64 bits :
+```bash
+gcc -m64 -O0 -g -fno-stack-protector -z execstack -no-pie -o examples/stack3_64.elf examples/stack3.c
+```
 
 ## 5) Générer une trace JSON (exemples)
 - A) Simulation à partir d'un fichier ASM (backend de simulation) :
@@ -100,6 +112,8 @@ Ajouter et consulter `examples/` pour :
 - Problèmes de compilation C : vérifier gcc/clang et les flags dans le Makefile
 - Trace JSON invalide : valider le format JSON (schema présent dans docs/ si disponible)
 
+python tools/run_pipeline.py   --binary examples/stack3.elf   --stdin "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA│
+│AAAA"BBBB"CCCC"   --buffer-offset -64 --buffer-size 64   --output output.json   --start-symbol main   --max-steps 800
 
 # commit message
 # feat(unicorn): add minimal ELF loader with PT_INTERP and 32/64 support

@@ -78,6 +78,18 @@ body {
   font-size: 0.85rem;
 }
 
+/* Stack frame summary panel */
+.frame-box {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
 .context-title {
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -343,7 +355,31 @@ body {
 }
 
 
-/* Disassembly */
+.disasm-line {
+  display: flex;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.disasm-addr {
+  color: rgba(255, 255, 255, 0.6);
+  min-width: 90px;
+}
+
+.disasm-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.disasm-current {
+  background-color: rgba(255, 224, 102, 0.2);
+  box-shadow: 0 0 0 1px rgba(255, 224, 102, 0.5) inset;
+}
+
+
+
+/* Disassembly panel (mirrors output.disasm.asm) */
 .disasm {
   flex: 1;
   overflow: auto;

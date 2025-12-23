@@ -54,7 +54,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -111,7 +111,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -168,7 +168,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -225,7 +225,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -282,7 +282,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -339,7 +339,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -396,7 +396,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -622,7 +622,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -848,7 +848,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -1526,7 +1526,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 30,
+      "line": 38,
       "func": "main"
     },
     {
@@ -1752,7 +1752,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 37,
+      "line": 45,
       "func": "main"
     },
     {
@@ -1978,7 +1978,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 38,
+      "line": 46,
       "func": "main"
     },
     {
@@ -2204,7 +2204,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 38,
+      "line": 46,
       "func": "main"
     },
     {
@@ -2430,7 +2430,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 38,
+      "line": 46,
       "func": "main"
     },
     {
@@ -2656,7 +2656,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 38,
+      "line": 46,
       "func": "main"
     },
     {
@@ -2882,7 +2882,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 38,
+      "line": 46,
       "func": "main"
     },
     {
@@ -3108,7 +3108,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 7,
+      "line": 14,
       "func": "sys_read"
     },
     {
@@ -3334,7 +3334,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 7,
+      "line": 14,
       "func": "sys_read"
     },
     {
@@ -3560,7 +3560,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 7,
+      "line": 14,
       "func": "sys_read"
     },
     {
@@ -3786,7 +3786,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 7,
+      "line": 14,
       "func": "sys_read"
     },
     {
@@ -4012,7 +4012,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 7,
+      "line": 14,
       "func": "sys_read"
     },
     {
@@ -4690,7 +4690,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 7,
+      "line": 14,
       "func": "sys_read"
     },
     {
@@ -4916,7 +4916,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 18,
+      "line": 25,
       "func": "sys_read"
     },
     {
@@ -5142,7 +5142,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 18,
+      "line": 25,
       "func": "sys_read"
     },
     {
@@ -5368,7 +5368,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 18,
+      "line": 25,
       "func": "sys_read"
     },
     {
@@ -5594,7 +5594,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 18,
+      "line": 25,
       "func": "sys_read"
     },
     {
@@ -5820,7 +5820,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 18,
+      "line": 25,
       "func": "sys_read"
     },
     {
@@ -6046,7 +6046,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 18,
+      "line": 25,
       "func": "sys_read"
     },
     {
@@ -6151,83 +6151,83 @@
           "addr": "0xbff1ff5c",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff60",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff64",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff68",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff6c",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff70",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff74",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff78",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff7c",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff80",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff84",
           "pos": 92,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         }
       ],
       "registers": [
         {
           "name": "eax",
-          "value": "0x48",
+          "value": "0x0",
           "pos": 0
         },
         {
@@ -6272,7 +6272,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 18,
+      "line": 25,
       "func": "sys_read"
     },
     {
@@ -6377,83 +6377,83 @@
           "addr": "0xbff1ff5c",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff60",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff64",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff68",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff6c",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff70",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff74",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff78",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff7c",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff80",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff84",
           "pos": 92,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         }
       ],
       "registers": [
         {
           "name": "eax",
-          "value": "0x48",
+          "value": "0x0",
           "pos": 0
         },
         {
@@ -6498,7 +6498,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 26,
+      "line": 33,
       "func": "sys_read"
     },
     {
@@ -6603,77 +6603,77 @@
           "addr": "0xbff1ff5c",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff60",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff64",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff68",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff6c",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff70",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff74",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff78",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff7c",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff80",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff84",
           "pos": 92,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         }
       ],
       "registers": [
@@ -6724,7 +6724,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 27,
+      "line": 34,
       "func": "sys_read"
     },
     {
@@ -6829,77 +6829,77 @@
           "addr": "0xbff1ff5c",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff60",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff64",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff68",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff6c",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff70",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff74",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff78",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff7c",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff80",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff84",
           "pos": 92,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         }
       ],
       "registers": [
@@ -6950,7 +6950,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 27,
+      "line": 34,
       "func": "sys_read"
     },
     {
@@ -7013,119 +7013,119 @@
           "addr": "0xbff1ff5c",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff60",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff64",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff68",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff6c",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff70",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff74",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff78",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff7c",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff80",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff84",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff88",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff8c",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff90",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff94",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff98",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff9c",
           "pos": 92,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         }
       ],
       "registers": [
@@ -7176,7 +7176,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 27,
+      "line": 34,
       "func": "sys_read"
     },
     {
@@ -7232,126 +7232,126 @@
           "addr": "0xbff1ff5c",
           "pos": 24,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 7,
           "addr": "0xbff1ff60",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff64",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff68",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff6c",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff70",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff74",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff78",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff7c",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff80",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff84",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff88",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff8c",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff90",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff94",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff98",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff9c",
           "pos": 88,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ffa0",
           "pos": 92,
           "size": 4,
-          "value": "0x43434343"
+          "value": "0xbff1ffc0"
         }
       ],
       "registers": [
@@ -7402,7 +7402,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 38,
+      "line": 46,
       "func": "main"
     },
     {
@@ -7437,126 +7437,126 @@
           "addr": "0xbff1ff5c",
           "pos": 12,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 4,
           "addr": "0xbff1ff60",
           "pos": 16,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 5,
           "addr": "0xbff1ff64",
           "pos": 20,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 6,
           "addr": "0xbff1ff68",
           "pos": 24,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 7,
           "addr": "0xbff1ff6c",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff70",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff74",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff78",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff7c",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff80",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff84",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff88",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff8c",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff90",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff94",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff98",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff9c",
           "pos": 76,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ffa0",
           "pos": 80,
           "size": 4,
-          "value": "0x43434343"
+          "value": "0xbff1ffc0"
         },
         {
           "id": 21,
@@ -7628,7 +7628,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 40,
+      "line": 48,
       "func": "main"
     },
     {
@@ -7663,126 +7663,126 @@
           "addr": "0xbff1ff5c",
           "pos": 12,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 4,
           "addr": "0xbff1ff60",
           "pos": 16,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 5,
           "addr": "0xbff1ff64",
           "pos": 20,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 6,
           "addr": "0xbff1ff68",
           "pos": 24,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 7,
           "addr": "0xbff1ff6c",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff70",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff74",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff78",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff7c",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff80",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff84",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff88",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff8c",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff90",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff94",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff98",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff9c",
           "pos": 76,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ffa0",
           "pos": 80,
           "size": 4,
-          "value": "0x43434343"
+          "value": "0xbff1ffc0"
         },
         {
           "id": 21,
@@ -7809,7 +7809,7 @@
       "registers": [
         {
           "name": "eax",
-          "value": "0x42424242",
+          "value": "0x0",
           "pos": 0
         },
         {
@@ -7854,7 +7854,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 40,
+      "line": 48,
       "func": "main"
     },
     {
@@ -7889,126 +7889,126 @@
           "addr": "0xbff1ff5c",
           "pos": 12,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 4,
           "addr": "0xbff1ff60",
           "pos": 16,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 5,
           "addr": "0xbff1ff64",
           "pos": 20,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 6,
           "addr": "0xbff1ff68",
           "pos": 24,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 7,
           "addr": "0xbff1ff6c",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff70",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff74",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff78",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff7c",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff80",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff84",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff88",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff8c",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff90",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff94",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff98",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff9c",
           "pos": 76,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ffa0",
           "pos": 80,
           "size": 4,
-          "value": "0x43434343"
+          "value": "0xbff1ffc0"
         },
         {
           "id": 21,
@@ -8035,7 +8035,7 @@
       "registers": [
         {
           "name": "eax",
-          "value": "0x42424242",
+          "value": "0x0",
           "pos": 0
         },
         {
@@ -8080,7 +8080,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 40,
+      "line": 48,
       "func": "main"
     },
     {
@@ -8115,126 +8115,126 @@
           "addr": "0xbff1ff5c",
           "pos": 12,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 4,
           "addr": "0xbff1ff60",
           "pos": 16,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 5,
           "addr": "0xbff1ff64",
           "pos": 20,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 6,
           "addr": "0xbff1ff68",
           "pos": 24,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 7,
           "addr": "0xbff1ff6c",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff70",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff74",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff78",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff7c",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff80",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff84",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff88",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff8c",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff90",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff94",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff98",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff9c",
           "pos": 76,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ffa0",
           "pos": 80,
           "size": 4,
-          "value": "0x43434343"
+          "value": "0xbff1ffc0"
         },
         {
           "id": 21,
@@ -8261,7 +8261,7 @@
       "registers": [
         {
           "name": "eax",
-          "value": "0x42424242",
+          "value": "0x0",
           "pos": 0
         },
         {
@@ -8306,7 +8306,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 43,
+      "line": 51,
       "func": "main"
     },
     {
@@ -8341,126 +8341,126 @@
           "addr": "0xbff1ff5c",
           "pos": 12,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 4,
           "addr": "0xbff1ff60",
           "pos": 16,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 5,
           "addr": "0xbff1ff64",
           "pos": 20,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 6,
           "addr": "0xbff1ff68",
           "pos": 24,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 7,
           "addr": "0xbff1ff6c",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff70",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff74",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff78",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff7c",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff80",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff84",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff88",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff8c",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff90",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff94",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff98",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff9c",
           "pos": 76,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ffa0",
           "pos": 80,
           "size": 4,
-          "value": "0x43434343"
+          "value": "0xbff1ffc0"
         },
         {
           "id": 21,
@@ -8487,7 +8487,7 @@
       "registers": [
         {
           "name": "eax",
-          "value": "0x42424242",
+          "value": "0x0",
           "pos": 0
         },
         {
@@ -8532,7 +8532,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 43,
+      "line": 51,
       "func": "main"
     },
     {
@@ -8581,126 +8581,126 @@
           "addr": "0xbff1ff5c",
           "pos": 20,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 6,
           "addr": "0xbff1ff60",
           "pos": 24,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 7,
           "addr": "0xbff1ff64",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff68",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff6c",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff70",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff74",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff78",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff7c",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff80",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff84",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff88",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff8c",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff90",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff94",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff98",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff9c",
           "pos": 84,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ffa0",
           "pos": 88,
           "size": 4,
-          "value": "0x43434343"
+          "value": "0xbff1ffc0"
         },
         {
           "id": 23,
@@ -8713,7 +8713,7 @@
       "registers": [
         {
           "name": "eax",
-          "value": "0x42424242",
+          "value": "0x0",
           "pos": 0
         },
         {
@@ -8758,7 +8758,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 43,
+      "line": 51,
       "func": "main"
     },
     {
@@ -8772,7 +8772,7 @@
           "addr": "0xbff1ff44",
           "pos": 0,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 1,
@@ -8814,132 +8814,132 @@
           "addr": "0xbff1ff5c",
           "pos": 24,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 7,
           "addr": "0xbff1ff60",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff64",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff68",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff6c",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff70",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff74",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff78",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff7c",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff80",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff84",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff88",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff8c",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff90",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff94",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff98",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff9c",
           "pos": 88,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ffa0",
           "pos": 92,
           "size": 4,
-          "value": "0x43434343"
+          "value": "0xbff1ffc0"
         }
       ],
       "registers": [
         {
           "name": "eax",
-          "value": "0x42424242",
+          "value": "0x0",
           "pos": 0
         },
         {
@@ -8984,7 +8984,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 43,
+      "line": 51,
       "func": "main"
     },
     {
@@ -8998,7 +8998,7 @@
           "addr": "0xbff1ff44",
           "pos": 0,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 1,
@@ -9040,126 +9040,126 @@
           "addr": "0xbff1ff5c",
           "pos": 24,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 7,
           "addr": "0xbff1ff60",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff64",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff68",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff6c",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff70",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff74",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff78",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff7c",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff80",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff84",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff88",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff8c",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff90",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff94",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff98",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff9c",
           "pos": 88,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ffa0",
           "pos": 92,
           "size": 4,
-          "value": "0x43434343"
+          "value": "0xbff1ffc0"
         }
       ],
       "registers": [
@@ -9210,7 +9210,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 43,
+      "line": 51,
       "func": "main"
     },
     {
@@ -9231,7 +9231,7 @@
           "addr": "0xbff1ff44",
           "pos": 4,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 2,
@@ -9273,119 +9273,119 @@
           "addr": "0xbff1ff5c",
           "pos": 28,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 8,
           "addr": "0xbff1ff60",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff64",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff68",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff6c",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff70",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff74",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff78",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff7c",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff80",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff84",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff88",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff8c",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff90",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff94",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff98",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff9c",
           "pos": 92,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         }
       ],
       "registers": [
@@ -9436,7 +9436,7 @@
         }
       ],
       "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/examples/stack3.c",
-      "line": 43,
+      "line": 51,
       "func": "main"
     },
     {
@@ -9464,7 +9464,7 @@
           "addr": "0xbff1ff44",
           "pos": 8,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 3,
@@ -9506,112 +9506,112 @@
           "addr": "0xbff1ff5c",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff60",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff64",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff68",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff6c",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff70",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff74",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff78",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff7c",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff80",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff84",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff88",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff8c",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff90",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff94",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff98",
           "pos": 92,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         }
       ],
       "registers": [
@@ -9690,7 +9690,7 @@
           "addr": "0xbff1ff44",
           "pos": 8,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 3,
@@ -9732,112 +9732,112 @@
           "addr": "0xbff1ff5c",
           "pos": 32,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 9,
           "addr": "0xbff1ff60",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff64",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff68",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff6c",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff70",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff74",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff78",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff7c",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff80",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff84",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff88",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff8c",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff90",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff94",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff98",
           "pos": 92,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         }
       ],
       "registers": [
@@ -9923,7 +9923,7 @@
           "addr": "0xbff1ff44",
           "pos": 12,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 4,
@@ -9965,105 +9965,105 @@
           "addr": "0xbff1ff5c",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff60",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff64",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff68",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff6c",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff70",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff74",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff78",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff7c",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff80",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff84",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff88",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff8c",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff90",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff94",
           "pos": 92,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         }
       ],
       "registers": [
@@ -10149,7 +10149,7 @@
           "addr": "0xbff1ff44",
           "pos": 12,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 4,
@@ -10191,105 +10191,105 @@
           "addr": "0xbff1ff5c",
           "pos": 36,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 10,
           "addr": "0xbff1ff60",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff64",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff68",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff6c",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff70",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff74",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff78",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff7c",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff80",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff84",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff88",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff8c",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff90",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff94",
           "pos": 92,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         }
       ],
       "registers": [
@@ -10382,7 +10382,7 @@
           "addr": "0xbff1ff44",
           "pos": 16,
           "size": 4,
-          "value": "0x42424242"
+          "value": "0x0"
         },
         {
           "id": 5,
@@ -10424,98 +10424,98 @@
           "addr": "0xbff1ff5c",
           "pos": 40,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 11,
           "addr": "0xbff1ff60",
           "pos": 44,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 12,
           "addr": "0xbff1ff64",
           "pos": 48,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 13,
           "addr": "0xbff1ff68",
           "pos": 52,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 14,
           "addr": "0xbff1ff6c",
           "pos": 56,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 15,
           "addr": "0xbff1ff70",
           "pos": 60,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 16,
           "addr": "0xbff1ff74",
           "pos": 64,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 17,
           "addr": "0xbff1ff78",
           "pos": 68,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 18,
           "addr": "0xbff1ff7c",
           "pos": 72,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 19,
           "addr": "0xbff1ff80",
           "pos": 76,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 20,
           "addr": "0xbff1ff84",
           "pos": 80,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 21,
           "addr": "0xbff1ff88",
           "pos": 84,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 22,
           "addr": "0xbff1ff8c",
           "pos": 88,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         },
         {
           "id": 23,
           "addr": "0xbff1ff90",
           "pos": 92,
           "size": 4,
-          "value": "0x41414141"
+          "value": "0x0"
         }
       ],
       "registers": [
@@ -10583,12 +10583,12 @@
     "elf_interp": "/lib/ld-linux.so.2",
     "elf_interp_started": false,
     "word_size": 4,
-    "buffer_offset": -64,
-    "buffer_size": 64,
-    "stdin_len": 72,
+    "buffer_offset": null,
+    "buffer_size": 0,
+    "stdin_len": 0,
     "binary": "examples/stack3.elf",
     "source": null,
-    "disasm_path": "output.disasm.asm",
+    "disasm_path": "/home/Sandro/Desktop/Pile_ou_face/Pile_Or_Pwn/Pile_Ou_Face-main/output.disasm.asm",
     "disasm": [
       {
         "addr": "0x8049000",

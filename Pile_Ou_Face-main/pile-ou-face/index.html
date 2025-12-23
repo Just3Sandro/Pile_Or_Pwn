@@ -48,6 +48,12 @@
       </div>
     </section>
 
+    <!-- Stack frame summary (SP/BP + heuristic explanation) -->
+    <section class="frame-box">
+      <div class="context-title">Stack Frame</div>
+      <div id="frameContext" class="context-body">Aucune info frame.</div>
+    </section>
+
     <!-- AST risks (Python only) -->
     <section class="risks-panel">
       <h2 class="panel-title">Zones à risque (AST)</h2>
@@ -68,6 +74,7 @@
         <h2 class="panel-title">Registres</h2>
         <div id="registers" class="registers"></div>
       </div>
+      <!-- Disassembly view (mirrors output.disasm.asm) -->
       <div class="disasm-container">
         <h2 class="panel-title">Désassemblage</h2>
         <div id="disasm" class="disasm"></div>

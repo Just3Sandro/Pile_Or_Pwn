@@ -13,6 +13,7 @@
   const elStepRange = document.getElementById('stepRange');
   const elInstrLabel = document.getElementById('instrLabel');
   const elCodeContext = document.getElementById('codeContext');
+  const elFrameContext = document.getElementById('frameContext');
   const elAsmContext = document.getElementById('asmContext');
   const elDisasm = document.getElementById('disasm');
   const elBtnPrev = document.getElementById('btnPrev');
@@ -23,6 +24,7 @@
   /** @type {Array<any>} */
   let risks = [];
   let meta = {};
+  // Disassembly lines used for the side panel + file highlight.
   let disasmLines = [];
   let currentStep = 1;
   let lastHighlightedLine = null;
@@ -36,6 +38,7 @@
     if (!msg || !msg.type) return;
 
     if (msg.type === 'init') {
+      console.debug("[visualizer] init", {snapshots: msg.snapshots?.length, disasm: msg.meta?.disasm?.length, disasmPath: msg.meta?.disasm_path});
       snapshots = Array.isArray(msg.snapshots) ? msg.snapshots : [];
       risks = Array.isArray(msg.risks) ? msg.risks : [];
       meta = msg.meta && typeof msg.meta === 'object' ? msg.meta : {};
@@ -90,17 +93,10 @@
     }
 
     const line = typeof snap.line === 'number' ? snap.line : null;
-    if (line !== null && line !== lastHighlightedLine) {
-      lastHighlightedLine = line;
-      vscode.postMessage({
-        type: 'goToLine',
-        line,
-        file: snap.file
-      });
-    }
 
     const riskCount = Array.isArray(risks) ? risks.length : 0;
-    elStatus.textContent = `Snapshots: ${snapshots.length} | Risques: ${riskCount}`;
+    const disasmCount = Array.isArray(disasmLines) ? disasmLines.length : 0;
+    elStatus.textContent = `Snapshots: ${snapshots.length} | Risques: ${riskCount} | Disasm: ${disasmCount}`;
 
     const stackItems = Array.isArray(snap.stack) ? snap.stack : [];
     const registerItems = Array.isArray(snap.registers)
@@ -114,7 +110,7 @@
     renderRisks(risks, line);
     renderMemoryDump(stackItems, regMap);
     renderContext(snap);
-    renderDisasm(snap.rip ?? null);
+    renderFrameContext(snap, regMap);
   }
 
   /**
@@ -288,12 +284,90 @@
 
 
   // Render a small window of disassembly around RIP.
+
+// Summarize SP/BP and explain how the current instruction affects the stack.
+  function renderFrameContext(snap, regMap) {
+    if (!elFrameContext) return;
+    const rsp = regMap.rsp ?? regMap.esp ?? null;
+    const rbp = regMap.rbp ?? regMap.ebp ?? null;
+    const instr = typeof snap.instr === 'string' ? snap.instr : '';
+
+    if (rsp === null && rbp === null) {
+      elFrameContext.textContent = 'Aucun registre SP/BP disponible.';
+      return;
+    }
+
+    const spLabel = rsp !== null ? `SP=${toHex(rsp)}` : '';
+    const bpLabel = rbp !== null ? `BP=${toHex(rbp)}` : '';
+    const effect = explainStackEffect(instr);
+    const parts = [spLabel, bpLabel].filter(Boolean).join(' • ');
+    elFrameContext.textContent = parts ? `${parts} • ${effect}` : effect;
+  }
+
+// Simple heuristics for stack-related instructions (generic, no C-specific logic).
+  function explainStackEffect(instr) {
+    if (!instr) return 'Instruction courante inconnue.';
+    const text = instr.trim();
+    const lower = text.toLowerCase();
+    const mnemonic = lower.split(/\s+/)[0];
+
+    if (mnemonic === 'push') {
+      return 'push: réserve 4/8 octets et écrit une valeur sur la pile.';
+    }
+    if (mnemonic === 'pop') {
+      return 'pop: lit une valeur sur la pile puis libère 4/8 octets.';
+    }
+    if (mnemonic === 'call') {
+      return 'call: empile l’adresse de retour puis saute à la fonction.';
+    }
+    if (mnemonic === 'ret') {
+      return 'ret: dépile l’adresse de retour et saute.';
+    }
+    if (mnemonic === 'leave') {
+      return 'leave: remet SP sur BP puis dépile l’ancien BP.';
+    }
+    if (mnemonic === 'sub' && lower.includes('sp')) {
+      return 'sub sp, X: réserve X octets pour les variables locales.';
+    }
+    if (mnemonic === 'add' && lower.includes('sp')) {
+      return 'add sp, X: libère X octets (fin de frame ou nettoyage arguments).';
+    }
+    if (mnemonic === 'mov' && (lower.includes('sp') || lower.includes('bp'))) {
+      return 'mov sp/bp: ajuste les pointeurs de frame (prologue/épilogue).';
+    }
+
+    return 'Aucun effet direct sur la pile détecté.';
+  }
+
+
+// Jump to the disasm file and highlight the current instruction line.
+  function highlightDisasmFile(rip) {
+    if (!meta.disasm_path || !Array.isArray(disasmLines) || disasmLines.length === 0) {
+      return;
+    }
+    if (typeof rip !== 'string') return;
+    const target = rip.toLowerCase();
+    const entry = disasmLines.find((line) => line.addr && line.addr.toLowerCase() === target);
+    if (!entry || typeof entry.line !== 'number') return;
+
+    if (lastDisasmLine === entry.line) return;
+    lastDisasmLine = entry.line;
+
+    vscode.postMessage({
+      type: 'goToLine',
+      line: entry.line,
+      file: meta.disasm_path
+    });
+  }
+
+
+// Render the disassembly window around the current RIP.
   function renderDisasm(rip) {
     if (!elDisasm) return;
     elDisasm.innerHTML = '';
 
     if (!Array.isArray(disasmLines) || disasmLines.length === 0) {
-      elDisasm.innerHTML = '<div class="status">Aucun désassemblage.</div>';
+      elDisasm.innerHTML = '<div class="status">Aucun désassemblage (disasm=0).</div>';
       return;
     }
 
@@ -311,21 +385,16 @@
     const slice =
       currentIndex === -1 ? disasmLines.slice(0, 40) : disasmLines.slice(start, end);
 
+    if (!slice.length) {
+      elDisasm.innerHTML = `<div class="status">Désassemblage vide.</div>`;
+      return;
+    }
+
     slice.forEach((line) => {
       const row = document.createElement('div');
       row.className = 'disasm-line';
       if (ripAddr && line.addr && line.addr.toLowerCase() === ripAddr) {
         row.classList.add('disasm-current');
-        if (meta.disasm_path && typeof line.line === 'number') {
-          if (lastDisasmLine !== line.line) {
-            lastDisasmLine = line.line;
-            vscode.postMessage({
-              type: 'goToLine',
-              line: line.line,
-              file: meta.disasm_path
-            });
-          }
-        }
       }
       row.innerHTML = `
         <span class="disasm-addr">${line.addr ?? '??'}</span>
@@ -335,7 +404,6 @@
     });
   }
 
-  // Show C source context and a human-friendly ASM explanation.
   function renderContext(snap) {
     if (!elCodeContext) return;
 
@@ -550,14 +618,6 @@
       const lineLabel = line !== null ? `L${line}` : 'L?';
       row.textContent = `${lineLabel} ${risk.kind ?? 'risk'}${fileLabel} — ${risk.message ?? ''}`;
 
-      row.addEventListener('click', () => {
-        if (line === null) return;
-        vscode.postMessage({
-          type: 'goToLine',
-          line,
-          file: risk.file
-        });
-      });
 
       elRisks.appendChild(row);
     });

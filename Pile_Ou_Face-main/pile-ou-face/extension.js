@@ -5,7 +5,9 @@ const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
 
-let currentDecorationType = null;
+const logChannel = vscode.window.createOutputChannel('Stack Visualizer');
+
+const decorationTypes = new Map();
 
 /**
  * Lit output.json à la racine du workspace.
@@ -80,6 +82,7 @@ function getWebviewContent(webview, extensionUri) {
 // Main activation hook, registers the command and message bridge.
 function activate(context) {
   const disposable = vscode.commands.registerCommand('stackVisualizer.open', () => {
+    logChannel.show(true);
     const trace = loadTraceFromWorkspace();
     if (trace.snapshots.length === 0) {
       return;
@@ -113,6 +116,7 @@ function activate(context) {
         if (message.type === 'goToLine') {
           const line = message.line ?? 1;
           const targetFile = message.file;
+          logChannel.appendLine(`[goToLine] line=${line} file=${targetFile ?? }`);
           const folders = vscode.workspace.workspaceFolders;
           const root = folders && folders.length ? folders[0].uri.fsPath : '';
 
@@ -154,17 +158,17 @@ function activate(context) {
           editor.selection = new vscode.Selection(range.start, range.start);
           editor.revealRange(range, vscode.TextEditorRevealType.InCenter);
 
-          if (currentDecorationType) {
-            currentDecorationType.dispose();
-            currentDecorationType = null;
+          const uriKey = doc.uri.toString();
+          let deco = decorationTypes.get(uriKey);
+          if (!deco) {
+            deco = vscode.window.createTextEditorDecorationType({
+              isWholeLine: true,
+              backgroundColor: 'rgba(255, 255, 0, 0.2)'
+            });
+            decorationTypes.set(uriKey, deco);
           }
 
-          currentDecorationType = vscode.window.createTextEditorDecorationType({
-            isWholeLine: true,
-            backgroundColor: 'rgba(255, 255, 0, 0.2)'
-          });
-
-          editor.setDecorations(currentDecorationType, [range]);
+          editor.setDecorations(deco, [range]);
         }
       },
       undefined,
@@ -176,10 +180,10 @@ function activate(context) {
 }
 
 function deactivate() {
-  if (currentDecorationType) {
-    currentDecorationType.dispose();
-    currentDecorationType = null;
+  for (const deco of decorationTypes.values()) {
+    deco.dispose();
   }
+  decorationTypes.clear();
 }
 
 module.exports = {

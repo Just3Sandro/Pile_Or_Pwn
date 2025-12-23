@@ -59,7 +59,7 @@ def run_pipeline(
             **trace.get("meta", {}),
             "binary": _normalize_path(binary_path),
             "source": _normalize_path(source_path) if source_path else None,
-            "disasm_path": _normalize_path(disasm.get("path")) if disasm else None,
+            "disasm_path": os.path.abspath(disasm.get("path")) if disasm else None,
             "disasm": disasm.get("lines") if disasm else None,
         },
     }
