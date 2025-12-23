@@ -1,0 +1,3372 @@
+{
+  "snapshots": [
+    {
+      "step": 1,
+      "rip": "0x4011e9",
+      "rsp": "0x7fffffffdf58",
+      "instr": "endbr64",
+      "stack": [],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdff8",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdf58",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x4011e9",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 12,
+      "func": "main"
+    },
+    {
+      "step": 2,
+      "rip": "0x4011ed",
+      "rsp": "0x7fffffffdf58",
+      "instr": "push rbp",
+      "stack": [],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdff8",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdf58",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x4011ed",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 12,
+      "func": "main"
+    },
+    {
+      "step": 3,
+      "rip": "0x4011ee",
+      "rsp": "0x7fffffffdf50",
+      "instr": "mov rbp, rsp",
+      "stack": [],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdff8",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdf50",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x4011ee",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 12,
+      "func": "main"
+    },
+    {
+      "step": 4,
+      "rip": "0x4011f1",
+      "rsp": "0x7fffffffdf50",
+      "instr": "sub rsp, 0x60",
+      "stack": [],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdf50",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdf50",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x4011f1",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 12,
+      "func": "main"
+    },
+    {
+      "step": 5,
+      "rip": "0x4011f5",
+      "rsp": "0x7fffffffdef0",
+      "instr": "mov dword ptr [rbp - 0x54], edi",
+      "stack": [
+        {
+          "id": 0,
+          "addr": "0x7fffffffdef0",
+          "pos": 0,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 1,
+          "addr": "0x7fffffffdef8",
+          "pos": 8,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 2,
+          "addr": "0x7fffffffdf00",
+          "pos": 16,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 3,
+          "addr": "0x7fffffffdf08",
+          "pos": 24,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 4,
+          "addr": "0x7fffffffdf10",
+          "pos": 32,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 5,
+          "addr": "0x7fffffffdf18",
+          "pos": 40,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 6,
+          "addr": "0x7fffffffdf20",
+          "pos": 48,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 7,
+          "addr": "0x7fffffffdf28",
+          "pos": 56,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 8,
+          "addr": "0x7fffffffdf30",
+          "pos": 64,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 9,
+          "addr": "0x7fffffffdf38",
+          "pos": 72,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 10,
+          "addr": "0x7fffffffdf40",
+          "pos": 80,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 11,
+          "addr": "0x7fffffffdf48",
+          "pos": 88,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 12,
+          "addr": "0x7fffffffdf50",
+          "pos": 96,
+          "size": 8,
+          "value": "0x7fffffffdff8"
+        },
+        {
+          "id": 13,
+          "addr": "0x7fffffffdf58",
+          "pos": 104,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 14,
+          "addr": "0x7fffffffdf60",
+          "pos": 112,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 15,
+          "addr": "0x7fffffffdf68",
+          "pos": 120,
+          "size": 8,
+          "value": "0x4010d000"
+        },
+        {
+          "id": 16,
+          "addr": "0x7fffffffdf70",
+          "pos": 128,
+          "size": 8,
+          "value": "0x900"
+        },
+        {
+          "id": 17,
+          "addr": "0x7fffffffdf78",
+          "pos": 136,
+          "size": 8,
+          "value": "0x7f000000000000"
+        },
+        {
+          "id": 18,
+          "addr": "0x7fffffffdf80",
+          "pos": 144,
+          "size": 8,
+          "value": "0x700"
+        },
+        {
+          "id": 19,
+          "addr": "0x7fffffffdf88",
+          "pos": 152,
+          "size": 8,
+          "value": "0x100000"
+        },
+        {
+          "id": 20,
+          "addr": "0x7fffffffdf90",
+          "pos": 160,
+          "size": 8,
+          "value": "0x600"
+        },
+        {
+          "id": 21,
+          "addr": "0x7fffffffdf98",
+          "pos": 168,
+          "size": 8,
+          "value": "0xd00"
+        },
+        {
+          "id": 22,
+          "addr": "0x7fffffffdfa0",
+          "pos": 176,
+          "size": 8,
+          "value": "0x500"
+        },
+        {
+          "id": 23,
+          "addr": "0x7fffffffdfa8",
+          "pos": 184,
+          "size": 8,
+          "value": "0x3800"
+        }
+      ],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdf50",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdef0",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x4011f5",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 12,
+      "func": "main"
+    },
+    {
+      "step": 6,
+      "rip": "0x4011f8",
+      "rsp": "0x7fffffffdef0",
+      "instr": "mov qword ptr [rbp - 0x60], rsi",
+      "stack": [
+        {
+          "id": 0,
+          "addr": "0x7fffffffdef0",
+          "pos": 0,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 1,
+          "addr": "0x7fffffffdef8",
+          "pos": 8,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 2,
+          "addr": "0x7fffffffdf00",
+          "pos": 16,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 3,
+          "addr": "0x7fffffffdf08",
+          "pos": 24,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 4,
+          "addr": "0x7fffffffdf10",
+          "pos": 32,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 5,
+          "addr": "0x7fffffffdf18",
+          "pos": 40,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 6,
+          "addr": "0x7fffffffdf20",
+          "pos": 48,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 7,
+          "addr": "0x7fffffffdf28",
+          "pos": 56,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 8,
+          "addr": "0x7fffffffdf30",
+          "pos": 64,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 9,
+          "addr": "0x7fffffffdf38",
+          "pos": 72,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 10,
+          "addr": "0x7fffffffdf40",
+          "pos": 80,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 11,
+          "addr": "0x7fffffffdf48",
+          "pos": 88,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 12,
+          "addr": "0x7fffffffdf50",
+          "pos": 96,
+          "size": 8,
+          "value": "0x7fffffffdff8"
+        },
+        {
+          "id": 13,
+          "addr": "0x7fffffffdf58",
+          "pos": 104,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 14,
+          "addr": "0x7fffffffdf60",
+          "pos": 112,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 15,
+          "addr": "0x7fffffffdf68",
+          "pos": 120,
+          "size": 8,
+          "value": "0x4010d000"
+        },
+        {
+          "id": 16,
+          "addr": "0x7fffffffdf70",
+          "pos": 128,
+          "size": 8,
+          "value": "0x900"
+        },
+        {
+          "id": 17,
+          "addr": "0x7fffffffdf78",
+          "pos": 136,
+          "size": 8,
+          "value": "0x7f000000000000"
+        },
+        {
+          "id": 18,
+          "addr": "0x7fffffffdf80",
+          "pos": 144,
+          "size": 8,
+          "value": "0x700"
+        },
+        {
+          "id": 19,
+          "addr": "0x7fffffffdf88",
+          "pos": 152,
+          "size": 8,
+          "value": "0x100000"
+        },
+        {
+          "id": 20,
+          "addr": "0x7fffffffdf90",
+          "pos": 160,
+          "size": 8,
+          "value": "0x600"
+        },
+        {
+          "id": 21,
+          "addr": "0x7fffffffdf98",
+          "pos": 168,
+          "size": 8,
+          "value": "0xd00"
+        },
+        {
+          "id": 22,
+          "addr": "0x7fffffffdfa0",
+          "pos": 176,
+          "size": 8,
+          "value": "0x500"
+        },
+        {
+          "id": 23,
+          "addr": "0x7fffffffdfa8",
+          "pos": 184,
+          "size": 8,
+          "value": "0x3800"
+        }
+      ],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdf50",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdef0",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x4011f8",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 12,
+      "func": "main"
+    },
+    {
+      "step": 7,
+      "rip": "0x4011fc",
+      "rsp": "0x7fffffffdef0",
+      "instr": "cmp dword ptr [rbp - 0x54], 1",
+      "stack": [
+        {
+          "id": 0,
+          "addr": "0x7fffffffdef0",
+          "pos": 0,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 1,
+          "addr": "0x7fffffffdef8",
+          "pos": 8,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 2,
+          "addr": "0x7fffffffdf00",
+          "pos": 16,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 3,
+          "addr": "0x7fffffffdf08",
+          "pos": 24,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 4,
+          "addr": "0x7fffffffdf10",
+          "pos": 32,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 5,
+          "addr": "0x7fffffffdf18",
+          "pos": 40,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 6,
+          "addr": "0x7fffffffdf20",
+          "pos": 48,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 7,
+          "addr": "0x7fffffffdf28",
+          "pos": 56,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 8,
+          "addr": "0x7fffffffdf30",
+          "pos": 64,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 9,
+          "addr": "0x7fffffffdf38",
+          "pos": 72,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 10,
+          "addr": "0x7fffffffdf40",
+          "pos": 80,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 11,
+          "addr": "0x7fffffffdf48",
+          "pos": 88,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 12,
+          "addr": "0x7fffffffdf50",
+          "pos": 96,
+          "size": 8,
+          "value": "0x7fffffffdff8"
+        },
+        {
+          "id": 13,
+          "addr": "0x7fffffffdf58",
+          "pos": 104,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 14,
+          "addr": "0x7fffffffdf60",
+          "pos": 112,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 15,
+          "addr": "0x7fffffffdf68",
+          "pos": 120,
+          "size": 8,
+          "value": "0x4010d000"
+        },
+        {
+          "id": 16,
+          "addr": "0x7fffffffdf70",
+          "pos": 128,
+          "size": 8,
+          "value": "0x900"
+        },
+        {
+          "id": 17,
+          "addr": "0x7fffffffdf78",
+          "pos": 136,
+          "size": 8,
+          "value": "0x7f000000000000"
+        },
+        {
+          "id": 18,
+          "addr": "0x7fffffffdf80",
+          "pos": 144,
+          "size": 8,
+          "value": "0x700"
+        },
+        {
+          "id": 19,
+          "addr": "0x7fffffffdf88",
+          "pos": 152,
+          "size": 8,
+          "value": "0x100000"
+        },
+        {
+          "id": 20,
+          "addr": "0x7fffffffdf90",
+          "pos": 160,
+          "size": 8,
+          "value": "0x600"
+        },
+        {
+          "id": 21,
+          "addr": "0x7fffffffdf98",
+          "pos": 168,
+          "size": 8,
+          "value": "0xd00"
+        },
+        {
+          "id": 22,
+          "addr": "0x7fffffffdfa0",
+          "pos": 176,
+          "size": 8,
+          "value": "0x500"
+        },
+        {
+          "id": 23,
+          "addr": "0x7fffffffdfa8",
+          "pos": 184,
+          "size": 8,
+          "value": "0x3800"
+        }
+      ],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdf50",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdef0",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x4011fc",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 16,
+      "func": "main"
+    },
+    {
+      "step": 8,
+      "rip": "0x401200",
+      "rsp": "0x7fffffffdef0",
+      "instr": "jne 0x401216",
+      "stack": [
+        {
+          "id": 0,
+          "addr": "0x7fffffffdef0",
+          "pos": 0,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 1,
+          "addr": "0x7fffffffdef8",
+          "pos": 8,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 2,
+          "addr": "0x7fffffffdf00",
+          "pos": 16,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 3,
+          "addr": "0x7fffffffdf08",
+          "pos": 24,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 4,
+          "addr": "0x7fffffffdf10",
+          "pos": 32,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 5,
+          "addr": "0x7fffffffdf18",
+          "pos": 40,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 6,
+          "addr": "0x7fffffffdf20",
+          "pos": 48,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 7,
+          "addr": "0x7fffffffdf28",
+          "pos": 56,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 8,
+          "addr": "0x7fffffffdf30",
+          "pos": 64,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 9,
+          "addr": "0x7fffffffdf38",
+          "pos": 72,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 10,
+          "addr": "0x7fffffffdf40",
+          "pos": 80,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 11,
+          "addr": "0x7fffffffdf48",
+          "pos": 88,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 12,
+          "addr": "0x7fffffffdf50",
+          "pos": 96,
+          "size": 8,
+          "value": "0x7fffffffdff8"
+        },
+        {
+          "id": 13,
+          "addr": "0x7fffffffdf58",
+          "pos": 104,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 14,
+          "addr": "0x7fffffffdf60",
+          "pos": 112,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 15,
+          "addr": "0x7fffffffdf68",
+          "pos": 120,
+          "size": 8,
+          "value": "0x4010d000"
+        },
+        {
+          "id": 16,
+          "addr": "0x7fffffffdf70",
+          "pos": 128,
+          "size": 8,
+          "value": "0x900"
+        },
+        {
+          "id": 17,
+          "addr": "0x7fffffffdf78",
+          "pos": 136,
+          "size": 8,
+          "value": "0x7f000000000000"
+        },
+        {
+          "id": 18,
+          "addr": "0x7fffffffdf80",
+          "pos": 144,
+          "size": 8,
+          "value": "0x700"
+        },
+        {
+          "id": 19,
+          "addr": "0x7fffffffdf88",
+          "pos": 152,
+          "size": 8,
+          "value": "0x100000"
+        },
+        {
+          "id": 20,
+          "addr": "0x7fffffffdf90",
+          "pos": 160,
+          "size": 8,
+          "value": "0x600"
+        },
+        {
+          "id": 21,
+          "addr": "0x7fffffffdf98",
+          "pos": 168,
+          "size": 8,
+          "value": "0xd00"
+        },
+        {
+          "id": 22,
+          "addr": "0x7fffffffdfa0",
+          "pos": 176,
+          "size": 8,
+          "value": "0x500"
+        },
+        {
+          "id": 23,
+          "addr": "0x7fffffffdfa8",
+          "pos": 184,
+          "size": 8,
+          "value": "0x3800"
+        }
+      ],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdf50",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdef0",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x401200",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 16,
+      "func": "main"
+    },
+    {
+      "step": 9,
+      "rip": "0x401216",
+      "rsp": "0x7fffffffdef0",
+      "instr": "mov dword ptr [rbp - 4], 0",
+      "stack": [
+        {
+          "id": 0,
+          "addr": "0x7fffffffdef0",
+          "pos": 0,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 1,
+          "addr": "0x7fffffffdef8",
+          "pos": 8,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 2,
+          "addr": "0x7fffffffdf00",
+          "pos": 16,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 3,
+          "addr": "0x7fffffffdf08",
+          "pos": 24,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 4,
+          "addr": "0x7fffffffdf10",
+          "pos": 32,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 5,
+          "addr": "0x7fffffffdf18",
+          "pos": 40,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 6,
+          "addr": "0x7fffffffdf20",
+          "pos": 48,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 7,
+          "addr": "0x7fffffffdf28",
+          "pos": 56,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 8,
+          "addr": "0x7fffffffdf30",
+          "pos": 64,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 9,
+          "addr": "0x7fffffffdf38",
+          "pos": 72,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 10,
+          "addr": "0x7fffffffdf40",
+          "pos": 80,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 11,
+          "addr": "0x7fffffffdf48",
+          "pos": 88,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 12,
+          "addr": "0x7fffffffdf50",
+          "pos": 96,
+          "size": 8,
+          "value": "0x7fffffffdff8"
+        },
+        {
+          "id": 13,
+          "addr": "0x7fffffffdf58",
+          "pos": 104,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 14,
+          "addr": "0x7fffffffdf60",
+          "pos": 112,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 15,
+          "addr": "0x7fffffffdf68",
+          "pos": 120,
+          "size": 8,
+          "value": "0x4010d000"
+        },
+        {
+          "id": 16,
+          "addr": "0x7fffffffdf70",
+          "pos": 128,
+          "size": 8,
+          "value": "0x900"
+        },
+        {
+          "id": 17,
+          "addr": "0x7fffffffdf78",
+          "pos": 136,
+          "size": 8,
+          "value": "0x7f000000000000"
+        },
+        {
+          "id": 18,
+          "addr": "0x7fffffffdf80",
+          "pos": 144,
+          "size": 8,
+          "value": "0x700"
+        },
+        {
+          "id": 19,
+          "addr": "0x7fffffffdf88",
+          "pos": 152,
+          "size": 8,
+          "value": "0x100000"
+        },
+        {
+          "id": 20,
+          "addr": "0x7fffffffdf90",
+          "pos": 160,
+          "size": 8,
+          "value": "0x600"
+        },
+        {
+          "id": 21,
+          "addr": "0x7fffffffdf98",
+          "pos": 168,
+          "size": 8,
+          "value": "0xd00"
+        },
+        {
+          "id": 22,
+          "addr": "0x7fffffffdfa0",
+          "pos": 176,
+          "size": 8,
+          "value": "0x500"
+        },
+        {
+          "id": 23,
+          "addr": "0x7fffffffdfa8",
+          "pos": 184,
+          "size": 8,
+          "value": "0x3800"
+        }
+      ],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdf50",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdef0",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x401216",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 20,
+      "func": "main"
+    },
+    {
+      "step": 10,
+      "rip": "0x40121d",
+      "rsp": "0x7fffffffdef0",
+      "instr": "mov rax, qword ptr [rbp - 0x60]",
+      "stack": [
+        {
+          "id": 0,
+          "addr": "0x7fffffffdef0",
+          "pos": 0,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 1,
+          "addr": "0x7fffffffdef8",
+          "pos": 8,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 2,
+          "addr": "0x7fffffffdf00",
+          "pos": 16,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 3,
+          "addr": "0x7fffffffdf08",
+          "pos": 24,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 4,
+          "addr": "0x7fffffffdf10",
+          "pos": 32,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 5,
+          "addr": "0x7fffffffdf18",
+          "pos": 40,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 6,
+          "addr": "0x7fffffffdf20",
+          "pos": 48,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 7,
+          "addr": "0x7fffffffdf28",
+          "pos": 56,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 8,
+          "addr": "0x7fffffffdf30",
+          "pos": 64,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 9,
+          "addr": "0x7fffffffdf38",
+          "pos": 72,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 10,
+          "addr": "0x7fffffffdf40",
+          "pos": 80,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 11,
+          "addr": "0x7fffffffdf48",
+          "pos": 88,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 12,
+          "addr": "0x7fffffffdf50",
+          "pos": 96,
+          "size": 8,
+          "value": "0x7fffffffdff8"
+        },
+        {
+          "id": 13,
+          "addr": "0x7fffffffdf58",
+          "pos": 104,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 14,
+          "addr": "0x7fffffffdf60",
+          "pos": 112,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 15,
+          "addr": "0x7fffffffdf68",
+          "pos": 120,
+          "size": 8,
+          "value": "0x4010d000"
+        },
+        {
+          "id": 16,
+          "addr": "0x7fffffffdf70",
+          "pos": 128,
+          "size": 8,
+          "value": "0x900"
+        },
+        {
+          "id": 17,
+          "addr": "0x7fffffffdf78",
+          "pos": 136,
+          "size": 8,
+          "value": "0x7f000000000000"
+        },
+        {
+          "id": 18,
+          "addr": "0x7fffffffdf80",
+          "pos": 144,
+          "size": 8,
+          "value": "0x700"
+        },
+        {
+          "id": 19,
+          "addr": "0x7fffffffdf88",
+          "pos": 152,
+          "size": 8,
+          "value": "0x100000"
+        },
+        {
+          "id": 20,
+          "addr": "0x7fffffffdf90",
+          "pos": 160,
+          "size": 8,
+          "value": "0x600"
+        },
+        {
+          "id": 21,
+          "addr": "0x7fffffffdf98",
+          "pos": 168,
+          "size": 8,
+          "value": "0xd00"
+        },
+        {
+          "id": 22,
+          "addr": "0x7fffffffdfa0",
+          "pos": 176,
+          "size": 8,
+          "value": "0x500"
+        },
+        {
+          "id": 23,
+          "addr": "0x7fffffffdfa8",
+          "pos": 184,
+          "size": 8,
+          "value": "0x3800"
+        }
+      ],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdf50",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdef0",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x40121d",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 21,
+      "func": "main"
+    },
+    {
+      "step": 11,
+      "rip": "0x401221",
+      "rsp": "0x7fffffffdef0",
+      "instr": "add rax, 8",
+      "stack": [
+        {
+          "id": 0,
+          "addr": "0x7fffffffdef0",
+          "pos": 0,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 1,
+          "addr": "0x7fffffffdef8",
+          "pos": 8,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 2,
+          "addr": "0x7fffffffdf00",
+          "pos": 16,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 3,
+          "addr": "0x7fffffffdf08",
+          "pos": 24,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 4,
+          "addr": "0x7fffffffdf10",
+          "pos": 32,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 5,
+          "addr": "0x7fffffffdf18",
+          "pos": 40,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 6,
+          "addr": "0x7fffffffdf20",
+          "pos": 48,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 7,
+          "addr": "0x7fffffffdf28",
+          "pos": 56,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 8,
+          "addr": "0x7fffffffdf30",
+          "pos": 64,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 9,
+          "addr": "0x7fffffffdf38",
+          "pos": 72,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 10,
+          "addr": "0x7fffffffdf40",
+          "pos": 80,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 11,
+          "addr": "0x7fffffffdf48",
+          "pos": 88,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 12,
+          "addr": "0x7fffffffdf50",
+          "pos": 96,
+          "size": 8,
+          "value": "0x7fffffffdff8"
+        },
+        {
+          "id": 13,
+          "addr": "0x7fffffffdf58",
+          "pos": 104,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 14,
+          "addr": "0x7fffffffdf60",
+          "pos": 112,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 15,
+          "addr": "0x7fffffffdf68",
+          "pos": 120,
+          "size": 8,
+          "value": "0x4010d000"
+        },
+        {
+          "id": 16,
+          "addr": "0x7fffffffdf70",
+          "pos": 128,
+          "size": 8,
+          "value": "0x900"
+        },
+        {
+          "id": 17,
+          "addr": "0x7fffffffdf78",
+          "pos": 136,
+          "size": 8,
+          "value": "0x7f000000000000"
+        },
+        {
+          "id": 18,
+          "addr": "0x7fffffffdf80",
+          "pos": 144,
+          "size": 8,
+          "value": "0x700"
+        },
+        {
+          "id": 19,
+          "addr": "0x7fffffffdf88",
+          "pos": 152,
+          "size": 8,
+          "value": "0x100000"
+        },
+        {
+          "id": 20,
+          "addr": "0x7fffffffdf90",
+          "pos": 160,
+          "size": 8,
+          "value": "0x600"
+        },
+        {
+          "id": 21,
+          "addr": "0x7fffffffdf98",
+          "pos": 168,
+          "size": 8,
+          "value": "0xd00"
+        },
+        {
+          "id": 22,
+          "addr": "0x7fffffffdfa0",
+          "pos": 176,
+          "size": 8,
+          "value": "0x500"
+        },
+        {
+          "id": 23,
+          "addr": "0x7fffffffdfa8",
+          "pos": 184,
+          "size": 8,
+          "value": "0x3800"
+        }
+      ],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x0",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdf50",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdef0",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x401221",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 21,
+      "func": "main"
+    },
+    {
+      "step": 12,
+      "rip": "0x401225",
+      "rsp": "0x7fffffffdef0",
+      "instr": "mov rdx, qword ptr [rax]",
+      "stack": [
+        {
+          "id": 0,
+          "addr": "0x7fffffffdef0",
+          "pos": 0,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 1,
+          "addr": "0x7fffffffdef8",
+          "pos": 8,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 2,
+          "addr": "0x7fffffffdf00",
+          "pos": 16,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 3,
+          "addr": "0x7fffffffdf08",
+          "pos": 24,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 4,
+          "addr": "0x7fffffffdf10",
+          "pos": 32,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 5,
+          "addr": "0x7fffffffdf18",
+          "pos": 40,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 6,
+          "addr": "0x7fffffffdf20",
+          "pos": 48,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 7,
+          "addr": "0x7fffffffdf28",
+          "pos": 56,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 8,
+          "addr": "0x7fffffffdf30",
+          "pos": 64,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 9,
+          "addr": "0x7fffffffdf38",
+          "pos": 72,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 10,
+          "addr": "0x7fffffffdf40",
+          "pos": 80,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 11,
+          "addr": "0x7fffffffdf48",
+          "pos": 88,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 12,
+          "addr": "0x7fffffffdf50",
+          "pos": 96,
+          "size": 8,
+          "value": "0x7fffffffdff8"
+        },
+        {
+          "id": 13,
+          "addr": "0x7fffffffdf58",
+          "pos": 104,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 14,
+          "addr": "0x7fffffffdf60",
+          "pos": 112,
+          "size": 8,
+          "value": "0x0"
+        },
+        {
+          "id": 15,
+          "addr": "0x7fffffffdf68",
+          "pos": 120,
+          "size": 8,
+          "value": "0x4010d000"
+        },
+        {
+          "id": 16,
+          "addr": "0x7fffffffdf70",
+          "pos": 128,
+          "size": 8,
+          "value": "0x900"
+        },
+        {
+          "id": 17,
+          "addr": "0x7fffffffdf78",
+          "pos": 136,
+          "size": 8,
+          "value": "0x7f000000000000"
+        },
+        {
+          "id": 18,
+          "addr": "0x7fffffffdf80",
+          "pos": 144,
+          "size": 8,
+          "value": "0x700"
+        },
+        {
+          "id": 19,
+          "addr": "0x7fffffffdf88",
+          "pos": 152,
+          "size": 8,
+          "value": "0x100000"
+        },
+        {
+          "id": 20,
+          "addr": "0x7fffffffdf90",
+          "pos": 160,
+          "size": 8,
+          "value": "0x600"
+        },
+        {
+          "id": 21,
+          "addr": "0x7fffffffdf98",
+          "pos": 168,
+          "size": 8,
+          "value": "0xd00"
+        },
+        {
+          "id": 22,
+          "addr": "0x7fffffffdfa0",
+          "pos": 176,
+          "size": 8,
+          "value": "0x500"
+        },
+        {
+          "id": 23,
+          "addr": "0x7fffffffdfa8",
+          "pos": 184,
+          "size": 8,
+          "value": "0x3800"
+        }
+      ],
+      "registers": [
+        {
+          "name": "rax",
+          "value": "0x8",
+          "pos": 0
+        },
+        {
+          "name": "rbx",
+          "value": "0x0",
+          "pos": 1
+        },
+        {
+          "name": "rcx",
+          "value": "0x0",
+          "pos": 2
+        },
+        {
+          "name": "rdx",
+          "value": "0x0",
+          "pos": 3
+        },
+        {
+          "name": "rsi",
+          "value": "0x0",
+          "pos": 4
+        },
+        {
+          "name": "rdi",
+          "value": "0x0",
+          "pos": 5
+        },
+        {
+          "name": "rbp",
+          "value": "0x7fffffffdf50",
+          "pos": 6
+        },
+        {
+          "name": "rsp",
+          "value": "0x7fffffffdef0",
+          "pos": 7
+        },
+        {
+          "name": "rip",
+          "value": "0x401225",
+          "pos": 8
+        },
+        {
+          "name": "r8",
+          "value": "0x0",
+          "pos": 9
+        },
+        {
+          "name": "r9",
+          "value": "0x0",
+          "pos": 10
+        },
+        {
+          "name": "r10",
+          "value": "0x0",
+          "pos": 11
+        },
+        {
+          "name": "r11",
+          "value": "0x0",
+          "pos": 12
+        },
+        {
+          "name": "r12",
+          "value": "0x0",
+          "pos": 13
+        },
+        {
+          "name": "r13",
+          "value": "0x0",
+          "pos": 14
+        },
+        {
+          "name": "r14",
+          "value": "0x0",
+          "pos": 15
+        },
+        {
+          "name": "r15",
+          "value": "0x0",
+          "pos": 16
+        }
+      ],
+      "file": "/home/Sandro/Desktop/Pile_ou_face/Pile_Ou_Face-main/examples/stack3.c",
+      "line": 21,
+      "func": "main"
+    }
+  ],
+  "risks": [],
+  "meta": {
+    "steps": 12,
+    "error": "Invalid memory read (UC_ERR_READ_UNMAPPED)",
+    "base": "0x0",
+    "stack_base": "0x7ffffffde000",
+    "stack_size": 131072,
+    "arch_bits": 64,
+    "elf_entry": "0x4010d0",
+    "elf_pie": false,
+    "elf_interp": "/lib64/ld-linux-x86-64.so.2",
+    "elf_interp_started": false,
+    "word_size": 8,
+    "buffer_offset": null,
+    "buffer_size": 0,
+    "stdin_len": 4,
+    "binary": "examples/stack3_64.elf",
+    "source": null,
+    "disasm_path": "output.disasm.asm",
+    "disasm": [
+      {
+        "addr": "0x401000",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 8
+      },
+      {
+        "addr": "0x401004",
+        "text": "48 83 ec 08          \tsub    rsp,0x8",
+        "line": 9
+      },
+      {
+        "addr": "0x401008",
+        "text": "48 8b 05 e9 2f 00 00 \tmov    rax,QWORD PTR [rip+0x2fe9]        # 403ff8 <__gmon_start__@Base>",
+        "line": 10
+      },
+      {
+        "addr": "0x40100f",
+        "text": "48 85 c0             \ttest   rax,rax",
+        "line": 11
+      },
+      {
+        "addr": "0x401012",
+        "text": "74 02                \tje     401016 <_init+0x16>",
+        "line": 12
+      },
+      {
+        "addr": "0x401014",
+        "text": "ff d0                \tcall   rax",
+        "line": 13
+      },
+      {
+        "addr": "0x401016",
+        "text": "48 83 c4 08          \tadd    rsp,0x8",
+        "line": 14
+      },
+      {
+        "addr": "0x40101a",
+        "text": "c3                   \tret",
+        "line": 15
+      },
+      {
+        "addr": "0x401020",
+        "text": "ff 35 92 2f 00 00    \tpush   QWORD PTR [rip+0x2f92]        # 403fb8 <_GLOBAL_OFFSET_TABLE_+0x8>",
+        "line": 20
+      },
+      {
+        "addr": "0x401026",
+        "text": "ff 25 94 2f 00 00    \tjmp    QWORD PTR [rip+0x2f94]        # 403fc0 <_GLOBAL_OFFSET_TABLE_+0x10>",
+        "line": 21
+      },
+      {
+        "addr": "0x40102c",
+        "text": "0f 1f 40 00          \tnop    DWORD PTR [rax+0x0]",
+        "line": 22
+      },
+      {
+        "addr": "0x401030",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 23
+      },
+      {
+        "addr": "0x401034",
+        "text": "68 00 00 00 00       \tpush   0x0",
+        "line": 24
+      },
+      {
+        "addr": "0x401039",
+        "text": "e9 e2 ff ff ff       \tjmp    401020 <_init+0x20>",
+        "line": 25
+      },
+      {
+        "addr": "0x40103e",
+        "text": "66 90                \txchg   ax,ax",
+        "line": 26
+      },
+      {
+        "addr": "0x401040",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 27
+      },
+      {
+        "addr": "0x401044",
+        "text": "68 01 00 00 00       \tpush   0x1",
+        "line": 28
+      },
+      {
+        "addr": "0x401049",
+        "text": "e9 d2 ff ff ff       \tjmp    401020 <_init+0x20>",
+        "line": 29
+      },
+      {
+        "addr": "0x40104e",
+        "text": "66 90                \txchg   ax,ax",
+        "line": 30
+      },
+      {
+        "addr": "0x401050",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 31
+      },
+      {
+        "addr": "0x401054",
+        "text": "68 02 00 00 00       \tpush   0x2",
+        "line": 32
+      },
+      {
+        "addr": "0x401059",
+        "text": "e9 c2 ff ff ff       \tjmp    401020 <_init+0x20>",
+        "line": 33
+      },
+      {
+        "addr": "0x40105e",
+        "text": "66 90                \txchg   ax,ax",
+        "line": 34
+      },
+      {
+        "addr": "0x401060",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 35
+      },
+      {
+        "addr": "0x401064",
+        "text": "68 03 00 00 00       \tpush   0x3",
+        "line": 36
+      },
+      {
+        "addr": "0x401069",
+        "text": "e9 b2 ff ff ff       \tjmp    401020 <_init+0x20>",
+        "line": 37
+      },
+      {
+        "addr": "0x40106e",
+        "text": "66 90                \txchg   ax,ax",
+        "line": 38
+      },
+      {
+        "addr": "0x401070",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 39
+      },
+      {
+        "addr": "0x401074",
+        "text": "68 04 00 00 00       \tpush   0x4",
+        "line": 40
+      },
+      {
+        "addr": "0x401079",
+        "text": "e9 a2 ff ff ff       \tjmp    401020 <_init+0x20>",
+        "line": 41
+      },
+      {
+        "addr": "0x40107e",
+        "text": "66 90                \txchg   ax,ax",
+        "line": 42
+      },
+      {
+        "addr": "0x401080",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 47
+      },
+      {
+        "addr": "0x401084",
+        "text": "ff 25 3e 2f 00 00    \tjmp    QWORD PTR [rip+0x2f3e]        # 403fc8 <strcpy@GLIBC_2.2.5>",
+        "line": 48
+      },
+      {
+        "addr": "0x40108a",
+        "text": "66 0f 1f 44 00 00    \tnop    WORD PTR [rax+rax*1+0x0]",
+        "line": 49
+      },
+      {
+        "addr": "0x401090",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 52
+      },
+      {
+        "addr": "0x401094",
+        "text": "ff 25 36 2f 00 00    \tjmp    QWORD PTR [rip+0x2f36]        # 403fd0 <puts@GLIBC_2.2.5>",
+        "line": 53
+      },
+      {
+        "addr": "0x40109a",
+        "text": "66 0f 1f 44 00 00    \tnop    WORD PTR [rax+rax*1+0x0]",
+        "line": 54
+      },
+      {
+        "addr": "0x4010a0",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 57
+      },
+      {
+        "addr": "0x4010a4",
+        "text": "ff 25 2e 2f 00 00    \tjmp    QWORD PTR [rip+0x2f2e]        # 403fd8 <printf@GLIBC_2.2.5>",
+        "line": 58
+      },
+      {
+        "addr": "0x4010aa",
+        "text": "66 0f 1f 44 00 00    \tnop    WORD PTR [rax+rax*1+0x0]",
+        "line": 59
+      },
+      {
+        "addr": "0x4010b0",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 62
+      },
+      {
+        "addr": "0x4010b4",
+        "text": "ff 25 26 2f 00 00    \tjmp    QWORD PTR [rip+0x2f26]        # 403fe0 <fputs@GLIBC_2.2.5>",
+        "line": 63
+      },
+      {
+        "addr": "0x4010ba",
+        "text": "66 0f 1f 44 00 00    \tnop    WORD PTR [rax+rax*1+0x0]",
+        "line": 64
+      },
+      {
+        "addr": "0x4010c0",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 67
+      },
+      {
+        "addr": "0x4010c4",
+        "text": "ff 25 1e 2f 00 00    \tjmp    QWORD PTR [rip+0x2f1e]        # 403fe8 <exit@GLIBC_2.2.5>",
+        "line": 68
+      },
+      {
+        "addr": "0x4010ca",
+        "text": "66 0f 1f 44 00 00    \tnop    WORD PTR [rax+rax*1+0x0]",
+        "line": 69
+      },
+      {
+        "addr": "0x4010d0",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 74
+      },
+      {
+        "addr": "0x4010d4",
+        "text": "31 ed                \txor    ebp,ebp",
+        "line": 75
+      },
+      {
+        "addr": "0x4010d6",
+        "text": "49 89 d1             \tmov    r9,rdx",
+        "line": 76
+      },
+      {
+        "addr": "0x4010d9",
+        "text": "5e                   \tpop    rsi",
+        "line": 77
+      },
+      {
+        "addr": "0x4010da",
+        "text": "48 89 e2             \tmov    rdx,rsp",
+        "line": 78
+      },
+      {
+        "addr": "0x4010dd",
+        "text": "48 83 e4 f0          \tand    rsp,0xfffffffffffffff0",
+        "line": 79
+      },
+      {
+        "addr": "0x4010e1",
+        "text": "50                   \tpush   rax",
+        "line": 80
+      },
+      {
+        "addr": "0x4010e2",
+        "text": "54                   \tpush   rsp",
+        "line": 81
+      },
+      {
+        "addr": "0x4010e3",
+        "text": "45 31 c0             \txor    r8d,r8d",
+        "line": 82
+      },
+      {
+        "addr": "0x4010e6",
+        "text": "31 c9                \txor    ecx,ecx",
+        "line": 83
+      },
+      {
+        "addr": "0x4010e8",
+        "text": "48 c7 c7 e9 11 40 00 \tmov    rdi,0x4011e9",
+        "line": 84
+      },
+      {
+        "addr": "0x4010ef",
+        "text": "ff 15 fb 2e 00 00    \tcall   QWORD PTR [rip+0x2efb]        # 403ff0 <__libc_start_main@GLIBC_2.34>",
+        "line": 85
+      },
+      {
+        "addr": "0x4010f5",
+        "text": "f4                   \thlt",
+        "line": 86
+      },
+      {
+        "addr": "0x4010f6",
+        "text": "66 2e 0f 1f 84 00 00 \tcs nop WORD PTR [rax+rax*1+0x0]",
+        "line": 87
+      },
+      {
+        "addr": "0x4010fd",
+        "text": "00 00 00",
+        "line": 88
+      },
+      {
+        "addr": "0x401100",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 91
+      },
+      {
+        "addr": "0x401104",
+        "text": "c3                   \tret",
+        "line": 92
+      },
+      {
+        "addr": "0x401105",
+        "text": "66 2e 0f 1f 84 00 00 \tcs nop WORD PTR [rax+rax*1+0x0]",
+        "line": 93
+      },
+      {
+        "addr": "0x40110c",
+        "text": "00 00 00",
+        "line": 94
+      },
+      {
+        "addr": "0x40110f",
+        "text": "90                   \tnop",
+        "line": 95
+      },
+      {
+        "addr": "0x401110",
+        "text": "b8 10 40 40 00       \tmov    eax,0x404010",
+        "line": 96
+      },
+      {
+        "addr": "0x401115",
+        "text": "48 3d 10 40 40 00    \tcmp    rax,0x404010",
+        "line": 97
+      },
+      {
+        "addr": "0x40111b",
+        "text": "74 13                \tje     401130 <_dl_relocate_static_pie+0x30>",
+        "line": 98
+      },
+      {
+        "addr": "0x40111d",
+        "text": "b8 00 00 00 00       \tmov    eax,0x0",
+        "line": 99
+      },
+      {
+        "addr": "0x401122",
+        "text": "48 85 c0             \ttest   rax,rax",
+        "line": 100
+      },
+      {
+        "addr": "0x401125",
+        "text": "74 09                \tje     401130 <_dl_relocate_static_pie+0x30>",
+        "line": 101
+      },
+      {
+        "addr": "0x401127",
+        "text": "bf 10 40 40 00       \tmov    edi,0x404010",
+        "line": 102
+      },
+      {
+        "addr": "0x40112c",
+        "text": "ff e0                \tjmp    rax",
+        "line": 103
+      },
+      {
+        "addr": "0x40112e",
+        "text": "66 90                \txchg   ax,ax",
+        "line": 104
+      },
+      {
+        "addr": "0x401130",
+        "text": "c3                   \tret",
+        "line": 105
+      },
+      {
+        "addr": "0x401131",
+        "text": "66 66 2e 0f 1f 84 00 \tdata16 cs nop WORD PTR [rax+rax*1+0x0]",
+        "line": 106
+      },
+      {
+        "addr": "0x401138",
+        "text": "00 00 00 00",
+        "line": 107
+      },
+      {
+        "addr": "0x40113c",
+        "text": "0f 1f 40 00          \tnop    DWORD PTR [rax+0x0]",
+        "line": 108
+      },
+      {
+        "addr": "0x401140",
+        "text": "be 10 40 40 00       \tmov    esi,0x404010",
+        "line": 109
+      },
+      {
+        "addr": "0x401145",
+        "text": "48 81 ee 10 40 40 00 \tsub    rsi,0x404010",
+        "line": 110
+      },
+      {
+        "addr": "0x40114c",
+        "text": "48 89 f0             \tmov    rax,rsi",
+        "line": 111
+      },
+      {
+        "addr": "0x40114f",
+        "text": "48 c1 ee 3f          \tshr    rsi,0x3f",
+        "line": 112
+      },
+      {
+        "addr": "0x401153",
+        "text": "48 c1 f8 03          \tsar    rax,0x3",
+        "line": 113
+      },
+      {
+        "addr": "0x401157",
+        "text": "48 01 c6             \tadd    rsi,rax",
+        "line": 114
+      },
+      {
+        "addr": "0x40115a",
+        "text": "48 d1 fe             \tsar    rsi,1",
+        "line": 115
+      },
+      {
+        "addr": "0x40115d",
+        "text": "74 11                \tje     401170 <_dl_relocate_static_pie+0x70>",
+        "line": 116
+      },
+      {
+        "addr": "0x40115f",
+        "text": "b8 00 00 00 00       \tmov    eax,0x0",
+        "line": 117
+      },
+      {
+        "addr": "0x401164",
+        "text": "48 85 c0             \ttest   rax,rax",
+        "line": 118
+      },
+      {
+        "addr": "0x401167",
+        "text": "74 07                \tje     401170 <_dl_relocate_static_pie+0x70>",
+        "line": 119
+      },
+      {
+        "addr": "0x401169",
+        "text": "bf 10 40 40 00       \tmov    edi,0x404010",
+        "line": 120
+      },
+      {
+        "addr": "0x40116e",
+        "text": "ff e0                \tjmp    rax",
+        "line": 121
+      },
+      {
+        "addr": "0x401170",
+        "text": "c3                   \tret",
+        "line": 122
+      },
+      {
+        "addr": "0x401171",
+        "text": "66 66 2e 0f 1f 84 00 \tdata16 cs nop WORD PTR [rax+rax*1+0x0]",
+        "line": 123
+      },
+      {
+        "addr": "0x401178",
+        "text": "00 00 00 00",
+        "line": 124
+      },
+      {
+        "addr": "0x40117c",
+        "text": "0f 1f 40 00          \tnop    DWORD PTR [rax+0x0]",
+        "line": 125
+      },
+      {
+        "addr": "0x401180",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 126
+      },
+      {
+        "addr": "0x401184",
+        "text": "80 3d 9d 2e 00 00 00 \tcmp    BYTE PTR [rip+0x2e9d],0x0        # 404028 <stderr@GLIBC_2.2.5+0x8>",
+        "line": 127
+      },
+      {
+        "addr": "0x40118b",
+        "text": "75 13                \tjne    4011a0 <_dl_relocate_static_pie+0xa0>",
+        "line": 128
+      },
+      {
+        "addr": "0x40118d",
+        "text": "55                   \tpush   rbp",
+        "line": 129
+      },
+      {
+        "addr": "0x40118e",
+        "text": "48 89 e5             \tmov    rbp,rsp",
+        "line": 130
+      },
+      {
+        "addr": "0x401191",
+        "text": "e8 7a ff ff ff       \tcall   401110 <_dl_relocate_static_pie+0x10>",
+        "line": 131
+      },
+      {
+        "addr": "0x401196",
+        "text": "c6 05 8b 2e 00 00 01 \tmov    BYTE PTR [rip+0x2e8b],0x1        # 404028 <stderr@GLIBC_2.2.5+0x8>",
+        "line": 132
+      },
+      {
+        "addr": "0x40119d",
+        "text": "5d                   \tpop    rbp",
+        "line": 133
+      },
+      {
+        "addr": "0x40119e",
+        "text": "c3                   \tret",
+        "line": 134
+      },
+      {
+        "addr": "0x40119f",
+        "text": "90                   \tnop",
+        "line": 135
+      },
+      {
+        "addr": "0x4011a0",
+        "text": "c3                   \tret",
+        "line": 136
+      },
+      {
+        "addr": "0x4011a1",
+        "text": "66 66 2e 0f 1f 84 00 \tdata16 cs nop WORD PTR [rax+rax*1+0x0]",
+        "line": 137
+      },
+      {
+        "addr": "0x4011a8",
+        "text": "00 00 00 00",
+        "line": 138
+      },
+      {
+        "addr": "0x4011ac",
+        "text": "0f 1f 40 00          \tnop    DWORD PTR [rax+0x0]",
+        "line": 139
+      },
+      {
+        "addr": "0x4011b0",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 140
+      },
+      {
+        "addr": "0x4011b4",
+        "text": "eb 8a                \tjmp    401140 <_dl_relocate_static_pie+0x40>",
+        "line": 141
+      },
+      {
+        "addr": "0x4011b6",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 144
+      },
+      {
+        "addr": "0x4011ba",
+        "text": "55                   \tpush   rbp",
+        "line": 145
+      },
+      {
+        "addr": "0x4011bb",
+        "text": "48 89 e5             \tmov    rbp,rsp",
+        "line": 146
+      },
+      {
+        "addr": "0x4011be",
+        "text": "48 83 ec 10          \tsub    rsp,0x10",
+        "line": 147
+      },
+      {
+        "addr": "0x4011c2",
+        "text": "89 7d fc             \tmov    DWORD PTR [rbp-0x4],edi",
+        "line": 148
+      },
+      {
+        "addr": "0x4011c5",
+        "text": "48 89 75 f0          \tmov    QWORD PTR [rbp-0x10],rsi",
+        "line": 149
+      },
+      {
+        "addr": "0x4011c9",
+        "text": "48 8b 15 50 2e 00 00 \tmov    rdx,QWORD PTR [rip+0x2e50]        # 404020 <stderr@GLIBC_2.2.5>",
+        "line": 150
+      },
+      {
+        "addr": "0x4011d0",
+        "text": "48 8b 45 f0          \tmov    rax,QWORD PTR [rbp-0x10]",
+        "line": 151
+      },
+      {
+        "addr": "0x4011d4",
+        "text": "48 89 d6             \tmov    rsi,rdx",
+        "line": 152
+      },
+      {
+        "addr": "0x4011d7",
+        "text": "48 89 c7             \tmov    rdi,rax",
+        "line": 153
+      },
+      {
+        "addr": "0x4011da",
+        "text": "e8 d1 fe ff ff       \tcall   4010b0 <fputs@plt>",
+        "line": 154
+      },
+      {
+        "addr": "0x4011df",
+        "text": "8b 45 fc             \tmov    eax,DWORD PTR [rbp-0x4]",
+        "line": 155
+      },
+      {
+        "addr": "0x4011e2",
+        "text": "89 c7                \tmov    edi,eax",
+        "line": 156
+      },
+      {
+        "addr": "0x4011e4",
+        "text": "e8 d7 fe ff ff       \tcall   4010c0 <exit@plt>",
+        "line": 157
+      },
+      {
+        "addr": "0x4011e9",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 160
+      },
+      {
+        "addr": "0x4011ed",
+        "text": "55                   \tpush   rbp",
+        "line": 161
+      },
+      {
+        "addr": "0x4011ee",
+        "text": "48 89 e5             \tmov    rbp,rsp",
+        "line": 162
+      },
+      {
+        "addr": "0x4011f1",
+        "text": "48 83 ec 60          \tsub    rsp,0x60",
+        "line": 163
+      },
+      {
+        "addr": "0x4011f5",
+        "text": "89 7d ac             \tmov    DWORD PTR [rbp-0x54],edi",
+        "line": 164
+      },
+      {
+        "addr": "0x4011f8",
+        "text": "48 89 75 a0          \tmov    QWORD PTR [rbp-0x60],rsi",
+        "line": 165
+      },
+      {
+        "addr": "0x4011fc",
+        "text": "83 7d ac 01          \tcmp    DWORD PTR [rbp-0x54],0x1",
+        "line": 166
+      },
+      {
+        "addr": "0x401200",
+        "text": "75 14                \tjne    401216 <main+0x2d>",
+        "line": 167
+      },
+      {
+        "addr": "0x401202",
+        "text": "48 8d 05 ff 0d 00 00 \tlea    rax,[rip+0xdff]        # 402008 <_IO_stdin_used+0x8>",
+        "line": 168
+      },
+      {
+        "addr": "0x401209",
+        "text": "48 89 c6             \tmov    rsi,rax",
+        "line": 169
+      },
+      {
+        "addr": "0x40120c",
+        "text": "bf 01 00 00 00       \tmov    edi,0x1",
+        "line": 170
+      },
+      {
+        "addr": "0x401211",
+        "text": "e8 a0 ff ff ff       \tcall   4011b6 <err>",
+        "line": 171
+      },
+      {
+        "addr": "0x401216",
+        "text": "c7 45 fc 00 00 00 00 \tmov    DWORD PTR [rbp-0x4],0x0",
+        "line": 172
+      },
+      {
+        "addr": "0x40121d",
+        "text": "48 8b 45 a0          \tmov    rax,QWORD PTR [rbp-0x60]",
+        "line": 173
+      },
+      {
+        "addr": "0x401221",
+        "text": "48 83 c0 08          \tadd    rax,0x8",
+        "line": 174
+      },
+      {
+        "addr": "0x401225",
+        "text": "48 8b 10             \tmov    rdx,QWORD PTR [rax]",
+        "line": 175
+      },
+      {
+        "addr": "0x401228",
+        "text": "48 8d 45 b0          \tlea    rax,[rbp-0x50]",
+        "line": 176
+      },
+      {
+        "addr": "0x40122c",
+        "text": "48 89 d6             \tmov    rsi,rdx",
+        "line": 177
+      },
+      {
+        "addr": "0x40122f",
+        "text": "48 89 c7             \tmov    rdi,rax",
+        "line": 178
+      },
+      {
+        "addr": "0x401232",
+        "text": "e8 49 fe ff ff       \tcall   401080 <strcpy@plt>",
+        "line": 179
+      },
+      {
+        "addr": "0x401237",
+        "text": "8b 45 fc             \tmov    eax,DWORD PTR [rbp-0x4]",
+        "line": 180
+      },
+      {
+        "addr": "0x40123a",
+        "text": "3d 64 63 62 61       \tcmp    eax,0x61626364",
+        "line": 181
+      },
+      {
+        "addr": "0x40123f",
+        "text": "75 11                \tjne    401252 <main+0x69>",
+        "line": 182
+      },
+      {
+        "addr": "0x401241",
+        "text": "48 8d 05 e0 0d 00 00 \tlea    rax,[rip+0xde0]        # 402028 <_IO_stdin_used+0x28>",
+        "line": 183
+      },
+      {
+        "addr": "0x401248",
+        "text": "48 89 c7             \tmov    rdi,rax",
+        "line": 184
+      },
+      {
+        "addr": "0x40124b",
+        "text": "e8 40 fe ff ff       \tcall   401090 <puts@plt>",
+        "line": 185
+      },
+      {
+        "addr": "0x401250",
+        "text": "eb 19                \tjmp    40126b <main+0x82>",
+        "line": 186
+      },
+      {
+        "addr": "0x401252",
+        "text": "8b 45 fc             \tmov    eax,DWORD PTR [rbp-0x4]",
+        "line": 187
+      },
+      {
+        "addr": "0x401255",
+        "text": "89 c6                \tmov    esi,eax",
+        "line": 188
+      },
+      {
+        "addr": "0x401257",
+        "text": "48 8d 05 01 0e 00 00 \tlea    rax,[rip+0xe01]        # 40205f <_IO_stdin_used+0x5f>",
+        "line": 189
+      },
+      {
+        "addr": "0x40125e",
+        "text": "48 89 c7             \tmov    rdi,rax",
+        "line": 190
+      },
+      {
+        "addr": "0x401261",
+        "text": "b8 00 00 00 00       \tmov    eax,0x0",
+        "line": 191
+      },
+      {
+        "addr": "0x401266",
+        "text": "e8 35 fe ff ff       \tcall   4010a0 <printf@plt>",
+        "line": 192
+      },
+      {
+        "addr": "0x40126b",
+        "text": "b8 00 00 00 00       \tmov    eax,0x0",
+        "line": 193
+      },
+      {
+        "addr": "0x401270",
+        "text": "c9                   \tleave",
+        "line": 194
+      },
+      {
+        "addr": "0x401271",
+        "text": "c3                   \tret",
+        "line": 195
+      },
+      {
+        "addr": "0x401274",
+        "text": "f3 0f 1e fa          \tendbr64",
+        "line": 200
+      },
+      {
+        "addr": "0x401278",
+        "text": "48 83 ec 08          \tsub    rsp,0x8",
+        "line": 201
+      },
+      {
+        "addr": "0x40127c",
+        "text": "48 83 c4 08          \tadd    rsp,0x8",
+        "line": 202
+      },
+      {
+        "addr": "0x401280",
+        "text": "c3                   \tret",
+        "line": 203
+      }
+    ]
+  }
+}

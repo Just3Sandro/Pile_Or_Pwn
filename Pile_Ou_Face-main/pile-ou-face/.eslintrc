@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "files": ["extension.js"],
+      "parserOptions": { "ecmaFeatures": { "jsx": false } },
+      "rules": {
+        "react/jsx-no-undef": "off",
+        "react/react-in-jsx-scope": "off"
+      }
+    }
+  ]
+}
