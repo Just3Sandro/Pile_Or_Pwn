@@ -111,6 +111,8 @@
     renderMemoryDump(stackItems, regMap);
     renderContext(snap);
     renderFrameContext(snap, regMap);
+    renderDisasm(snap.rip ?? null);
+    highlightDisasmFile(snap.rip ?? null);
   }
 
   /**

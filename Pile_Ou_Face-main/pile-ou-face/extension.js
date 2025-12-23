@@ -116,7 +116,7 @@ function activate(context) {
         if (message.type === 'goToLine') {
           const line = message.line ?? 1;
           const targetFile = message.file;
-          logChannel.appendLine(`[goToLine] line=${line} file=${targetFile ?? }`);
+          logChannel.appendLine(`[goToLine] line=${line} file=${targetFile ?? ""}`);
           const folders = vscode.workspace.workspaceFolders;
           const root = folders && folders.length ? folders[0].uri.fsPath : '';
 
