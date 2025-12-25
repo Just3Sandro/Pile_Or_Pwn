@@ -28,6 +28,11 @@
       <div class="step-label">
         Étape: <span id="stepLabel">1</span>
       </div>
+      <div class="mode-toggle" role="group" aria-label="Mode d'affichage">
+        <span class="mode-label">Mode</span>
+        <button id="modeBeginner" class="btn btn-toggle">Débutant</button>
+        <button id="modeExpert" class="btn btn-toggle">Expert</button>
+      </div>
     </section>
 
     <!-- Current instruction -->
@@ -63,7 +68,11 @@
     <!-- Visual panels: stack, registers, disassembly -->
     <section class="visuals">
       <div class="stack-container">
-        <h2 class="panel-title">Pile</h2>
+        <div class="panel-header">
+          <h2 class="panel-title">Pile</h2>
+          <div id="stackLegend" class="legend"></div>
+        </div>
+        <div id="stackAnnotations" class="stack-annotations"></div>
         <div id="stack" class="stack"></div>
         <div class="memory-dump">
           <div class="panel-subtitle">Dump autour de SP</div>

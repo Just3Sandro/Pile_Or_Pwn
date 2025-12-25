@@ -18,6 +18,10 @@
   const elDisasm = document.getElementById('disasm');
   const elBtnPrev = document.getElementById('btnPrev');
   const elBtnNext = document.getElementById('btnNext');
+  const elLegend = document.getElementById('stackLegend');
+  const elAnnotations = document.getElementById('stackAnnotations');
+  const elModeBeginner = document.getElementById('modeBeginner');
+  const elModeExpert = document.getElementById('modeExpert');
 
   /** @type {Array<any>} */
   let snapshots = [];
@@ -29,6 +33,15 @@
   let currentStep = 1;
   let lastHighlightedLine = null;
   let lastDisasmLine = null;
+  let viewMode = 'beginner';
+
+  const ROLE_CONFIG = {
+    buffer: { label: 'BUFFER', className: 'role-buffer', tagClass: 'tag-buffer' },
+    local: { label: 'LOCAL VAR', className: 'role-local', tagClass: 'tag-local' },
+    padding: { label: 'PADDING', className: 'role-padding', tagClass: 'tag-padding' },
+    control: { label: 'CONTROL', className: 'role-control', tagClass: 'tag-control' },
+    unknown: { label: 'UNKNOWN', className: 'role-unknown', tagClass: 'tag-unknown' }
+  };
 
   // Demander les données à l'extension
   vscode.postMessage({ type: 'ready' });
@@ -50,6 +63,11 @@
         renderMemoryDump([], {});
         return;
       }
+      const saved = vscode.getState();
+      if (saved && saved.viewMode) {
+        viewMode = saved.viewMode;
+      }
+      updateModeButtons();
       currentStep = 1;
       elStepRange.min = 1;
       elStepRange.max = snapshots.length;
@@ -105,7 +123,7 @@
       ? snap.regs
       : [];
     const regMap = buildRegisterMap(registerItems);
-    renderStack(stackItems, regMap);
+    renderStack(stackItems, regMap, snap);
     renderRegisters(registerItems);
     renderRisks(risks, line);
     renderMemoryDump(stackItems, regMap);
@@ -120,8 +138,10 @@
    * stackItems: [{ id, pos, size, value }, ...]
    */
   // Render stack words with SP/BP/buffer highlights.
-  function renderStack(stackItems, regMap) {
+  function renderStack(stackItems, regMap = {}, snap = {}) {
     elStack.innerHTML = '';
+    renderLegend();
+    renderAnnotations(snap, regMap);
 
     if (!Array.isArray(stackItems) || stackItems.length === 0) {
       elStack.innerHTML = '<div class="status">Pile vide à cette étape.</div>';
@@ -130,11 +150,22 @@
 
     const rsp = regMap.rsp ?? regMap.esp ?? null;
     const rbp = regMap.rbp ?? regMap.ebp ?? null;
+    const wordSize =
+      typeof meta.word_size === 'number'
+        ? meta.word_size
+        : regMap.eax !== undefined
+        ? 4
+        : 8;
     const bufferOffset = typeof meta.buffer_offset === 'number' ? meta.buffer_offset : null;
     const bufferSize = typeof meta.buffer_size === 'number' ? meta.buffer_size : 0;
     const bufferStart = rbp !== null && bufferOffset !== null ? rbp + bufferOffset : null;
     const bufferEnd =
       bufferStart !== null && bufferSize > 0 ? bufferStart + bufferSize : null;
+
+    const axis = document.createElement('div');
+    axis.className = 'stack-axis';
+    axis.innerHTML = `<span class="stack-axis-label">${buildAxisLabel(rbp)}</span>`;
+    elStack.appendChild(axis);
 
     // On veut typiquement le TOP de la pile en haut → on parcourt du dernier au premier
     const sorted = [...stackItems].sort((a, b) => {
@@ -145,8 +176,6 @@
 
     sorted.forEach((item, index) => {
       const div = document.createElement('div');
-      div.className = 'block';
-
       const addr = resolveStackAddress(item, rsp);
       const tags = [];
       if (addr !== null && rsp !== null && addr === rsp) {
@@ -163,30 +192,40 @@
         addr < bufferEnd
       ) {
         tags.push('BUF');
-        div.classList.add('block-buffer');
       }
 
-      const hue = (index * 137.508) % 360;
-      div.style.backgroundColor = `hsl(${hue}, 40%, 30%)`;
+      const role = resolveRole(item, addr, rbp, wordSize, bufferStart, bufferEnd);
+      const roleConfig = ROLE_CONFIG[role] || ROLE_CONFIG.unknown;
+      div.className = `block ${roleConfig.className}`;
 
       const addrLabel = addr !== null ? toHex(addr) : '??';
-      const posValue = item.pos ?? item.posi ?? '?';
-      const posLabel = typeof posValue === 'number' ? `sp+${posValue}` : posValue;
-      const rbpOffset =
-        addr !== null && rbp !== null ? formatOffset(addr - rbp) : null;
+      const posValue = item.pos ?? item.posi ?? null;
+      const displayName = item.label ?? item.name ?? (item.id !== undefined ? `#${item.id}` : '#?');
+      const offsets = buildOffsets(item, addr, rsp, rbp, posValue);
+      const note = item.note ?? item.hint ?? item.help;
+      const offsetsHtml = offsets.length
+        ? offsets.map((o) => `<div class="block-offset ${o.primary ? 'primary' : ''}">${o.text}</div>`).join('')
+        : `<div class="block-offset primary">Offset non fourni</div>`;
+      const tagHtml = tags.length
+        ? `<span class="block-tags">${tags.map((tag) => `<span class="tag">${tag}</span>`).join('')}</span>`
+        : '';
 
       div.innerHTML = `
         <div class="block-header">
-          <span class="block-title">#${item.id ?? item.name ?? '?'} (${posLabel})</span>
-          <span class="block-tags">${tags.map((tag) => `<span class="tag">${tag}</span>`).join('')}</span>
+          <span class="block-title">${displayName}</span>
+          <span class="block-tag ${roleConfig.tagClass}">${roleConfig.label}</span>
         </div>
         <div class="block-body">
           <div class="block-value">${item.value ?? '??'}</div>
-          <div class="block-meta">${item.size ?? 0} bytes</div>
+          <div class="block-meta">
+            ${offsetsHtml}
+            ${viewMode === 'expert' ? `<div class="block-offset">Taille: ${item.size ?? 0} bytes</div>` : ''}
+          </div>
         </div>
+        ${note ? `<div class="block-note">${note}</div>` : ''}
         <div class="block-footer">
-          <span class="block-addr">addr ${addrLabel}</span>
-          <span class="block-offset">${rbpOffset ? `rbp${rbpOffset}` : ''}</span>
+          <span class="block-addr">${viewMode === 'expert' ? `addr ${addrLabel}` : ''}</span>
+          ${tagHtml}
         </div>
       `;
 
@@ -225,6 +264,111 @@
       `;
 
       elRegisters.appendChild(row);
+    });
+  }
+
+  function resolveRole(item, addr, rbp, wordSize, bufferStart, bufferEnd) {
+    const raw = (item.role ?? item.kind ?? item.zone ?? item.type ?? '').toString().toLowerCase();
+    if (raw) {
+      if (raw.includes('buffer')) return 'buffer';
+      if (raw.includes('local')) return 'local';
+      if (raw.includes('padding') || raw.includes('pad')) return 'padding';
+      if (raw.includes('control') || raw.includes('ret') || raw.includes('saved')) return 'control';
+    }
+
+    const name = (item.name ?? item.label ?? '').toString().toLowerCase();
+    if (name.includes('buffer') || name.includes('buf')) return 'buffer';
+    if (name.includes('padding') || name.includes('pad') || name.includes('align')) return 'padding';
+    if (name.includes('ret') || name.includes('saved') || name.includes('ebp') || name.includes('rbp')) return 'control';
+    if (name.includes('var') || name.includes('local')) return 'local';
+
+    if (
+      addr !== null &&
+      bufferStart !== null &&
+      bufferEnd !== null &&
+      addr >= bufferStart &&
+      addr < bufferEnd
+    ) {
+      return 'buffer';
+    }
+
+    if (addr !== null && rbp !== null && wordSize) {
+      if (addr >= rbp && addr < rbp + wordSize * 2) {
+        return 'control';
+      }
+      if (addr < rbp) {
+        return 'local';
+      }
+    }
+
+    return 'unknown';
+  }
+
+  function buildOffsets(item, addr, rsp, rbp, posValue) {
+    const offsets = [];
+    if (addr !== null && rbp !== null) {
+      offsets.push({ text: `RBP ${formatSignedHex(addr - rbp)}`, primary: true });
+    }
+
+    if (viewMode === 'expert') {
+      if (addr !== null && rsp !== null) {
+        offsets.push({ text: `SP + ${formatHex(addr - rsp)}`, primary: false });
+      } else if (typeof posValue === 'number') {
+        offsets.push({ text: `SP + ${formatHex(posValue)}`, primary: false });
+      }
+    } else if (offsets.length === 0 && typeof posValue === 'number') {
+      offsets.push({ text: `SP + ${formatHex(posValue)}`, primary: true });
+    }
+
+    return offsets;
+  }
+
+  function buildAxisLabel(rbp) {
+    if (rbp !== null) {
+      return `RBP (repere fixe) = ${toHex(rbp)}`;
+    }
+    return 'RBP (repere fixe)';
+  }
+
+  function renderLegend() {
+    if (!elLegend) return;
+    elLegend.innerHTML = '';
+    Object.values(ROLE_CONFIG).forEach((cfg) => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+      item.innerHTML = `
+        <span class="legend-swatch ${cfg.tagClass}"></span>
+        <span>${cfg.label}</span>
+      `;
+      elLegend.appendChild(item);
+    });
+  }
+
+  function renderAnnotations(snap, regMap) {
+    if (!elAnnotations) return;
+    const annotations = Array.isArray(snap.annotations) ? [...snap.annotations] : [];
+
+    const rbp = regMap?.rbp ?? regMap?.ebp ?? null;
+    if (rbp !== null && typeof meta.buffer_offset === 'number') {
+      annotations.push({
+        label: 'Buffer (debut)',
+        detail: `buffer = RBP ${formatSignedHex(meta.buffer_offset)}`
+      });
+    }
+
+    if (!annotations.length) {
+      elAnnotations.innerHTML = '';
+      return;
+    }
+
+    elAnnotations.innerHTML = '';
+    annotations.forEach((anno) => {
+      const div = document.createElement('div');
+      div.className = 'stack-annotation';
+      const label = anno.label ?? anno.title ?? 'Annotation';
+      const detail = anno.detail ?? anno.text ?? '';
+      div.innerHTML = `<strong>${label}</strong>${detail ? ` — ${detail}` : ''}`;
+      elAnnotations.appendChild(div);
     });
   }
 
@@ -567,6 +711,18 @@
     return `0x${value.toString(16)}`;
   }
 
+  function formatHex(value) {
+    const abs = Math.abs(Math.trunc(value));
+    return `0x${abs.toString(16)}`;
+  }
+
+  function formatSignedHex(value) {
+    if (value === 0) return '+0x0';
+    const sign = value < 0 ? '-' : '+';
+    const abs = Math.abs(Math.trunc(value));
+    return `${sign}0x${abs.toString(16)}`;
+  }
+
   function formatOffset(offset) {
     if (offset === 0) return '+0';
     const sign = offset < 0 ? '-' : '+';
@@ -625,6 +781,19 @@
     });
   }
 
+  function setMode(mode) {
+    viewMode = mode;
+    vscode.setState({ viewMode });
+    updateModeButtons();
+    updateUI();
+  }
+
+  function updateModeButtons() {
+    if (!elModeBeginner || !elModeExpert) return;
+    elModeBeginner.classList.toggle('is-active', viewMode === 'beginner');
+    elModeExpert.classList.toggle('is-active', viewMode === 'expert');
+  }
+
   // Listeners contrôle
 
   elBtnPrev.addEventListener('click', () => {
@@ -642,4 +811,9 @@
     currentStep = clampStep(val);
     updateUI();
   });
+
+  if (elModeBeginner && elModeExpert) {
+    elModeBeginner.addEventListener('click', () => setMode('beginner'));
+    elModeExpert.addEventListener('click', () => setMode('expert'));
+  }
 })();

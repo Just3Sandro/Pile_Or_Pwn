@@ -9,6 +9,11 @@
 #include <stdio.h>
 #include <string.h>
 
+void win()
+{
+  printf("you have correctly got the variable to the right value\n");
+}
+
 // Minimal syscall wrapper (avoids libc PLT resolution).
 static ssize_t sys_read(int fd, void *buf, size_t count)
 {
@@ -37,7 +42,7 @@ static ssize_t sys_read(int fd, void *buf, size_t count)
 int main(int argc, char **argv)
 {
   volatile int modified;
-  char buffer[64];
+  char buffer[74];
 
   (void)argc;
   (void)argv;
@@ -45,8 +50,8 @@ int main(int argc, char **argv)
   modified = 0;
   sys_read(0, buffer, 256);
 
-  if (modified == 0x61626364) {
-    printf("you have correctly got the variable to the right value\n");
+  if (modified == 0x43434343) {
+    win();
   } else {
     printf("Try again, you got 0x%08x\n", modified);
   }
