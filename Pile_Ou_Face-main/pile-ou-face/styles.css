@@ -68,17 +68,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.context-box {
-  padding: 6px 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  background-color: rgba(255, 255, 255, 0.03);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 0.85rem;
-}
-
 /* Stack frame summary panel */
 .frame-box {
   padding: 6px 8px;
@@ -102,73 +91,6 @@ body {
 body {
   font-family: "JetBrains Mono", "Fira Code", monospace;
   font-size: 0.8rem;
-}
-.context-row {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
-}
-
-.context-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  opacity: 0.6;
-  min-width: 28px;
-}
-
-
-
-
-.risks-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  background-color: rgba(255, 255, 255, 0.02);
-}
-
-.risks {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-height: 160px;
-  overflow: auto;
-}
-
-.risk {
-  border: 1px solid transparent;
-  border-radius: 6px;
-  padding: 6px 8px;
-  font-size: 0.8rem;
-  text-align: left;
-  background-color: rgba(255, 255, 255, 0.04);
-  color: inherit;
-  cursor: pointer;
-  transition: border-color 120ms ease, background-color 120ms ease;
-}
-
-.risk:hover {
-  border-color: rgba(255, 255, 255, 0.25);
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
-.risk-high {
-  border-color: rgba(255, 94, 94, 0.6);
-}
-
-.risk-medium {
-  border-color: rgba(255, 195, 94, 0.6);
-}
-
-.risk-low {
-  border-color: rgba(105, 212, 255, 0.6);
-}
-
-.risk-active {
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
 }
 
 .visuals {

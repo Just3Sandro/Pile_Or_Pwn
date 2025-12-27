@@ -7,14 +7,11 @@
   const elStatus = document.getElementById('status');
   const elStack = document.getElementById('stack');
   const elRegisters = document.getElementById('registers');
-  const elRisks = document.getElementById('risks');
   const elMemoryDump = document.getElementById('memoryDump');
   const elStepLabel = document.getElementById('stepLabel');
   const elStepRange = document.getElementById('stepRange');
   const elInstrLabel = document.getElementById('instrLabel');
-  const elCodeContext = document.getElementById('codeContext');
   const elFrameContext = document.getElementById('frameContext');
-  const elAsmContext = document.getElementById('asmContext');
   const elDisasm = document.getElementById('disasm');
   const elBtnPrev = document.getElementById('btnPrev');
   const elBtnNext = document.getElementById('btnNext');
@@ -25,8 +22,6 @@
 
   /** @type {Array<any>} */
   let snapshots = [];
-  /** @type {Array<any>} */
-  let risks = [];
   let meta = {};
   // Disassembly lines used for the side panel + file highlight.
   let disasmLines = [];
@@ -53,13 +48,11 @@
     if (msg.type === 'init') {
       console.debug("[visualizer] init", {snapshots: msg.snapshots?.length, disasm: msg.meta?.disasm?.length, disasmPath: msg.meta?.disasm_path});
       snapshots = Array.isArray(msg.snapshots) ? msg.snapshots : [];
-      risks = Array.isArray(msg.risks) ? msg.risks : [];
       meta = msg.meta && typeof msg.meta === 'object' ? msg.meta : {};
       disasmLines = Array.isArray(meta.disasm) ? meta.disasm : [];
       if (!snapshots.length) {
         elStatus.textContent = 'Aucun snapshot à afficher (output.json vide).';
         renderStack([]);
-        renderRisks([], null);
         renderMemoryDump([], {});
         return;
       }
@@ -90,7 +83,6 @@
       elStepLabel.textContent = '0';
       elInstrLabel.textContent = '(aucune)';
       renderStack([]);
-      renderRisks([], null);
       renderMemoryDump([], {});
       renderDisasm(null);
       return;
@@ -112,9 +104,8 @@
 
     const line = typeof snap.line === 'number' ? snap.line : null;
 
-    const riskCount = Array.isArray(risks) ? risks.length : 0;
     const disasmCount = Array.isArray(disasmLines) ? disasmLines.length : 0;
-    elStatus.textContent = `Snapshots: ${snapshots.length} | Risques: ${riskCount} | Disasm: ${disasmCount}`;
+    elStatus.textContent = `Snapshots: ${snapshots.length} | Disasm: ${disasmCount}`;
 
     const stackItems = Array.isArray(snap.stack) ? snap.stack : [];
     const registerItems = Array.isArray(snap.registers)
@@ -125,9 +116,7 @@
     const regMap = buildRegisterMap(registerItems);
     renderStack(stackItems, regMap, snap);
     renderRegisters(registerItems);
-    renderRisks(risks, line);
     renderMemoryDump(stackItems, regMap);
-    renderContext(snap);
     renderFrameContext(snap, regMap);
     renderDisasm(snap.rip ?? null);
     highlightDisasmFile(snap.rip ?? null);
@@ -550,121 +539,6 @@
     });
   }
 
-  function renderContext(snap) {
-    if (!elCodeContext) return;
-
-    const file = snap.file;
-    const line = typeof snap.line === 'number' ? snap.line : null;
-    const func = snap.func;
-    if (!file || line === null) {
-      elCodeContext.textContent = 'Aucune info de debug (compile avec -g).';
-    } else {
-      const funcLabel = func ? ` • ${func}()` : '';
-      elCodeContext.textContent = `${file}:${line}${funcLabel}`;
-    }
-
-    if (elAsmContext) {
-      elAsmContext.textContent = explainInstruction(snap.instr);
-    }
-  }
-
-
-  // Map a mnemonic to a short explanation.
-  function explainInstruction(instr) {
-    if (!instr || typeof instr !== 'string') {
-      return 'Aucune instruction.';
-    }
-    const text = instr.trim();
-    const mnemonic = text.split(/\\s+/)[0].toLowerCase();
-    const hasMem = text.includes('[') && text.includes(']');
-    let detail = '';
-
-    switch (mnemonic) {
-      case 'mov':
-        detail = 'Copie la valeur source vers la destination.';
-        break;
-      case 'lea':
-        detail = 'Calcule une adresse effective et la charge.';
-        break;
-      case 'push':
-        detail = 'Empile la valeur (SP diminue).';
-        break;
-      case 'pop':
-        detail = 'Dépile la valeur (SP augmente).';
-        break;
-      case 'call':
-        detail = 'Appel de fonction (push retour + saut).';
-        break;
-      case 'ret':
-        detail = 'Retour de fonction (pop vers IP).';
-        break;
-      case 'jmp':
-        detail = 'Saut inconditionnel.';
-        break;
-      case 'je':
-      case 'jz':
-        detail = 'Saut si égal / zéro.';
-        break;
-      case 'jne':
-      case 'jnz':
-        detail = 'Saut si différent.';
-        break;
-      case 'jg':
-      case 'jge':
-      case 'jl':
-      case 'jle':
-        detail = 'Saut conditionnel selon le résultat de la comparaison.';
-        break;
-      case 'cmp':
-        detail = 'Compare deux valeurs (met à jour les flags).';
-        break;
-      case 'test':
-        detail = 'ET logique pour mettre à jour les flags.';
-        break;
-      case 'add':
-        detail = 'Addition.';
-        break;
-      case 'sub':
-        detail = 'Soustraction.';
-        break;
-      case 'imul':
-      case 'mul':
-        detail = 'Multiplication.';
-        break;
-      case 'idiv':
-      case 'div':
-        detail = 'Division.';
-        break;
-      case 'xor':
-        detail = 'XOR (souvent pour mettre un registre à zéro).';
-        break;
-      case 'and':
-        detail = 'ET logique.';
-        break;
-      case 'or':
-        detail = 'OU logique.';
-        break;
-      case 'inc':
-        detail = 'Incrémente.';
-        break;
-      case 'dec':
-        detail = 'Décrémente.';
-        break;
-      case 'leave':
-        detail = 'Termine un frame (mov sp, bp ; pop bp).';
-        break;
-      case 'nop':
-        detail = 'Aucune opération.';
-        break;
-      default:
-        detail = 'Instruction non annotée.';
-        break;
-    }
-
-    const memNote = hasMem ? ' Accès mémoire.' : '';
-    return `${text} — ${detail}${memNote}`;
-  }
-
   // Convert register array to a name->value map.
   function buildRegisterMap(registerItems) {
     const map = {};
@@ -752,33 +626,6 @@
       bytes.push(byte);
     }
     return bytes;
-  }
-
-  function renderRisks(riskItems, activeLine) {
-    if (!elRisks) return;
-    elRisks.innerHTML = '';
-
-    if (!Array.isArray(riskItems) || riskItems.length === 0) {
-      elRisks.innerHTML = '<div class=\"status\">Aucun risque détecté.</div>';
-      return;
-    }
-
-    riskItems.forEach((risk) => {
-      const line = typeof risk.line === 'number' ? risk.line : null;
-      const row = document.createElement('button');
-      row.type = 'button';
-      row.className = `risk risk-${risk.severity ?? 'low'}`;
-      if (line !== null && activeLine === line) {
-        row.classList.add('risk-active');
-      }
-
-      const fileLabel = risk.file ? ` • ${risk.file}` : '';
-      const lineLabel = line !== null ? `L${line}` : 'L?';
-      row.textContent = `${lineLabel} ${risk.kind ?? 'risk'}${fileLabel} — ${risk.message ?? ''}`;
-
-
-      elRisks.appendChild(row);
-    });
   }
 
   function setMode(mode) {
