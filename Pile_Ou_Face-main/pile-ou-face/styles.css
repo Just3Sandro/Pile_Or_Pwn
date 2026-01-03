@@ -271,6 +271,98 @@ body {
   margin-top: 12px;
 }
 
+.reasoning-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px;
+  box-sizing: border-box;
+  gap: 6px;
+  min-width: 240px;
+  max-width: 360px;
+  position: sticky;
+  top: 8px;
+  align-self: flex-start;
+}
+
+.reasoning-container.is-collapsed {
+  display: none;
+}
+
+.reasoning {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+  font-size: 0.82rem;
+}
+
+.reasoning-section {
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reasoning-title {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.reasoning-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.reasoning-link {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: inherit;
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.reasoning-link:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.reasoning-meta {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reasoning-meta-link {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.7rem;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.reasoning-meta-link:hover {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: underline;
+}
+
+.block-focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25) inset;
+}
+
 
 @media (max-width: 900px) {
   .visuals {
@@ -399,10 +491,44 @@ body {
   opacity: 0.95;
 }
 
+.block-offset.secondary {
+  opacity: 0.55;
+}
+
 .block-note {
   margin-top: 6px;
   font-size: 0.75rem;
   opacity: 0.75;
+}
+
+.block-intents {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.block-intent {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.block-intent.start {
+  background: rgba(90, 180, 255, 0.25);
+  color: #d6f0ff;
+}
+
+.block-intent.target {
+  background: rgba(80, 200, 130, 0.25);
+  color: #d4ffe4;
+}
+
+.block-intent.marker {
+  background: rgba(255, 200, 90, 0.25);
+  color: #ffeac7;
 }
 
 .role-buffer {

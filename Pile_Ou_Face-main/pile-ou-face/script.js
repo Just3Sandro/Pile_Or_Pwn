@@ -19,6 +19,10 @@
   const elAnnotations = document.getElementById('stackAnnotations');
   const elModeBeginner = document.getElementById('modeBeginner');
   const elModeExpert = document.getElementById('modeExpert');
+  const elToggleIntent = document.getElementById('toggleIntent');
+  const elToggleReasoning = document.getElementById('toggleReasoning');
+  const elReasoningPanel = document.getElementById('reasoningPanel');
+  const elReasoningBody = document.getElementById('reasoningBody');
 
   /** @type {Array<any>} */
   let snapshots = [];
@@ -29,6 +33,10 @@
   let lastHighlightedLine = null;
   let lastDisasmLine = null;
   let viewMode = 'beginner';
+  // Intent overlay désactivé (commenté).
+  let showIntentOverlay = false;
+  let showReasoningPanel = true;
+  let frozenReasoningData = null;
 
   const ROLE_CONFIG = {
     buffer: { label: 'BUFFER', className: 'role-buffer', tagClass: 'tag-buffer' },
@@ -37,6 +45,16 @@
     control: { label: 'CONTROL', className: 'role-control', tagClass: 'tag-control' },
     unknown: { label: 'UNKNOWN', className: 'role-unknown', tagClass: 'tag-unknown' }
   };
+
+  const ROLE_TOOLTIPS = {
+    buffer: "Zone d'écriture (buffer local).",
+    local: "Variable locale (RBP - offset).",
+    padding: "Espace réservé par le compilateur (alignement / temporaires).",
+    control: "Flux de contrôle (saved EBP / RET).",
+    unknown: "Zone non classée."
+  };
+
+  const MARKER_VALUES = new Set([0x41414141, 0x42424242, 0x43434343, 0x44444444]);
 
   // Demander les données à l'extension
   vscode.postMessage({ type: 'ready' });
@@ -60,7 +78,21 @@
       if (saved && saved.viewMode) {
         viewMode = saved.viewMode;
       }
+      /*
+      if (saved && typeof saved.showIntentOverlay === 'boolean') {
+        showIntentOverlay = saved.showIntentOverlay;
+      } else {
+        showIntentOverlay = viewMode === 'beginner';
+      }
+      */
+      if (saved && typeof saved.showReasoningPanel === 'boolean') {
+        showReasoningPanel = saved.showReasoningPanel;
+      }
+      frozenReasoningData = buildFrozenReasoningData();
       updateModeButtons();
+      // updateIntentButton();
+      updateReasoningButton();
+      updateReasoningVisibility();
       currentStep = 1;
       elStepRange.min = 1;
       elStepRange.max = snapshots.length;
@@ -118,6 +150,7 @@
     renderRegisters(registerItems);
     renderMemoryDump(stackItems, regMap);
     renderFrameContext(snap, regMap);
+    renderReasoningPanel(stackItems, regMap, snap);
     renderDisasm(snap.rip ?? null);
     highlightDisasmFile(snap.rip ?? null);
   }
@@ -130,7 +163,8 @@
   function renderStack(stackItems, regMap = {}, snap = {}) {
     elStack.innerHTML = '';
     renderLegend();
-    renderAnnotations(snap, regMap);
+    const intent = showIntentOverlay ? buildIntentOverlay(stackItems, regMap, snap) : null;
+    renderAnnotations(snap, regMap, intent);
 
     if (!Array.isArray(stackItems) || stackItems.length === 0) {
       elStack.innerHTML = '<div class="status">Pile vide à cette étape.</div>';
@@ -153,8 +187,6 @@
 
     const axis = document.createElement('div');
     axis.className = 'stack-axis';
-    axis.innerHTML = `<span class="stack-axis-label">${buildAxisLabel(rbp)}</span>`;
-    elStack.appendChild(axis);
 
     // On veut typiquement le TOP de la pile en haut → on parcourt du dernier au premier
     const sorted = [...stackItems].sort((a, b) => {
@@ -163,9 +195,22 @@
       return offsetB - offsetA;
     });
 
+    const addrRange = getStackAddrRange(sorted, rsp);
+    axis.innerHTML = `<span class="stack-axis-label">${buildAxisLabel(rbp, addrRange)}</span>`;
+
+    let axisInserted = false;
+    if (rbp === null) {
+      elStack.appendChild(axis);
+      axisInserted = true;
+    }
+
     sorted.forEach((item, index) => {
       const div = document.createElement('div');
       const addr = resolveStackAddress(item, rsp);
+      if (!axisInserted && rbp !== null && addr !== null && addr < rbp) {
+        elStack.appendChild(axis);
+        axisInserted = true;
+      }
       const tags = [];
       if (addr !== null && rsp !== null && addr === rsp) {
         tags.push('SP');
@@ -186,17 +231,35 @@
       const role = resolveRole(item, addr, rbp, wordSize, bufferStart, bufferEnd);
       const roleConfig = ROLE_CONFIG[role] || ROLE_CONFIG.unknown;
       div.className = `block ${roleConfig.className}`;
+      div.title = ROLE_TOOLTIPS[role] || '';
 
       const addrLabel = addr !== null ? toHex(addr) : '??';
+      if (addr !== null) {
+        div.dataset.addr = addrLabel;
+      }
       const posValue = item.pos ?? item.posi ?? null;
       const displayName = item.label ?? item.name ?? (item.id !== undefined ? `#${item.id}` : '#?');
       const offsets = buildOffsets(item, addr, rsp, rbp, posValue);
       const note = item.note ?? item.hint ?? item.help;
+      const intentTags = showIntentOverlay ? buildIntentTags(item, addr, intent, wordSize) : [];
       const offsetsHtml = offsets.length
-        ? offsets.map((o) => `<div class="block-offset ${o.primary ? 'primary' : ''}">${o.text}</div>`).join('')
+        ? offsets
+            .map((o) => {
+              const classes = ['block-offset'];
+              if (o.primary) classes.push('primary');
+              if (o.secondary) classes.push('secondary');
+              const tooltip = o.tooltip ? ` title="${o.tooltip}"` : '';
+              return `<div class="${classes.join(' ')}"${tooltip}>${o.text}</div>`;
+            })
+            .join('')
         : `<div class="block-offset primary">Offset non fourni</div>`;
       const tagHtml = tags.length
         ? `<span class="block-tags">${tags.map((tag) => `<span class="tag">${tag}</span>`).join('')}</span>`
+        : '';
+      const intentHtml = intentTags.length
+        ? `<div class="block-intents">${intentTags
+            .map((tag) => `<span class="block-intent ${tag.className}">${tag.text}</span>`)
+            .join('')}</div>`
         : '';
 
       div.innerHTML = `
@@ -212,6 +275,7 @@
           </div>
         </div>
         ${note ? `<div class="block-note">${note}</div>` : ''}
+        ${intentHtml}
         <div class="block-footer">
           <span class="block-addr">${viewMode === 'expert' ? `addr ${addrLabel}` : ''}</span>
           ${tagHtml}
@@ -225,6 +289,10 @@
 
       elStack.appendChild(div);
     });
+
+    if (!axisInserted) {
+      elStack.appendChild(axis);
+    }
   }
 
   // Render register list sorted by index.
@@ -299,24 +367,352 @@
       offsets.push({ text: `RBP ${formatSignedHex(addr - rbp)}`, primary: true });
     }
 
-    if (viewMode === 'expert') {
-      if (addr !== null && rsp !== null) {
-        offsets.push({ text: `SP + ${formatHex(addr - rsp)}`, primary: false });
-      } else if (typeof posValue === 'number') {
-        offsets.push({ text: `SP + ${formatHex(posValue)}`, primary: false });
-      }
-    } else if (offsets.length === 0 && typeof posValue === 'number') {
-      offsets.push({ text: `SP + ${formatHex(posValue)}`, primary: true });
+    let spOffset = null;
+    if (addr !== null && rsp !== null) {
+      spOffset = addr - rsp;
+    } else if (typeof posValue === 'number') {
+      spOffset = posValue;
+    }
+
+    if (spOffset !== null) {
+      offsets.push({
+        text: `SP + ${formatHex(spOffset)}`,
+        primary: offsets.length === 0,
+        secondary: offsets.length > 0,
+        tooltip: "Position relative au sommet de pile (ESP). ESP bouge, RBP est fixe."
+      });
     }
 
     return offsets;
   }
 
-  function buildAxisLabel(rbp) {
-    if (rbp !== null) {
-      return `RBP (repere fixe) = ${toHex(rbp)}`;
+  function buildAxisLabel(rbp, range) {
+    const base = rbp !== null ? `RBP (repere fixe) = ${toHex(rbp)}` : 'RBP (repere fixe)';
+    if (rbp !== null && range && (rbp < range.min || rbp > range.max)) {
+      return `${base} (hors fenetre)`;
     }
-    return 'RBP (repere fixe)';
+    return `${base} • haut=RBP+ / bas=RBP-`;
+  }
+
+  function getStackAddrRange(items, rsp) {
+    let min = null;
+    let max = null;
+    items.forEach((item) => {
+      const addr = resolveStackAddress(item, rsp);
+      if (addr === null) return;
+      if (min === null || addr < min) min = addr;
+      if (max === null || addr > max) max = addr;
+    });
+    if (min === null || max === null) return null;
+    return { min, max };
+  }
+
+  function buildIntentOverlay(stackItems, regMap, snap) {
+    const rsp = regMap.rsp ?? regMap.esp ?? null;
+    const rbp = regMap.rbp ?? regMap.ebp ?? null;
+    if (rbp === null) {
+      return {
+        bufferStart: null,
+        bufferEnd: null,
+        marker: null,
+        target: null,
+        summary: null
+      };
+    }
+
+    const bufferOffset = typeof meta.buffer_offset === 'number' ? meta.buffer_offset : null;
+    const bufferSize = typeof meta.buffer_size === 'number' ? meta.buffer_size : 0;
+    const bufferStart = bufferOffset !== null ? rbp + bufferOffset : null;
+    const bufferEnd = bufferStart !== null && bufferSize > 0 ? bufferStart + bufferSize : null;
+    const target = resolveCmpTargetAddr(snap, regMap);
+    const marker = findMarker(stackItems, rsp, bufferStart);
+    const summary = buildMarkerSummary(marker, target);
+
+    return {
+      bufferStart,
+      bufferEnd,
+      marker,
+      target,
+      summary
+    };
+  }
+
+  function buildIntentTags(item, addr, intent, wordSize) {
+    if (!intent || addr === null) return [];
+    const size = typeof item.size === 'number' ? item.size : wordSize;
+    const rangeStart = addr;
+    const rangeEnd = addr + size;
+    const tags = [];
+
+    if (intent.bufferStart !== null && intent.bufferStart >= rangeStart && intent.bufferStart < rangeEnd) {
+      tags.push({ text: '▶ Debut d\'ecriture (read)', className: 'start' });
+    }
+    if (intent.target !== null && intent.target >= rangeStart && intent.target < rangeEnd) {
+      tags.push({ text: '🎯 Cible du test', className: 'target' });
+    }
+    if (intent.marker && intent.marker.addr !== null) {
+      const markerAddr = intent.marker.addr;
+      if (markerAddr >= rangeStart && markerAddr < rangeEnd) {
+        tags.push({ text: '📌 Marqueur', className: 'marker' });
+      }
+    }
+    return tags;
+  }
+
+  function findMarker(stackItems, rsp, bufferStart) {
+    const candidates = [];
+    stackItems.forEach((item) => {
+      const addr = resolveStackAddress(item, rsp);
+      if (addr === null) return;
+      const value = parseValue(item.value);
+      if (value === null) return;
+      const normalized = value >>> 0;
+      if (MARKER_VALUES.has(normalized)) {
+        candidates.push({ addr, value: normalized });
+      }
+    });
+
+    if (!candidates.length) return null;
+
+    if (bufferStart !== null) {
+      const inOrder = candidates
+        .map((c) => ({ ...c, diff: c.addr - bufferStart }))
+        .filter((c) => c.diff >= 0)
+        .sort((a, b) => a.diff - b.diff);
+      if (inOrder.length) {
+        return { addr: inOrder[0].addr, value: inOrder[0].value };
+      }
+    }
+
+    candidates.sort((a, b) => a.addr - b.addr);
+    return { addr: candidates[0].addr, value: candidates[0].value };
+  }
+
+  function buildMarkerSummary(marker, target) {
+    if (!marker || marker.addr === null || target === null) return null;
+    const delta = marker.addr - target;
+    if (delta === 0) {
+      return '✅ Marqueur sur la cible';
+    }
+    const abs = Math.abs(delta);
+    const suffix = abs === 1 ? 'octet' : 'octets';
+    return delta < 0
+      ? `❌ ${abs} ${suffix} trop tot`
+      : `❌ ${abs} ${suffix} trop tard`;
+  }
+
+  function resolveCmpTargetInfo(snap, regMap) {
+    if (!snap || typeof snap.instr !== 'string') return null;
+    const instr = snap.instr.toLowerCase();
+    if (!instr.startsWith('cmp')) return null;
+
+    const rbp = regMap.rbp ?? regMap.ebp ?? null;
+    if (rbp === null) return null;
+
+    const cmpLineEntry = findDisasmEntryByAddr(snap.rip);
+    const cmpLine = cmpLineEntry?.line ?? null;
+    const cmpText = cmpLineEntry?.text ? extractDisasmInstr(cmpLineEntry.text) : snap.instr;
+    const cmpValue = extractImmediateValue(instr);
+
+    const directOffset = extractBasePointerOffset(instr);
+    if (directOffset !== null) {
+      return {
+        addr: rbp + directOffset,
+        offset: directOffset,
+        cmpValue,
+        cmpLine,
+        cmpText,
+        movLine: null,
+        movText: null
+      };
+    }
+
+    const cmpReg = extractCmpRegister(instr);
+    if (!cmpReg || !Array.isArray(disasmLines) || typeof snap.rip !== 'string') return null;
+
+    const currentIndex = disasmLines.findIndex(
+      (line) => line.addr && line.addr.toLowerCase() === snap.rip.toLowerCase()
+    );
+    if (currentIndex < 0) return null;
+
+    for (let i = currentIndex - 1; i >= 0 && i >= currentIndex - 6; i -= 1) {
+      const entry = disasmLines[i];
+      const text = extractDisasmInstr(entry?.text);
+      if (!text) continue;
+      const lower = text.toLowerCase();
+      const movMatch = lower.match(
+        new RegExp(`^mov\\s+${cmpReg}\\s*,\\s*(?:dword ptr\\s*)?\\[(?:e|r)bp[^\\]]*\\]`)
+      );
+      if (movMatch) {
+        const offset = extractBasePointerOffset(lower);
+        if (offset !== null) {
+          return {
+            addr: rbp + offset,
+            offset,
+            cmpValue,
+            cmpLine,
+            cmpText,
+            movLine: entry?.line ?? null,
+            movText: text
+          };
+        }
+      }
+    }
+
+    return null;
+  }
+
+  function resolveCmpTargetAddr(snap, regMap) {
+    const info = resolveCmpTargetInfo(snap, regMap);
+    return info ? info.addr : null;
+  }
+
+  function resolveBufferInfo(regMap) {
+    const rbp = regMap.rbp ?? regMap.ebp ?? null;
+    if (rbp === null) {
+      return { addr: null, provenance: [] };
+    }
+    const bufferOffset = typeof meta.buffer_offset === 'number' ? meta.buffer_offset : null;
+    if (bufferOffset === null) {
+      return { addr: null, provenance: [] };
+    }
+
+    const addr = rbp + bufferOffset;
+    const provenance = buildBufferProvenance(bufferOffset);
+    return { addr, provenance };
+  }
+
+  function buildTargetProvenance(info) {
+    if (!info) return [];
+    const provenance = [];
+    if (info.movText) {
+      provenance.push({
+        text: `source : ${info.movText}`,
+        line: info.movLine ?? null
+      });
+    }
+    if (info.cmpText) {
+      provenance.push({
+        text: `compare dans : ${info.cmpText}`,
+        line: info.cmpLine ?? null
+      });
+    }
+    return provenance;
+  }
+
+  function buildBufferProvenance(bufferOffset) {
+    if (!Array.isArray(disasmLines) || !disasmLines.length) return [];
+    const readIndex = disasmLines.findIndex((line) => isReadCall(line?.text));
+    if (readIndex < 0) return [];
+
+    const callEntry = disasmLines[readIndex];
+    const callText = extractDisasmInstr(callEntry?.text);
+    const provenance = [];
+
+    let leaEntry = null;
+    for (let i = readIndex - 1; i >= 0 && i >= readIndex - 8; i -= 1) {
+      const entry = disasmLines[i];
+      const text = extractDisasmInstr(entry?.text);
+      if (!text) continue;
+      const lower = text.toLowerCase();
+      if (!lower.startsWith('lea') || !lower.includes('bp')) continue;
+      const offset = extractBasePointerOffset(lower);
+      if (offset !== null && bufferOffset !== null && offset !== bufferOffset) continue;
+      leaEntry = entry;
+      break;
+    }
+
+    if (leaEntry) {
+      provenance.push({
+        text: `deduit de : ${extractDisasmInstr(leaEntry.text)}`,
+        line: leaEntry.line ?? null
+      });
+    }
+    if (callText) {
+      provenance.push({
+        text: `appel : ${callText}`,
+        line: callEntry.line ?? null
+      });
+    }
+
+    return provenance;
+  }
+
+  function isReadCall(text) {
+    if (typeof text !== 'string') return false;
+    const lower = text.toLowerCase();
+    return lower.includes('call') && (lower.includes('sys_read') || lower.includes('read@') || lower.includes('<read'));
+  }
+
+  function findDisasmEntryByAddr(addr) {
+    if (!addr || !Array.isArray(disasmLines)) return null;
+    const target = typeof addr === 'string' ? addr.toLowerCase() : toHex(addr).toLowerCase();
+    return disasmLines.find((line) => line.addr && line.addr.toLowerCase() === target) ?? null;
+  }
+
+  function extractImmediateValue(instr) {
+    if (typeof instr !== 'string') return null;
+    const parts = instr.split(',');
+    if (parts.length < 2) return null;
+    const operand = parts[1];
+    const match = operand.match(/0x[0-9a-f]+|\\b\\d+\\b/i);
+    if (!match) return null;
+    const raw = match[0];
+    const value = raw.startsWith('0x') ? parseInt(raw, 16) : parseInt(raw, 10);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function extractCmpRegister(instr) {
+    const parts = instr.replace(/,/g, ' ').split(/\s+/).filter(Boolean);
+    if (parts.length < 2) return null;
+    const op1 = parts[1];
+    const op2 = parts[2];
+    if (isRegister(op1)) return op1;
+    if (isRegister(op2)) return op2;
+    return null;
+  }
+
+  function extractBasePointerOffset(text) {
+    const match = text.match(/\[(?:e|r)bp([+-]0x[0-9a-f]+|[+-]\\d+)?\]/);
+    if (!match) return null;
+    const raw = match[1];
+    if (!raw) return 0;
+    return parseSignedNumber(raw);
+  }
+
+  function parseSignedNumber(raw) {
+    const trimmed = raw.trim();
+    const sign = trimmed.startsWith('-') ? -1 : 1;
+    const absText = trimmed.replace(/^[-+]/, '');
+    const value = absText.startsWith('0x') ? parseInt(absText, 16) : parseInt(absText, 10);
+    if (Number.isNaN(value)) return null;
+    return sign * value;
+  }
+
+  function extractDisasmInstr(text) {
+    if (typeof text !== 'string') return '';
+    const tabIndex = text.indexOf('\t');
+    if (tabIndex >= 0) {
+      return text.slice(tabIndex + 1).trim();
+    }
+    return text.trim();
+  }
+
+  function parseValue(value) {
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+    if (typeof value !== 'string') return null;
+    if (value.startsWith('0x')) {
+      const parsed = parseInt(value, 16);
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+    const parsed = parseInt(value, 10);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  function isRegister(text) {
+    return /^(e?[abcd]x|e?[sb]p|e?[sd]i|r(1[0-5]|[0-9]|ax|bx|cx|dx|si|di|bp|sp))$/.test(
+      text
+    );
   }
 
   function renderLegend() {
@@ -333,15 +729,41 @@
     });
   }
 
-  function renderAnnotations(snap, regMap) {
+  function renderAnnotations(snap, regMap, intent) {
     if (!elAnnotations) return;
-    const annotations = Array.isArray(snap.annotations) ? [...snap.annotations] : [];
+    if (!showIntentOverlay) {
+      elAnnotations.innerHTML = '';
+      return;
+    }
 
+    const annotations = Array.isArray(snap.annotations) ? [...snap.annotations] : [];
     const rbp = regMap?.rbp ?? regMap?.ebp ?? null;
-    if (rbp !== null && typeof meta.buffer_offset === 'number') {
+
+    if (intent?.summary) {
+      annotations.unshift({
+        label: intent.summary,
+        detail: ''
+      });
+    }
+
+    if (intent?.bufferStart !== null && rbp !== null) {
       annotations.push({
-        label: 'Buffer (debut)',
-        detail: `buffer = RBP ${formatSignedHex(meta.buffer_offset)}`
+        label: '▶ Debut d\'ecriture (read)',
+        detail: `buffer = RBP ${formatSignedHex(intent.bufferStart - rbp)}`
+      });
+    }
+
+    if (intent?.target !== null && rbp !== null) {
+      annotations.push({
+        label: '🎯 Cible du test',
+        detail: `RBP ${formatSignedHex(intent.target - rbp)}`
+      });
+    }
+
+    if (intent?.marker?.addr !== null) {
+      annotations.push({
+        label: '📌 Marqueur',
+        detail: `valeur = ${formatHex(intent.marker.value)}`
       });
     }
 
@@ -359,6 +781,298 @@
       div.innerHTML = `<strong>${label}</strong>${detail ? ` — ${detail}` : ''}`;
       elAnnotations.appendChild(div);
     });
+  }
+
+  function renderReasoningPanel(stackItems, regMap, snap) {
+    if (!elReasoningPanel || !elReasoningBody) return;
+    updateReasoningVisibility();
+
+    if (!showReasoningPanel) {
+      elReasoningBody.innerHTML = '';
+      return;
+    }
+
+    if (!frozenReasoningData) {
+      frozenReasoningData = buildFrozenReasoningData();
+    }
+
+    if (!frozenReasoningData) {
+      elReasoningBody.innerHTML = '<div class="status">Aucune pile a analyser.</div>';
+      return;
+    }
+
+    const data = frozenReasoningData;
+    elReasoningBody.innerHTML = buildReasoningHtml(data);
+    bindReasoningLinks(elReasoningBody);
+  }
+
+  function buildReasoningData(stackItems, regMap, snap) {
+    const rsp = regMap.rsp ?? regMap.esp ?? null;
+    const rbp = regMap.rbp ?? regMap.ebp ?? null;
+    const bufferInfo = resolveBufferInfo(regMap);
+    const targetInfo = resolveCmpTargetInfo(snap, regMap);
+    const marker = findMarker(stackItems, rsp, bufferInfo.addr);
+
+    const bufferOffset = rbp !== null && bufferInfo.addr !== null ? bufferInfo.addr - rbp : null;
+    const targetOffset = rbp !== null && targetInfo?.addr !== null ? targetInfo.addr - rbp : null;
+    const markerOffset = rbp !== null && marker?.addr !== null ? marker.addr - rbp : null;
+
+    const bufferToTarget =
+      bufferInfo.addr !== null && targetInfo?.addr !== null
+        ? targetInfo.addr - bufferInfo.addr
+        : null;
+    const markerToTarget =
+      marker?.addr !== null && targetInfo?.addr !== null
+        ? marker.addr - targetInfo.addr
+        : null;
+
+    const verdict = buildMarkerSummary(marker, targetInfo?.addr ?? null);
+    const markerPresent = marker?.addr !== null;
+
+    return {
+      buffer: {
+        addr: bufferInfo.addr,
+        offset: bufferOffset,
+        provenance: bufferInfo.provenance
+      },
+      target: {
+        addr: targetInfo?.addr ?? null,
+        offset: targetOffset,
+        value: targetInfo?.cmpValue ?? null,
+        provenance: buildTargetProvenance(targetInfo)
+      },
+      marker: {
+        present: markerPresent,
+        addr: marker?.addr ?? null,
+        offset: markerOffset,
+        value: marker?.value ?? null,
+        provenance: markerPresent ? [{ text: 'detecte dans la pile (entree utilisateur)', line: null }] : []
+      },
+      distances: {
+        bufferToTarget,
+        markerToTarget,
+        verdict,
+        provenance: 'calcule a partir des offsets RBP'
+      }
+    };
+  }
+
+  function buildFrozenReasoningData() {
+    if (!Array.isArray(snapshots) || snapshots.length === 0) return null;
+
+    const baseSnap = snapshots.find((s) => Array.isArray(s.registers) || Array.isArray(s.regs)) ?? snapshots[0];
+    const baseRegs = Array.isArray(baseSnap.registers)
+      ? baseSnap.registers
+      : Array.isArray(baseSnap.regs)
+      ? baseSnap.regs
+      : [];
+    const baseRegMap = buildRegisterMap(baseRegs);
+
+    const bufferInfo = resolveBufferInfo(baseRegMap);
+
+    const cmpSnap = snapshots.find(
+      (s) => typeof s.instr === 'string' && s.instr.toLowerCase().startsWith('cmp')
+    );
+    const cmpRegs = cmpSnap
+      ? Array.isArray(cmpSnap.registers)
+        ? cmpSnap.registers
+        : Array.isArray(cmpSnap.regs)
+        ? cmpSnap.regs
+        : []
+      : baseRegs;
+    const cmpRegMap = cmpSnap ? buildRegisterMap(cmpRegs) : baseRegMap;
+    const targetInfo = cmpSnap ? resolveCmpTargetInfo(cmpSnap, cmpRegMap) : null;
+
+    let marker = null;
+    for (const snap of snapshots) {
+      if (!Array.isArray(snap.stack) || snap.stack.length === 0) continue;
+      const regs = Array.isArray(snap.registers)
+        ? snap.registers
+        : Array.isArray(snap.regs)
+        ? snap.regs
+        : [];
+      const regMap = regs.length ? buildRegisterMap(regs) : baseRegMap;
+      const rsp = regMap.rsp ?? regMap.esp ?? null;
+      if (rsp === null) continue;
+      const found = findMarker(snap.stack, rsp, bufferInfo.addr);
+      if (found) {
+        marker = found;
+        break;
+      }
+    }
+
+    const rbp = baseRegMap.rbp ?? baseRegMap.ebp ?? cmpRegMap.rbp ?? cmpRegMap.ebp ?? null;
+    const bufferOffset = rbp !== null && bufferInfo.addr !== null ? bufferInfo.addr - rbp : null;
+    const targetOffset = rbp !== null && targetInfo?.addr !== null ? targetInfo.addr - rbp : null;
+    const markerOffset = rbp !== null && marker?.addr !== null ? marker.addr - rbp : null;
+
+    const bufferToTarget =
+      bufferInfo.addr !== null && targetInfo?.addr !== null
+        ? targetInfo.addr - bufferInfo.addr
+        : null;
+    const markerToTarget =
+      marker?.addr !== null && targetInfo?.addr !== null ? marker.addr - targetInfo.addr : null;
+
+    const verdict = buildMarkerSummary(marker, targetInfo?.addr ?? null);
+    const markerPresent = marker?.addr !== null;
+
+    return {
+      buffer: {
+        addr: bufferInfo.addr,
+        offset: bufferOffset,
+        provenance: bufferInfo.provenance
+      },
+      target: {
+        addr: targetInfo?.addr ?? null,
+        offset: targetOffset,
+        value: targetInfo?.cmpValue ?? null,
+        provenance: buildTargetProvenance(targetInfo)
+      },
+      marker: {
+        present: markerPresent,
+        addr: marker?.addr ?? null,
+        offset: markerOffset,
+        value: marker?.value ?? null,
+        provenance: markerPresent ? [{ text: 'detecte dans la pile (entree utilisateur)', line: null }] : []
+      },
+      distances: {
+        bufferToTarget,
+        markerToTarget,
+        verdict,
+        provenance: 'calcule a partir des offsets RBP'
+      }
+    };
+  }
+
+  function buildReasoningHtml(data) {
+    const bufferValues = data.buffer.addr !== null ? buildOffsetAddressValues(data.buffer) : [];
+    const bufferSection = buildReasoningSection(
+      '▶ Debut d\'ecriture (buffer start)',
+      bufferValues,
+      data.buffer.provenance
+    );
+    const targetValues = data.target.addr !== null
+      ? [
+          ...buildOffsetAddressValues(data.target),
+          buildValueDisplay('Valeur attendue', formatHexValue(data.target.value))
+        ]
+      : [];
+    const targetSection = buildReasoningSection(
+      '🎯 Cible du test',
+      targetValues,
+      data.target.provenance
+    );
+    const markerValues = data.marker.present
+      ? [
+          ...buildOffsetAddressValues(data.marker),
+          buildValueDisplay('Valeur', formatHexValue(data.marker.value))
+        ]
+      : [];
+    const markerSection = buildReasoningSection(
+      '📌 Marqueur utilisateur',
+      markerValues,
+      data.marker.provenance
+    );
+    const distanceSection = buildReasoningSection(
+      'Distances / diagnostic',
+      buildDistanceValues(data.distances),
+      data.distances.provenance ? [{ text: data.distances.provenance, line: null }] : []
+    );
+
+    return [bufferSection, targetSection, markerSection, distanceSection].join('');
+  }
+
+  function buildReasoningSection(title, values, provenance) {
+    const valuesHtml = values.length ? values.map(renderReasoningValue).join('') : '<div class="reasoning-meta">Non detecte.</div>';
+    const provenanceHtml = Array.isArray(provenance)
+      ? provenance.map(renderReasoningProvenance).join('')
+      : provenance
+      ? `<div class="reasoning-meta">${provenance}</div>`
+      : '';
+
+    return `
+      <div class="reasoning-section">
+        <div class="reasoning-title">${title}</div>
+        <div class="reasoning-values">${valuesHtml}</div>
+        ${provenanceHtml ? `<div class="reasoning-meta">${provenanceHtml}</div>` : ''}
+      </div>
+    `;
+  }
+
+  function buildOffsetAddressValues(entry) {
+    const values = [];
+    if (!entry) return values;
+    values.push(buildValueDisplay('', formatRbpOffset(entry.offset), entry.addr));
+    values.push(buildValueDisplay('', entry.addr !== null ? `addr ${toHex(entry.addr)}` : 'addr ?', entry.addr));
+    return values;
+  }
+
+  function buildDistanceValues(distances) {
+    const values = [];
+    if (!distances) return values;
+    values.push(buildValueDisplay('Buffer → cible', formatSignedBytes(distances.bufferToTarget)));
+    values.push(buildValueDisplay('Marqueur → cible', formatSignedBytes(distances.markerToTarget)));
+    values.push(buildValueDisplay('Verdict', distances.verdict ?? 'Non detecte'));
+    return values;
+  }
+
+  function buildValueDisplay(label, text, addr) {
+    return {
+      label,
+      text,
+      addr
+    };
+  }
+
+  function renderReasoningValue(value) {
+    const label = value.label ? `${value.label}: ` : '';
+    if (value.addr !== undefined && value.addr !== null) {
+      const addrLabel = toHex(value.addr);
+      return `<button class="reasoning-link" data-addr="${addrLabel}">${label}${value.text}</button>`;
+    }
+    return `<span class="reasoning-meta">${label}${value.text}</span>`;
+  }
+
+  function renderReasoningProvenance(item) {
+    if (!item || !item.text) return '';
+    if (item.line) {
+      return `<button class="reasoning-meta-link" data-disasm-line="${item.line}">${item.text} (L${item.line})</button>`;
+    }
+    return `<div>${item.text}</div>`;
+  }
+
+  function bindReasoningLinks(container) {
+    if (!container) return;
+    container.querySelectorAll('[data-addr]').forEach((node) => {
+      node.addEventListener('click', (event) => {
+        event.preventDefault();
+        const addr = node.getAttribute('data-addr');
+        if (addr) {
+          scrollToStackAddr(addr);
+        }
+      });
+    });
+
+    container.querySelectorAll('[data-disasm-line]').forEach((node) => {
+      node.addEventListener('click', (event) => {
+        event.preventDefault();
+        const line = parseInt(node.getAttribute('data-disasm-line'), 10);
+        if (Number.isFinite(line) && meta.disasm_path) {
+          vscode.postMessage({ type: 'goToLine', line, file: meta.disasm_path });
+        }
+      });
+    });
+  }
+
+  function scrollToStackAddr(addrLabel) {
+    if (!elStack) return;
+    const target = elStack.querySelector(`[data-addr="${addrLabel}"]`);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    target.classList.add('block-focus');
+    setTimeout(() => {
+      target.classList.remove('block-focus');
+    }, 900);
   }
 
   // Build a hex+ASCII dump starting at SP.
@@ -597,6 +1311,24 @@
     return `${sign}0x${abs.toString(16)}`;
   }
 
+  function formatRbpOffset(offset) {
+    if (offset === null || offset === undefined) return 'RBP ?';
+    return `RBP ${formatSignedHex(offset)}`;
+  }
+
+  function formatHexValue(value) {
+    if (value === null || value === undefined || Number.isNaN(value)) return '?';
+    return formatHex(value);
+  }
+
+  function formatSignedBytes(delta) {
+    if (delta === null || delta === undefined) return '?';
+    const abs = Math.abs(delta);
+    const sign = delta < 0 ? '-' : '+';
+    const suffix = abs === 1 ? 'octet' : 'octets';
+    return `${sign}${abs} ${suffix}`;
+  }
+
   function formatOffset(offset) {
     if (offset === 0) return '+0';
     const sign = offset < 0 ? '-' : '+';
@@ -630,8 +1362,12 @@
 
   function setMode(mode) {
     viewMode = mode;
-    vscode.setState({ viewMode });
+    // showIntentOverlay = mode === 'beginner';
+    vscode.setState({ viewMode, showIntentOverlay, showReasoningPanel });
     updateModeButtons();
+    // updateIntentButton();
+    updateReasoningButton();
+    updateReasoningVisibility();
     updateUI();
   }
 
@@ -639,6 +1375,38 @@
     if (!elModeBeginner || !elModeExpert) return;
     elModeBeginner.classList.toggle('is-active', viewMode === 'beginner');
     elModeExpert.classList.toggle('is-active', viewMode === 'expert');
+  }
+
+  function setIntentOverlay(enabled) {
+    showIntentOverlay = enabled;
+    vscode.setState({ viewMode, showIntentOverlay, showReasoningPanel });
+    updateIntentButton();
+    updateUI();
+  }
+
+  function updateIntentButton() {
+    if (!elToggleIntent) return;
+    elToggleIntent.classList.toggle('is-active', showIntentOverlay);
+    elToggleIntent.textContent = showIntentOverlay ? 'Hide intent overlay' : 'Show intent overlay';
+  }
+
+  function setReasoningPanel(enabled) {
+    showReasoningPanel = enabled;
+    vscode.setState({ viewMode, showIntentOverlay, showReasoningPanel });
+    updateReasoningButton();
+    updateReasoningVisibility();
+    updateUI();
+  }
+
+  function updateReasoningButton() {
+    if (!elToggleReasoning) return;
+    elToggleReasoning.classList.toggle('is-active', showReasoningPanel);
+    elToggleReasoning.textContent = showReasoningPanel ? 'Hide reasoning panel' : 'Show reasoning panel';
+  }
+
+  function updateReasoningVisibility() {
+    if (!elReasoningPanel) return;
+    elReasoningPanel.classList.toggle('is-collapsed', !showReasoningPanel);
   }
 
   // Listeners contrôle
@@ -662,5 +1430,19 @@
   if (elModeBeginner && elModeExpert) {
     elModeBeginner.addEventListener('click', () => setMode('beginner'));
     elModeExpert.addEventListener('click', () => setMode('expert'));
+  }
+
+  /*
+  if (elToggleIntent) {
+    elToggleIntent.addEventListener('click', () => {
+      setIntentOverlay(!showIntentOverlay);
+    });
+  }
+  */
+
+  if (elToggleReasoning) {
+    elToggleReasoning.addEventListener('click', () => {
+      setReasoningPanel(!showReasoningPanel);
+    });
   }
 })();

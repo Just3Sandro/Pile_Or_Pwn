@@ -33,6 +33,17 @@
         <button id="modeBeginner" class="btn btn-toggle">Débutant</button>
         <button id="modeExpert" class="btn btn-toggle">Expert</button>
       </div>
+      <!-- Intent overlay: désactivé (commenté) -->
+      <!--
+      <div class="mode-toggle" role="group" aria-label="Intent overlay">
+        <span class="mode-label">Intent</span>
+        <button id="toggleIntent" class="btn btn-toggle" title="Afficher/masquer les annotations pédagogiques">Show intent overlay</button>
+      </div>
+      -->
+      <div class="mode-toggle" role="group" aria-label="Reasoning panel">
+        <span class="mode-label">Raisonnement</span>
+        <button id="toggleReasoning" class="btn btn-toggle" title="Afficher/masquer le panneau de raisonnement">Show reasoning panel</button>
+      </div>
     </section>
 
     <!-- Current instruction -->
@@ -63,6 +74,12 @@
       <div class="registers-container">
         <h2 class="panel-title">Registres</h2>
         <div id="registers" class="registers"></div>
+      </div>
+      <div id="reasoningPanel" class="reasoning-container">
+        <div class="panel-header">
+          <h2 class="panel-title">Raisonnement</h2>
+        </div>
+        <div id="reasoningBody" class="reasoning"></div>
       </div>
       <!-- Disassembly view (mirrors output.disasm.asm) -->
       <!-- <div class="disasm-container">
