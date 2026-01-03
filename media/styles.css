@@ -41,48 +41,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Range input should expand to fill available space and be visible */
-.controls input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  flex: 1 1 220px;
-  min-width: 120px;
-  width: 100%;
-  background: transparent;
-  margin: 0 8px;
-}
-
-/* Webkit track */
-.controls input[type="range"]::-webkit-slider-runnable-track {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 6px;
-}
-.controls input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--vscode-button-background, #0e639c);
-  margin-top: -3px;
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.25);
-}
-
-/* Firefox */
-.controls input[type="range"]::-moz-range-track {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 6px;
-}
-.controls input[type="range"]::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--vscode-button-background, #0e639c);
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.25);
-}
-
 .btn {
   background-color: var(--vscode-button-background, #0e639c);
   color: var(--vscode-button-foreground, #ffffff);

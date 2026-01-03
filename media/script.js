@@ -131,17 +131,7 @@
 
     const snap = snapshots[currentStep - 1];
     elStepLabel.textContent = String(currentStep);
-    // Ensure both the property and attributes are updated so the range thumb redraws
-    try {
-      elStepRange.value = currentStep;
-      elStepRange.setAttribute('value', String(currentStep));
-      elStepRange.setAttribute('aria-valuenow', String(currentStep));
-      // Force a reflow / repaint to ensure the thumb updates visually
-      try { void elStepRange.offsetWidth; } catch (e) {}
-    } catch (e) {
-      console.warn('[visualizer] failed to update stepRange value', e);
-    }
-    console.debug('[visualizer] updateUI step=', currentStep, 'range=', elStepRange.value, 'min=', elStepRange.min, 'max=', elStepRange.max);
+    elStepRange.value = currentStep;
 
     if (snap.instr) {
       if (snap.line !== undefined) {
