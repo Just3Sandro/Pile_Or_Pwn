@@ -4,7 +4,7 @@ package-lock.json
 npm-debug.log*
 
 # VS Code and editors
-.vscode/
+# .vscode/
 out/
 .vscode-test/
 *.vsix
