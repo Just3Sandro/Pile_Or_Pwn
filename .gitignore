@@ -1,0 +1,25 @@
+# Node
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# VS Code and editors
+.vscode/
+out/
+.vscode-test/
+*.vsix
+.DS_Store
+*.log
+*.swp
+*.swo
+*~
+.env
+.idea/
+
+# Build artifacts
+build/
+dist/
+
+# Optional: local binaries
+# Keep if you want to track prebuilt binaries; uncomment to ignore
+# bin/
