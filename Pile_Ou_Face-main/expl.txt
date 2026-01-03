@@ -1,0 +1,190 @@
+Pile_Ou_Face - full explanation (ASCII, beginner friendly)
+=========================================================
+
+Goal
+----
+Transform an assembly-like program into stack snapshots and visualize them.
+
+Big picture (one minute)
+------------------------
+1) input.asm is parsed by the C simulator (asm2json).
+2) The simulator writes output.json (snapshots + optional meta).
+3) The VS Code extension (pile-ou-face/extension.js) reads output.json.
+4) The webview (pile-ou-face/index.html + script.js) renders stack and registers.
+5) The webview can ask the extension to highlight lines in input.asm.
+
+Folders and responsibilities
+---------------------------
+Root folder (C simulator)
+- main.c
+  CLI entry, calls parse_file_to_json().
+- parser.c
+  Parses each line, updates stack/registers, writes snapshots.
+- stack.c / stack.h
+  Stack operations and stack entry metadata.
+- regs.c / regs.h
+  Register store and helpers.
+- utils.c / utils.h
+  Parsing helpers and numeric conversion.
+- input.asm
+  Your program.
+- output.json
+  Generated snapshots used by the UI.
+
+pile-ou-face (VS Code extension)
+- extension.js
+  Loads output.json, opens the webview, handles goToLine.
+- index.html
+  Panel layout and controls.
+- styles.css
+  All UI styles.
+- script.js
+  Webview logic and rendering.
+
+How to run
+----------
+1) Build: make
+2) Generate JSON: ./asm2json input.asm output.json
+3) Open extension:
+   - Open /pile-ou-face in VS Code (Extension Development Host).
+   - Press F5, then run command "Stack Visualizer: Open".
+   - Make sure the workspace root contains output.json and input.asm.
+
+Data flow (who calls who)
+-------------------------
+User -> asm2json -> output.json
+VS Code command -> extension.js -> webview init
+webview script.js -> updateUI -> renderStack / renderRegisters / renderDisasm
+webview script.js -> extension.js (goToLine) -> editor highlight
+
+Output JSON format
+------------------
+output.json can be either:
+A) An array of snapshots
+B) An object { snapshots, risks, meta }
+
+Minimal snapshot example:
+{
+  "step": 1,
+  "instr": "push 5",
+  "line": 12,
+  "stack": [
+    {"id": 1, "pos": 0, "size": 4, "value": "0x5"}
+  ],
+  "registers": [
+    {"name": "eax", "pos": 0, "size": 4, "value": "0x0"}
+  ]
+}
+
+Common fields used by the UI:
+- step: integer
+- instr: instruction text
+- line: line number in input.asm for highlight
+- stack: array of stack entries (id, pos, size, value, addr optional)
+- registers or regs: array of registers
+- rip: instruction pointer address (used to align disasm)
+
+Optional meta fields (meta in output.json):
+- word_size: 4 or 8 (bytes)
+- buffer_offset: offset from RBP to buffer start (ex: -0x4c)
+- buffer_size: size of the buffer in bytes
+- disasm: array of disasm lines [{ addr, text, line }]
+- disasm_path: file path used for goToLine
+
+Optional per-stack entry fields:
+- role/kind/zone/type: "buffer", "local", "padding", "control"
+- name/label: displayed name
+- note/hint/help: small note shown in the block
+
+How the extension works (extension.js)
+--------------------------------------
+1) loadTraceFromWorkspace():
+   - Reads output.json at workspace root.
+   - Accepts array or { snapshots, risks, meta }.
+2) On "Stack Visualizer: Open":
+   - Creates webview and loads index.html.
+3) On message "ready" from webview:
+   - Sends { snapshots, risks, meta } back.
+4) On message "goToLine":
+   - Opens input.asm (or disasm_path) and highlights a line.
+
+How the webview works (script.js)
+---------------------------------
+1) Sends { type: "ready" } to extension.js.
+2) Receives { type: "init", snapshots, meta, risks }.
+3) Stores data, sets slider bounds, calls updateUI().
+4) updateUI():
+   - Picks current snapshot.
+   - Renders stack, registers, memory dump, disasm, frame context.
+   - Highlights current disasm line in the editor.
+
+Stack panel rules
+-----------------
+- Slots are sorted so top of stack appears at the top.
+- RBP is shown as a fixed axis line.
+- Each slot gets a role (buffer/local/padding/control/unknown).
+- Offsets are shown as RBP +/- 0x.. (primary) and SP + .. (secondary).
+
+Reasoning panel (always visible)
+--------------------------------
+The reasoning panel is computed once at init and stays stable.
+It explains intent using three anchors:
+1) Buffer start (from meta.buffer_offset + RBP).
+2) Target (from cmp and disasm backtracking).
+3) User marker (0x41414141, 0x42424242, 0x43434343, 0x44444444).
+
+It also shows:
+- Distance buffer -> target (bytes)
+- Distance marker -> target (bytes)
+- Verdict: on target / too early / too late
+
+Each provenance line shows the disasm instruction and line number.
+Clicking:
+- An address scrolls the stack to that slot.
+- A provenance line jumps to the disasm file line.
+
+Disasm panel rules
+------------------
+- Shows a window around the current RIP.
+- Current line is highlighted.
+- The extension also highlights the same line in the editor.
+
+Intent overlay (disabled)
+-------------------------
+There is legacy code to tag blocks with "start/target/marker".
+The toggle is currently commented out by design.
+
+Helper functions worth knowing
+------------------------------
+- resolveStackAddress(): compute absolute address from pos + SP.
+- buildRegisterMap(): map "eax" -> numeric value.
+- resolveCmpTargetInfo(): find cmp target and provenance.
+- buildBufferProvenance(): find lea + read call.
+- buildFrozenReasoningData(): compute reasoning once.
+
+Troubleshooting
+---------------
+1) "Aucun snapshot a afficher"
+   - output.json missing or empty, run asm2json again.
+2) No UI changes after edits
+   - Reopen the correct repo (Pile_Ou_Face-main) and reload window.
+3) No line highlight
+   - Missing "line" in snapshots, or file not in workspace.
+
+Mermaid diagram
+---------------
+flowchart TD
+  A[input.asm] --> B[asm2json (parser.c)]
+  B --> C[output.json]
+  C --> D[VS Code extension (extension.js)]
+  D --> E[Webview UI (index.html + script.js)]
+  E --> F[renderStack / renderRegisters]
+  E --> G[goToLine message]
+  G --> H[Editor highlight (input.asm or disasm)]
+
+Prompt for GPT to generate a nice diagram
+----------------------------------------
+Create an ASCII-safe architecture diagram for a VS Code stack visualizer.
+Show this flow: input.asm -> asm2json (parser.c) -> output.json -> extension.js -> webview (index.html + script.js).
+Also show optional disasm highlight (goToLine).
+Output a Mermaid flowchart and a short caption. Keep ASCII only.

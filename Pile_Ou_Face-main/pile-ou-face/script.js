@@ -2,8 +2,10 @@
 // Code exécuté dans le webview (navigateur intégré de VS Code)
 
 (function () {
+  // VS Code webview bridge (message channel to the extension host).
   const vscode = acquireVsCodeApi();
 
+  // DOM cache for all UI panels and controls.
   const elStatus = document.getElementById('status');
   const elStack = document.getElementById('stack');
   const elRegisters = document.getElementById('registers');
@@ -24,11 +26,13 @@
   const elReasoningPanel = document.getElementById('reasoningPanel');
   const elReasoningBody = document.getElementById('reasoningBody');
 
+  // Data received from the extension (snapshots + meta + disasm).
   /** @type {Array<any>} */
   let snapshots = [];
   let meta = {};
   // Disassembly lines used for the side panel + file highlight.
   let disasmLines = [];
+  // UI state (step index, mode, toggles).
   let currentStep = 1;
   let lastHighlightedLine = null;
   let lastDisasmLine = null;
@@ -38,6 +42,7 @@
   let showReasoningPanel = true;
   let frozenReasoningData = null;
 
+  // Stack role categories used for colors and labels.
   const ROLE_CONFIG = {
     buffer: { label: 'BUFFER', className: 'role-buffer', tagClass: 'tag-buffer' },
     local: { label: 'LOCAL VAR', className: 'role-local', tagClass: 'tag-local' },
@@ -46,6 +51,7 @@
     unknown: { label: 'UNKNOWN', className: 'role-unknown', tagClass: 'tag-unknown' }
   };
 
+  // Short explanations for hover tooltips.
   const ROLE_TOOLTIPS = {
     buffer: "Zone d'écriture (buffer local).",
     local: "Variable locale (RBP - offset).",
@@ -54,11 +60,13 @@
     unknown: "Zone non classée."
   };
 
+  // Common overflow markers to detect in the stack.
   const MARKER_VALUES = new Set([0x41414141, 0x42424242, 0x43434343, 0x44444444]);
 
   // Demander les données à l'extension
   vscode.postMessage({ type: 'ready' });
 
+  // Handle messages from the extension (init, data refresh).
   window.addEventListener('message', (event) => {
     const msg = event.data;
     if (!msg || !msg.type) return;
@@ -101,6 +109,7 @@
     }
   });
 
+  // Keep the step index inside [1..snapshots.length].
   function clampStep(step) {
     if (!snapshots.length) return 1;
     if (step < 1) return 1;
@@ -324,6 +333,7 @@
     });
   }
 
+  // Decide the semantic role of a stack slot (buffer/local/padding/control).
   function resolveRole(item, addr, rbp, wordSize, bufferStart, bufferEnd) {
     const raw = (item.role ?? item.kind ?? item.zone ?? item.type ?? '').toString().toLowerCase();
     if (raw) {
@@ -361,6 +371,7 @@
     return 'unknown';
   }
 
+  // Build RBP and SP labels shown inside each block.
   function buildOffsets(item, addr, rsp, rbp, posValue) {
     const offsets = [];
     if (addr !== null && rbp !== null) {
@@ -386,6 +397,7 @@
     return offsets;
   }
 
+  // Build the axis label that explains RBP as a fixed reference.
   function buildAxisLabel(rbp, range) {
     const base = rbp !== null ? `RBP (repere fixe) = ${toHex(rbp)}` : 'RBP (repere fixe)';
     if (rbp !== null && range && (rbp < range.min || rbp > range.max)) {
@@ -394,6 +406,7 @@
     return `${base} • haut=RBP+ / bas=RBP-`;
   }
 
+  // Compute min/max stack addresses for axis placement.
   function getStackAddrRange(items, rsp) {
     let min = null;
     let max = null;
@@ -407,6 +420,7 @@
     return { min, max };
   }
 
+  // Build intent data (buffer start, target, marker) for overlay tags.
   function buildIntentOverlay(stackItems, regMap, snap) {
     const rsp = regMap.rsp ?? regMap.esp ?? null;
     const rbp = regMap.rbp ?? regMap.ebp ?? null;
@@ -437,6 +451,7 @@
     };
   }
 
+  // Map intent data to tag labels inside a single stack block.
   function buildIntentTags(item, addr, intent, wordSize) {
     if (!intent || addr === null) return [];
     const size = typeof item.size === 'number' ? item.size : wordSize;
@@ -459,6 +474,7 @@
     return tags;
   }
 
+  // Locate the first user marker in the stack (AAAA/BBBB/CCCC/DDDD).
   function findMarker(stackItems, rsp, bufferStart) {
     const candidates = [];
     stackItems.forEach((item) => {
@@ -488,6 +504,7 @@
     return { addr: candidates[0].addr, value: candidates[0].value };
   }
 
+  // Compute the marker verdict string (on target / too early / too late).
   function buildMarkerSummary(marker, target) {
     if (!marker || marker.addr === null || target === null) return null;
     const delta = marker.addr - target;
@@ -501,6 +518,7 @@
       : `❌ ${abs} ${suffix} trop tard`;
   }
 
+  // Try to resolve the cmp target address and provenance from disasm.
   function resolveCmpTargetInfo(snap, regMap) {
     if (!snap || typeof snap.instr !== 'string') return null;
     const instr = snap.instr.toLowerCase();
@@ -562,11 +580,13 @@
     return null;
   }
 
+  // Convenience helper: return only the address.
   function resolveCmpTargetAddr(snap, regMap) {
     const info = resolveCmpTargetInfo(snap, regMap);
     return info ? info.addr : null;
   }
 
+  // Resolve buffer start address from meta + RBP.
   function resolveBufferInfo(regMap) {
     const rbp = regMap.rbp ?? regMap.ebp ?? null;
     if (rbp === null) {
@@ -582,6 +602,7 @@
     return { addr, provenance };
   }
 
+  // Build short provenance lines for the target (mov + cmp).
   function buildTargetProvenance(info) {
     if (!info) return [];
     const provenance = [];
@@ -600,6 +621,7 @@
     return provenance;
   }
 
+  // Build provenance for the buffer (lea -> read).
   function buildBufferProvenance(bufferOffset) {
     if (!Array.isArray(disasmLines) || !disasmLines.length) return [];
     const readIndex = disasmLines.findIndex((line) => isReadCall(line?.text));
@@ -638,18 +660,21 @@
     return provenance;
   }
 
+  // Heuristic to detect read/sys_read in the disassembly.
   function isReadCall(text) {
     if (typeof text !== 'string') return false;
     const lower = text.toLowerCase();
     return lower.includes('call') && (lower.includes('sys_read') || lower.includes('read@') || lower.includes('<read'));
   }
 
+  // Lookup a disassembly entry by address.
   function findDisasmEntryByAddr(addr) {
     if (!addr || !Array.isArray(disasmLines)) return null;
     const target = typeof addr === 'string' ? addr.toLowerCase() : toHex(addr).toLowerCase();
     return disasmLines.find((line) => line.addr && line.addr.toLowerCase() === target) ?? null;
   }
 
+  // Extract the immediate operand from a cmp instruction.
   function extractImmediateValue(instr) {
     if (typeof instr !== 'string') return null;
     const parts = instr.split(',');
@@ -662,6 +687,7 @@
     return Number.isFinite(value) ? value : null;
   }
 
+  // Identify the register used by cmp.
   function extractCmpRegister(instr) {
     const parts = instr.replace(/,/g, ' ').split(/\s+/).filter(Boolean);
     if (parts.length < 2) return null;
@@ -672,6 +698,7 @@
     return null;
   }
 
+  // Parse [bp +/- offset] and return the signed offset.
   function extractBasePointerOffset(text) {
     const match = text.match(/\[(?:e|r)bp([+-]0x[0-9a-f]+|[+-]\\d+)?\]/);
     if (!match) return null;
@@ -680,6 +707,7 @@
     return parseSignedNumber(raw);
   }
 
+  // Parse a signed decimal or hex number from text.
   function parseSignedNumber(raw) {
     const trimmed = raw.trim();
     const sign = trimmed.startsWith('-') ? -1 : 1;
@@ -689,6 +717,7 @@
     return sign * value;
   }
 
+  // Strip address prefix and return the instruction string.
   function extractDisasmInstr(text) {
     if (typeof text !== 'string') return '';
     const tabIndex = text.indexOf('\t');
@@ -698,6 +727,7 @@
     return text.trim();
   }
 
+  // Parse a stack value to a number (hex or decimal).
   function parseValue(value) {
     if (typeof value === 'number' && Number.isFinite(value)) return value;
     if (typeof value !== 'string') return null;
@@ -709,12 +739,14 @@
     return Number.isFinite(parsed) ? parsed : null;
   }
 
+  // Minimal register matcher for x86/x64 names.
   function isRegister(text) {
     return /^(e?[abcd]x|e?[sb]p|e?[sd]i|r(1[0-5]|[0-9]|ax|bx|cx|dx|si|di|bp|sp))$/.test(
       text
     );
   }
 
+  // Render the legend from ROLE_CONFIG.
   function renderLegend() {
     if (!elLegend) return;
     elLegend.innerHTML = '';
@@ -729,6 +761,7 @@
     });
   }
 
+  // Render per-step annotations (used by the intent overlay).
   function renderAnnotations(snap, regMap, intent) {
     if (!elAnnotations) return;
     if (!showIntentOverlay) {
@@ -783,6 +816,7 @@
     });
   }
 
+  // Render the reasoning panel (frozen so it does not move with the slider).
   function renderReasoningPanel(stackItems, regMap, snap) {
     if (!elReasoningPanel || !elReasoningBody) return;
     updateReasoningVisibility();
@@ -806,6 +840,7 @@
     bindReasoningLinks(elReasoningBody);
   }
 
+  // Live reasoning for a single step (kept for future use).
   function buildReasoningData(stackItems, regMap, snap) {
     const rsp = regMap.rsp ?? regMap.esp ?? null;
     const rbp = regMap.rbp ?? regMap.ebp ?? null;
@@ -857,6 +892,7 @@
     };
   }
 
+  // Compute reasoning once using stable snapshots (buffer/target/marker).
   function buildFrozenReasoningData() {
     if (!Array.isArray(snapshots) || snapshots.length === 0) return null;
 
@@ -944,6 +980,7 @@
     };
   }
 
+  // Assemble HTML for all reasoning sections.
   function buildReasoningHtml(data) {
     const bufferValues = data.buffer.addr !== null ? buildOffsetAddressValues(data.buffer) : [];
     const bufferSection = buildReasoningSection(
@@ -982,6 +1019,7 @@
     return [bufferSection, targetSection, markerSection, distanceSection].join('');
   }
 
+  // Render one reasoning section with values + provenance.
   function buildReasoningSection(title, values, provenance) {
     const valuesHtml = values.length ? values.map(renderReasoningValue).join('') : '<div class="reasoning-meta">Non detecte.</div>';
     const provenanceHtml = Array.isArray(provenance)
@@ -999,6 +1037,7 @@
     `;
   }
 
+  // Build "RBP +/- offset" + absolute address value list.
   function buildOffsetAddressValues(entry) {
     const values = [];
     if (!entry) return values;
@@ -1007,6 +1046,7 @@
     return values;
   }
 
+  // Build distance + verdict lines.
   function buildDistanceValues(distances) {
     const values = [];
     if (!distances) return values;
@@ -1016,6 +1056,7 @@
     return values;
   }
 
+  // Tiny data holder for a reasoning value.
   function buildValueDisplay(label, text, addr) {
     return {
       label,
@@ -1024,6 +1065,7 @@
     };
   }
 
+  // Render a single reasoning value (clickable if address exists).
   function renderReasoningValue(value) {
     const label = value.label ? `${value.label}: ` : '';
     if (value.addr !== undefined && value.addr !== null) {
@@ -1033,6 +1075,7 @@
     return `<span class="reasoning-meta">${label}${value.text}</span>`;
   }
 
+  // Render a provenance line (click to jump to disasm if line provided).
   function renderReasoningProvenance(item) {
     if (!item || !item.text) return '';
     if (item.line) {
@@ -1041,6 +1084,7 @@
     return `<div>${item.text}</div>`;
   }
 
+  // Attach click handlers for reasoning links (stack/disasm).
   function bindReasoningLinks(container) {
     if (!container) return;
     container.querySelectorAll('[data-addr]').forEach((node) => {
@@ -1064,6 +1108,7 @@
     });
   }
 
+  // Scroll to a stack block by address and briefly highlight it.
   function scrollToStackAddr(addrLabel) {
     if (!elStack) return;
     const target = elStack.querySelector(`[data-addr="${addrLabel}"]`);
@@ -1132,9 +1177,7 @@
 
 
 
-  // Render a small window of disassembly around RIP.
-
-// Summarize SP/BP and explain how the current instruction affects the stack.
+  // Summarize SP/BP and explain how the current instruction affects the stack.
   function renderFrameContext(snap, regMap) {
     if (!elFrameContext) return;
     const rsp = regMap.rsp ?? regMap.esp ?? null;
@@ -1153,7 +1196,7 @@
     elFrameContext.textContent = parts ? `${parts} • ${effect}` : effect;
   }
 
-// Simple heuristics for stack-related instructions (generic, no C-specific logic).
+  // Simple heuristics for stack-related instructions (generic, no C-specific logic).
   function explainStackEffect(instr) {
     if (!instr) return 'Instruction courante inconnue.';
     const text = instr.trim();
@@ -1189,7 +1232,7 @@
   }
 
 
-// Jump to the disasm file and highlight the current instruction line.
+  // Jump to the disasm file and highlight the current instruction line.
   function highlightDisasmFile(rip) {
     if (!meta.disasm_path || !Array.isArray(disasmLines) || disasmLines.length === 0) {
       return;
@@ -1210,7 +1253,7 @@
   }
 
 
-// Render the disassembly window around the current RIP.
+  // Render the disassembly window around the current RIP.
   function renderDisasm(rip) {
     if (!elDisasm) return;
     elDisasm.innerHTML = '';
@@ -1266,6 +1309,7 @@
     return map;
   }
 
+  // Parse hex/decimal strings into numbers.
   function parseHex(value) {
     if (typeof value === 'number' && Number.isFinite(value)) {
       return value;
@@ -1295,6 +1339,7 @@
     return null;
   }
 
+  // Small formatting helpers.
   function toHex(value) {
     return `0x${value.toString(16)}`;
   }
@@ -1336,6 +1381,7 @@
     return `${sign}0x${abs.toString(16)}`;
   }
 
+  // Convert a value to little-endian bytes for the memory dump.
   function toBytes(value, wordSize) {
     let bigValue = 0n;
     if (typeof value === 'string' && value.startsWith('0x')) {
@@ -1360,6 +1406,7 @@
     return bytes;
   }
 
+  // Update mode (beginner/expert) and re-render.
   function setMode(mode) {
     viewMode = mode;
     // showIntentOverlay = mode === 'beginner';
@@ -1371,12 +1418,14 @@
     updateUI();
   }
 
+  // Toggle active state for mode buttons.
   function updateModeButtons() {
     if (!elModeBeginner || !elModeExpert) return;
     elModeBeginner.classList.toggle('is-active', viewMode === 'beginner');
     elModeExpert.classList.toggle('is-active', viewMode === 'expert');
   }
 
+  // Intent overlay toggle (currently not wired in HTML).
   function setIntentOverlay(enabled) {
     showIntentOverlay = enabled;
     vscode.setState({ viewMode, showIntentOverlay, showReasoningPanel });
@@ -1384,12 +1433,14 @@
     updateUI();
   }
 
+  // Update intent toggle button text.
   function updateIntentButton() {
     if (!elToggleIntent) return;
     elToggleIntent.classList.toggle('is-active', showIntentOverlay);
     elToggleIntent.textContent = showIntentOverlay ? 'Hide intent overlay' : 'Show intent overlay';
   }
 
+  // Reasoning panel toggle (independent from mode).
   function setReasoningPanel(enabled) {
     showReasoningPanel = enabled;
     vscode.setState({ viewMode, showIntentOverlay, showReasoningPanel });
@@ -1398,18 +1449,20 @@
     updateUI();
   }
 
+  // Update reasoning panel toggle text.
   function updateReasoningButton() {
     if (!elToggleReasoning) return;
     elToggleReasoning.classList.toggle('is-active', showReasoningPanel);
     elToggleReasoning.textContent = showReasoningPanel ? 'Hide reasoning panel' : 'Show reasoning panel';
   }
 
+  // Hide/show the reasoning panel container.
   function updateReasoningVisibility() {
     if (!elReasoningPanel) return;
     elReasoningPanel.classList.toggle('is-collapsed', !showReasoningPanel);
   }
 
-  // Listeners contrôle
+  // UI listeners (navigation + toggles).
 
   elBtnPrev.addEventListener('click', () => {
     currentStep = clampStep(currentStep - 1);
